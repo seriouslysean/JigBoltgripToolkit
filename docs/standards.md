@@ -2,6 +2,8 @@
 
 How every Jig Boltgrip's Toolkit addon is written. Worked out on Recipe Vacuum against WoW Forever 1.60.1 (build 71037); each rule names what it protects. A module's own `AGENTS.md` adds only what is specific to that module and links here.
 
+How to work, whatever the project: [ethos.md](ethos.md). This document is how the toolkit applies it.
+
 Worked example for everything below: [Recipe Vacuum](https://github.com/seriouslysean/RecipeVacuum).
 
 ## Principles

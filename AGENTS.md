@@ -2,7 +2,7 @@
 
 One Lua file, `JigBoltgripToolkit.lua`, embedded by every toolkit addon through LibStub (`JigBoltgripToolkit-1.0`). Client: WoW Forever 1.60.1 (Interface 16001). Blizzard's UI source for this client: [Gethe/wow-ui-source, `forever` branch](https://github.com/Gethe/wow-ui-source/tree/forever).
 
-How every toolkit addon is written, this library included: [docs/standards.md](docs/standards.md).
+How every toolkit addon is written, this library included: [docs/standards.md](docs/standards.md). How to work for the owner, whatever the project: [docs/ethos.md](docs/ethos.md).
 
 ## Rules
 
