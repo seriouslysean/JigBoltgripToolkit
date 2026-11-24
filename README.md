@@ -4,6 +4,8 @@ The shared library behind Jig Boltgrip's Toolkit, a set of small WoW Forever add
 
 Modules: [Recipe Vacuum](https://github.com/seriouslysean/RecipeVacuum).
 
+Standards shared by every module (code, data, resilience, performance, voice): [docs/standards.md](docs/standards.md).
+
 ## What it gives a module
 
 - One "Jig Boltgrip's Toolkit" category in Blizzard's Settings panel, with a page per installed module.
