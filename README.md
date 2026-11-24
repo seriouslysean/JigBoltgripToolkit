@@ -4,7 +4,7 @@ The shared library behind Jig Boltgrip's Toolkit, a set of small WoW Forever add
 
 Modules: [Recipe Vacuum](https://github.com/seriouslysean/RecipeVacuum).
 
-Standards shared by every module (code, data, resilience, performance, voice): [docs/standards.md](docs/standards.md).
+Standards shared by every module (code, data, resilience, performance, voice): [docs/standards.md](docs/standards.md). The checklist every module meets before a release: [docs/quality-bar.md](docs/quality-bar.md).
 
 ## What it gives a module
 
