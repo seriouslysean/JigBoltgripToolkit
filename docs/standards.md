@@ -24,7 +24,7 @@ Worked example for everything below: [Recipe Vacuum](https://github.com/seriousl
 
 | Pattern | Rule |
 |---|---|
-| Namespace | `local addonName, ns = ...`; nothing global but saved variables, slash commands and one named frame, all listed in `.luacheckrc` |
+| Namespace | `local addonName, ns = ...`; nothing global but saved variables, slash commands and frames the game must find by name (a key binding's click target, a window closed by Escape), all listed in `.luacheckrc` |
 | Constants | No number or path inline: name it at the top of the file |
 | Hooks | After Blizzard's code only: `hooksecurefunc`, `Menu.ModifyMenu`, `ScrollUtil.AddInitializedFrameCallback` |
 | State on Blizzard frames | In a weak-keyed side table, never as fields on their frames |
