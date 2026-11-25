@@ -114,6 +114,10 @@ Help lists commands in Blizzard's own shape (`CHAT_HELP_TEXT_LINE*`): "/command 
 
 Settings labels and tooltips are not in this voice. They follow Blizzard's wording and capitalization ("Auto Loot", "Enable Sound").
 
+## Side panels
+
+No module needs a side panel yet. If one does, the candidate is the Dressing Room's custom set details panel, which the owner picked on 2026-11-25: it sits beside its main frame and lists rows with icons. Blizzard draws it as a black background, a class background and the `dressingroom-sideframe` atlas on top (`Blizzard_UIPanels_Game/Mainline/DressUpFrames.xml`, `CustomSetDetailsPanel`). Not yet checked: whether the atlas exists on Forever and how it stretches.
+
 ## Working build helpers
 
 The library holds the working-build helpers, so every module gets the same ones and no release runs them (owner, 2026-11-25: "that debug functionality seems really nice while testing, we won't want to ship it, so it should also live in the shared kit"). The library file is identical in every build, so a module calls them only from its own `--@debug@` block:
