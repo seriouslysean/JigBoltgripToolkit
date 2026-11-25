@@ -186,6 +186,10 @@ One test, `tests/conformance.lua`, runs the rules above on each addon's own file
 
 Runtime checks stay for what would break the page or the line; style is never a load error for a player. A rule marked "Enforced by: review" has no check yet.
 
+## Versions
+
+The kit follows LibStub's versioning, as Ace3 does: the major is in the name (`JigBoltgripToolkit-1.0`) and promises compatible calls; `MINOR` rises with every change, and LibStub keeps the highest copy any addon embeds. So an older addon can run on a newer kit. From the first released addon on, a call under `-1.0` is never removed and never changes what it takes or returns; new behavior is a new call. A change that cannot keep that becomes `JigBoltgripToolkit-2.0`, which loads beside 1.0. Enforced by: review (before that release, calls changed freely; versions 19 to 29 were never released).
+
 ## Repository
 
 - `README.md`, `AGENTS.md` (rules, file layout, a table of the docs), a one-line `CLAUDE.md`, `LICENSE` (GPL-3.0), `.pkgmeta`, `.luacheckrc` at the root; every other document in lowercase `docs/`.
