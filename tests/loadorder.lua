@@ -278,5 +278,14 @@ do
 	check("the shared listener passes events only while watching", #seen == 1 and seen[1] == 7)
 end
 
+-- Fails if the library holds a packager token, even in a comment: the packager turns "--@debug@" into the
+-- start of a block comment, so everything after it would vanish from release builds (it did, MINOR 19 to 24).
+do
+	local file = assert(io.open(LIBRARY))
+	local text = file:read("*a")
+	file:close()
+	check("the library holds no packager tokens", not text:find("%-%-@[%a%-]+@"))
+end
+
 print(failures == 0 and "ALL LOAD ORDER CHECKS PASSED" or (failures .. " FAILED"))
 os.exit(failures == 0 and 0 or 1)

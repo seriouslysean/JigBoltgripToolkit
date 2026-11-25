@@ -1,6 +1,6 @@
 -- Shared home for Jig Boltgrip's Toolkit modules. Each module embeds this file; LibStub keeps the newest.
 -- One Settings category for the toolkit, one subcategory per installed module.
-local MAJOR, MINOR = "JigBoltgripToolkit-1.0", 24
+local MAJOR, MINOR = "JigBoltgripToolkit-1.0", 25
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then
 	return
@@ -160,7 +160,7 @@ function lib:AddNote(layout, text)
 	return initializer
 end
 
--- Working builds. A module calls these from its own --@debug@ block, so a release never does; the library
+-- Working builds. A module calls these from its own debug-only block, so a release never does; the library
 -- file itself is the same in every build. One listener and one record serve every module.
 
 -- Shows Lua errors and reports actions the client blocked, so a fault while developing is seen.
