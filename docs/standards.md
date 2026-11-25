@@ -87,11 +87,21 @@ Each kind of data has one home, and none is copied into another.
 
 The toolkit's chat lines show a gnomish machine at work: the noise it makes, then its own report, the way the game's robots speak. "Boltgrip's Recipe Vacuum whirs and rattles. Intake complete! 2 recipes from Corporal Bluth!" (owner, 2026-11-25, of this line: "I like the 1 options above, can we apply that to all lines in both addons?").
 
-1. Two parts. The noise: a short present-tense phrase, no end mark ("whirs and rattles", "starts whirring and beeping"); the library adds the period after it. The report: one or more robot-speak beats, each ending in "!", with no "I" and no subject ("Intake complete!", "Hostile contact detected!"). In code, `lib:Say(module, noise, report)`.
+1. Two parts (enforced by: runtime, both required; conformance, the end marks). The noise: a short present-tense phrase, no end mark ("whirs and rattles", "starts whirring and beeping"); the library adds the period after it. The report: one or more robot-speak beats, each ending in "!", with no "I" and no subject ("Intake complete!", "Hostile contact detected!"). In code, `lib:Say(module, noise, report)`.
 2. The noise never repeats the device's name. No doubled words, no questions, no jokes.
 3. Facts stay exact: real counts, names and places. A line that changes a setting ends its report with the plain effect ("A lure for every cast!"); other lines do not explain what the addon will do.
 4. Read real in-game gnome text before writing a line and model on it without copying it: Homing Robot OOX-17/TN ("Flight systems online! CLUCK! Engaging rockets for transport to Booty Bay!", [Rescue OOX-17/TN!](https://warcraft.wiki.gg/wiki/Rescue_OOX-17/TN!)), the Mobile Alert System, Tinkmaster Overspark ("Our scanners report...").
 5. Fitting the game's forms is the aim. What a line never borrows is one of the game's own chat colors (whisper, emote, system announcement), which would make it read as that kind of message.
+
+### Plain text
+
+Everything a player reads outside the voiced line: options labels, tooltips, notes, cards, command help, window titles (owner, 2026-11-25: "specificity matters"; "please be specific, and stick to game terms, just like our bot/device language").
+
+1. Name the exact game thing: Fishing skill, lure, fishing pole, trainer, vendor, recipe, "a fish got away". Never the addon's machinery: addon, data, database, community, server, sync, export, record. Enforced by: conformance (a word list).
+2. Say the number and what it is for ("%d to cast, %d so no fish get away", not "from %d").
+3. Prefer the game's own phrases and global strings.
+4. A setting's text says exactly what changes when it is on.
+5. Cards share one sentence shape in every module (rule under Options). Enforced by: runtime (`lib:SourceCards` writes the sentences).
 
 ### Delivery
 
@@ -141,12 +151,13 @@ Every module's options page is built by the library from data: `lib:BuildOptions
   2. The module's own features ("Personal Finds", "Lures").
   3. Sections Blizzard names, in Blizzard's order: Key Binding, Combat, Sound.
   4. The kit's Commands and Links (added by `lib:FinishModule`).
-  Each section declares `place = "sources" | "features" | "blizzard"`; `lib:BuildOptions` puts them in this order and stops with an error on a section without one.
-- The sources cards are the kit's: `lib:SourceCards(texts)` gives Self Found, Friends and Public (`lib.SOURCE_LEVEL` 1, 2, 3), their icons and the "Short range." / "Medium range." / "Long range." openings; the module adds one sentence per level saying what that range tracks for it, and leaves out a level it has no use for.
-- Section headings use Blizzard's own words where one exists (`KEY_BINDING`, `SOUND`, `DISPLAY`); otherwise Title Case.
-- Labels in Title Case, as Blizzard's options are ("Auto Loot", "Enable Sound").
-- A tooltip is one sentence. Anything longer goes in the row's note: gray text under it, in plain words.
-- A choice best seen side by side is a row of cards; anything else a dropdown.
+  Each section declares `place = "sources" | "features" | "blizzard"`; `lib:BuildOptions` puts them in this order and stops with an error on a section without one, or on a sources section without exactly one row of cards. Enforced by: runtime.
+- The sources cards are the kit's, words included (owner, 2026-11-25: "These words don't match how recipe vacuum works which feels like a miss"): `lib:SourceCards(spec)` gives Self Found, Friends and Public (`lib.SOURCE_LEVEL` 1, 2, 3), their icons, the "Short range." / "Medium range." / "Long range." openings and each card's sentence: "Tracks only <what> from what you see for yourself[: <seen>].", "Also tracks what your party, guild and friends find.", "Also tracks <public>.". The module passes only `what` (game terms), optional `seen`, `friends = true` if it shares, `public` if it has a Public level, and `openings = false` to leave out the range openings (Tackletron). Enforced by: runtime (BuildOptions refuses cards not made here).
+- Section headings use Blizzard's own words where one exists (`KEY_BINDING`, `SOUND`, `DISPLAY`); otherwise Title Case. Enforced by: conformance.
+- Labels in Title Case, as Blizzard's options are ("Auto Loot", "Enable Sound"). Enforced by: conformance.
+- A tooltip is one sentence. Anything longer goes in the row's note: gray text under it, in plain words. Enforced by: conformance.
+- A command's description is short (60 characters) with its arguments in `usage`. Enforced by: conformance.
+- A choice best seen side by side is a row of cards; anything else a dropdown. Enforced by: review.
 
 ## Working build
 
@@ -162,6 +173,16 @@ Every module's options page is built by the library from data: `lib:BuildOptions
 - A test stand-in must not share a value with the code under test. A stand-in color defined equal to the constant it was compared with hid a bug here until it was seen in game.
 - Each test names the regression it fails on.
 - Offline tests do not replace the game. Work not yet seen in the client is reported as untested in game.
+
+## Conformance
+
+One test, `tests/conformance.lua`, runs the rules above on each addon's own files, so a rule lands in every addon at once (owner, 2026-11-25: "lets get some rules baked in to the kit so we don't make this mistake or drift again"). It travels with the library in `Libs/JigBoltgripToolkit/tests/` together with `tests/stubs.lua`, the kit's stand-ins for every client call it makes; the addon's packaging leaves that folder out. Each addon's checks run `luajit Libs/JigBoltgripToolkit/tests/conformance.lua .`. It checks:
+
+- the addon's own files: no chat, options rows or working-build setup outside the kit (`DEFAULT_CHAT_FRAME`, `print(`, `Settings.Create*`, `CreateSettingsListSectionHeaderInitializer`, `SetCVar("scriptErrors")`); no XML; packager markers alone on their lines and in pairs;
+- the embedded kit: no XML, and the same files as the toolkit checkout beside the addon when there is one;
+- the addon loaded on the stand-ins: headings, labels, tooltips, command descriptions, cards and voiced lines against the rules marked "Enforced by: conformance".
+
+Runtime checks stay for what would break the page or the line; style is never a load error for a player. A rule marked "Enforced by: review" has no check yet.
 
 ## Repository
 

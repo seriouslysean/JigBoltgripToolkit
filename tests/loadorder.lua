@@ -169,13 +169,25 @@ do
 			{ kind = "dropdown", key = "mode", label = "Mode", tooltip = "t", default = 2,
 				values = { { 1, "One" }, { 2, "Two" } }, onChange = function(value) changed = value end },
 		} },
-		{ heading = "Thing Sources", place = "sources", rows = {} },
+		{ heading = "Thing Sources", place = "sources", rows = {
+			{ kind = "cards", key = "level", label = "Thing Sources", default = 1,
+				values = tk:SourceCards({ what = "things", public = "things people link in chat", openings = false }) },
+		} },
 	})
 	-- Fails if a module's sections are not put in the toolkit's one order: sources, features, Blizzard's.
 	local headings = {}
 	for _, row in ipairs(buttons) do if row.header then headings[#headings + 1] = row.header end end
 	check("sections follow the toolkit's order whatever order a module lists them in",
 		table.concat(headings, ",") == "Thing Sources,Things,Sound")
+	-- Fails if hand-built cards pass, or a module's choice to drop the range openings is ignored.
+	local handBuilt = pcall(tk.BuildOptions, tk, m, {}, { { heading = "Hand Sources", place = "sources", rows = {
+		{ kind = "cards", key = "hand", label = "Hand Sources", default = 1, values = { { 1, "Self Found", "", "Mine." } } } } } })
+	local cards = tk:SourceCards({ what = "fish", seen = "your casts", openings = false })
+	local withOpenings = tk:SourceCards({ what = "recipes", friends = true, public = "recipes people link in chat" })
+	check("cards come only from the kit, in one sentence shape, with or without the range openings", not handBuilt
+		and #cards == 1 and cards[1][4] == "Tracks only fish from what you see for yourself: your casts."
+		and #withOpenings == 3 and withOpenings[2][4] == "Medium range. Also tracks what your party, guild and friends find."
+		and withOpenings[3][4] == "Long range. Also tracks recipes people link in chat.")
 	check("a setting is named after the addon and saved under its key",
 		registered.record.variable == "Delta_record" and registered.record.varType == "boolean" and registered.mode.varType == "number")
 	local afterRecord
