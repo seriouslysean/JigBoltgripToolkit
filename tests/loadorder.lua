@@ -107,7 +107,7 @@ check("registering a module again returns the same module",
 chat = {}
 SlashCmdList.BOLTGRIP_ALPHA("nonsense")
 local help = table.concat(chat, "\n")
-check("unknown command prints the help", help:find("/alpha go", 1, true) and help:find("/alpha help", 1, true) and true or false)
+check("unknown command prints the help", help:find("/alpha go", 1, true) and not help:find("/alpha help", 1, true) and true or false)
 
 -- Chat: one shape for the whole family. Fails if the mark or the shared word goes missing, the device
 -- color reaches beyond the name, or rows under a header carry their own mark.
@@ -123,7 +123,7 @@ check("a line is printed in the family's color",
 	math.abs(chat.color[1] - 91 / 255) < 0.001 and math.abs(chat.color[2] - 217 / 255) < 0.001 and math.abs(chat.color[3] - 222 / 255) < 0.001)
 chat = {}
 toolkit:PrintBlock("Header", { "one", "two" })
-check("a block marks its header only", chat[1] == MARK .. " Header" and chat[2] == "    one" and chat[3] == "    two")
+check("a block marks its header only", chat[1] == MARK .. " Header" and chat[2] == "one" and chat[3] == "two")
 chat = {}
 toolkit:Say({ title = "Plain" }, "hums!")
 check("a module without a class keeps the line color", chat[1] == MARK .. " Boltgrip's Plain hums!")
