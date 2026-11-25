@@ -263,7 +263,11 @@ do
 	local saved = {}
 	local module = { addon = "Logger", title = "Logger" }
 	local realCreateFrame = CreateFrame
-	CreateFrame = function() return { RegisterEvent = function() end, SetScript = function() end } end
+	CreateFrame = function()
+		local frame = { RegisterEvent = function() end, UnregisterAllEvents = function() end }
+		frame.SetScript = function(self, _, fn) self.script = fn end
+		return frame
+	end
 	toolkit:StartLog(module, saved)
 	CreateFrame = realCreateFrame
 	for index = 1, 2005 do toolkit:Log(module, "line " .. index, true) end
@@ -272,15 +276,9 @@ do
 	-- Fails if /boltgrip watch misses a module that started a log, or writes one module's lines to another.
 	local otherSaved, seen = {}, {}
 	local other = { addon = "Other", title = "Other" }
-	local listener
-	CreateFrame = function()
-		local frame = { RegisterEvent = function() end, UnregisterAllEvents = function() end }
-		frame.SetScript = function(self, _, fn) self.script = fn; listener = self end
-		return frame
-	end
 	toolkit:StartLog(other, otherSaved, { LOOT_READY = function(slot) seen[#seen + 1] = slot end })
 	SlashCmdList.BOLTGRIP("watch on")
-	CreateFrame = realCreateFrame
+	local listener = toolkit.watchFrame
 	check("/boltgrip watch switches every module's own watch", saved.watch == true and otherSaved.watch == true
 		and otherSaved.devLog[#otherSaved.devLog]:find("watch on", 1, true) ~= nil and #saved.devLog == 2000)
 	-- Fails if the shared listener drops a module's event, or passes it while the watch is off.
@@ -288,6 +286,17 @@ do
 	SlashCmdList.BOLTGRIP("watch off")
 	listener.script(listener, "LOOT_READY", 8)
 	check("the shared listener passes events only while watching", #seen == 1 and seen[1] == 7)
+	-- Fails if a working build's log is not on from the start, or a paused log still traces.
+	local freshSaved = {}
+	local fresh = { addon = "Fresh", title = "Fresh" }
+	toolkit:StartLog(fresh, freshSaved)
+	toolkit:Trace(fresh, "offer sent")
+	local traced = freshSaved.devLog[#freshSaved.devLog]:find("offer sent", 1, true) ~= nil
+	SlashCmdList.BOLTGRIP("watch off")
+	local count = #freshSaved.devLog
+	toolkit:Trace(fresh, "not this")
+	check("a working build logs from the start, and a paused log traces nothing",
+		traced and #freshSaved.devLog == count and freshSaved.watch == false)
 end
 
 -- Fails if the library holds a packager token, even in a comment: the packager turns "--@debug@" into the
