@@ -103,11 +103,10 @@ The library prints every chat line, and an addon keeps no chat formatting of its
 | `lib:Print(text)` | the gear mark, the text | a plain line: an error's text, a development answer |
 | `lib:PrintBlock(header, rows)` | the header with the mark, then indented rows without one | several lines that belong together, such as help |
 
-- The mark is the world map's gear. The line color is the one the game gives an NPC's speech (`ChatTypeInfo.MONSTER_SAY`).
-- Only the device's name is tinted: its own color mixed 60% into the line color, so the shared word looks the same across the family. A module gives its color once, at `RegisterModule`.
-- Device colors: Recipe Vacuum brown, Tackletron blue, the sparkle tool pink, the buff tool violet.
+- The mark is the world map's gear. The line color is the family's own, a teal (5BD9DE) chosen in game because it matches none of the game's chat colors; measured against the client's `ChatTypeInfo` on 2026-11-25, its nearest neighbours are party chat and the Battle.net whisper.
+- Only the device's name has its own color: a class color from `RAID_CLASS_COLORS`, with a quarter of the line color mixed in so the names sit together. A module names its class once, at `RegisterModule`.
+- Devices: Recipe Vacuum Druid, Tackletron Shaman, the sparkle tool Paladin, the buff tool Warlock. Mage is not used: it is too close to the line color.
 - A failure is a voiced line followed by the error's text on a plain line, so the text stays exact.
-- Lines are printed with the chat color's id, so they follow a player's change to that color; the tinted name keeps its own color.
 
 Known limits, from a survey of 22 addons' chat output (2026-11-24): chat-copy features in other addons (another addon, another addon) strip inline textures, so the gear is missing from copied text and "Boltgrip's" carries the family there; lines printed this way get no Blizzard timestamp; they cannot be redirected to another chat frame. An icon before the name has precedent (another addon, another addon, another addon); a possessive family prefix and emote-shaped lines were found in none of them, and are this toolkit's own.
 

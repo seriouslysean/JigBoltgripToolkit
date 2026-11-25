@@ -20,7 +20,8 @@ local function NewClient()
 	dofile(LIBSTUB)
 	SlashCmdList = {}
 	ChatTypeInfo = { SYSTEM = { r = 1, g = 1, b = 0, id = 1 }, MONSTER_SAY = { r = 1, g = 1, b = 0.5, id = 12 } }
-	DEFAULT_CHAT_FRAME = { AddMessage = function(_, text, _, _, _, id) table.insert(chat, text); chat.id = id end }
+	DEFAULT_CHAT_FRAME = { AddMessage = function(_, text, r, g, b) table.insert(chat, text); chat.color = { r, g, b } end }
+	RAID_CLASS_COLORS = { MAGE = { r = 0, g = 0, b = 1 } }
 	function strtrim(text) return (text:gsub("^%s+", ""):gsub("%s+$", "")) end
 	C_AddOns = { GetAddOnMetadata = function(addon, field)
 		if field == "Title" then return addon .. " title" end
@@ -111,20 +112,21 @@ check("unknown command prints the help", help:find("/alpha go", 1, true) and hel
 -- Chat: one shape for the whole family. Fails if the mark or the shared word goes missing, the device
 -- color reaches beyond the name, or rows under a header carry their own mark.
 local MARK = "|TInterface\\WorldMap\\GEAR_64GREY:0|t"
-local blue = toolkit:RegisterModule("Alpha", { r = 0, g = 0, b = 1 })
+local blue = toolkit:RegisterModule("Alpha", "MAGE")
 chat = {}
 toolkit:Say(blue, "deploys a bobber!")
--- 60% of the device color (0, 0, 1) into the line color (1, 1, 0.5): 102, 102, 204.
-check("a voiced line is the mark, the shared word, the tinted name and the action",
-	chat[1] == MARK .. " Boltgrip's |cff6666ccAlpha title|r deploys a bobber!")
+-- The class color (0, 0, 1) with 25% of the line color (91, 217, 222): 23, 54, 247.
+check("a voiced line is the mark, the shared word, the class-colored name and the action",
+	chat[1] == MARK .. " Boltgrip's |cff1736f7Alpha title|r deploys a bobber!")
+-- Fails if the line stops being the family's own teal.
+check("a line is printed in the family's color",
+	math.abs(chat.color[1] - 91 / 255) < 0.001 and math.abs(chat.color[2] - 217 / 255) < 0.001 and math.abs(chat.color[3] - 222 / 255) < 0.001)
 chat = {}
 toolkit:PrintBlock("Header", { "one", "two" })
 check("a block marks its header only", chat[1] == MARK .. " Header" and chat[2] == "    one" and chat[3] == "    two")
 chat = {}
 toolkit:Say({ title = "Plain" }, "hums!")
-check("a module without a color keeps the line color", chat[1] == MARK .. " Boltgrip's Plain hums!")
--- Fails if a line is printed without its chat color id, so it would not follow a color change.
-check("a line carries its chat color's id", chat.id == 12)
+check("a module without a class keeps the line color", chat[1] == MARK .. " Boltgrip's Plain hums!")
 
 print(failures == 0 and "ALL LOAD ORDER CHECKS PASSED" or (failures .. " FAILED"))
 os.exit(failures == 0 and 0 or 1)
