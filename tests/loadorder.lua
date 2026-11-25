@@ -23,6 +23,7 @@ local function NewClient()
 	ChatTypeInfo = { SYSTEM = { r = 1, g = 1, b = 0, id = 1 }, MONSTER_SAY = { r = 1, g = 1, b = 0.5, id = 12 } }
 	DEFAULT_CHAT_FRAME = { AddMessage = function(_, text, r, g, b) table.insert(chat, text); chat.color = { r, g, b } end }
 	RAID_CLASS_COLORS = { MAGE = { r = 0, g = 0, b = 1 } }
+	KEY_BINDING, COMBAT, SOUND = "Key Binding", "Combat", "Sound" -- Blizzard's global strings, enUS
 	function strtrim(text) return (text:gsub("^%s+", ""):gsub("%s+$", "")) end
 	C_AddOns = { GetAddOnMetadata = function(addon, field)
 		if field == "Title" then return addon .. " title" end
@@ -163,6 +164,7 @@ do
 	local saved = {}
 	local built = tk:BuildOptions(m, saved, {
 		{ heading = "Sound", place = "blizzard", rows = {} },
+		{ heading = "Key Binding", place = "blizzard", rows = {} },
 		{ heading = "Things", place = "features", rows = {
 			{ kind = "checkbox", key = "record", label = "Record Things", tooltip = "t", default = true, note = "Why." },
 			{ kind = "checkbox", key = "announce", label = "Announce Things", tooltip = "t", default = true, under = "record" },
@@ -178,7 +180,12 @@ do
 	local headings = {}
 	for _, row in ipairs(buttons) do if row.header then headings[#headings + 1] = row.header end end
 	check("sections follow the toolkit's order whatever order a module lists them in",
-		table.concat(headings, ",") == "Thing Sources,Things,Sound")
+		table.concat(headings, ",") == "Thing Sources,Things,Key Binding,Sound")
+	-- Fails if a sources section may put another row above its cards.
+	local cardsSecond = pcall(tk.BuildOptions, tk, m, {}, { { heading = "Late Sources", place = "sources", rows = {
+		{ kind = "checkbox", key = "early", label = "Early", default = true },
+		{ kind = "cards", key = "late", label = "Late Sources", default = 1, values = tk:SourceCards({ what = "things" }) } } } })
+	check("a sources section starts with its cards", not cardsSecond)
 	-- Fails if hand-built cards pass, or a module's choice to drop the range openings is ignored.
 	local handBuilt = pcall(tk.BuildOptions, tk, m, {}, { { heading = "Hand Sources", place = "sources", rows = {
 		{ kind = "cards", key = "hand", label = "Hand Sources", default = 1, values = { { 1, "Self Found", "", "Mine." } } } } } })
@@ -199,10 +206,23 @@ do
 	check("a change reaches the row's onChange", changed == 1)
 end
 
--- Fails if a command on the options page loses the note that explains it.
-local notes = 0
-for _, row in ipairs(buttons) do if row.note then notes = notes + 1 end end
-check("each command on the options page has a note under it", notes > 0)
+-- Fails if a command on the options page loses the note that explains it, or gets another row's note
+-- (the earlier version counted any note on the page; Astra review).
+do
+	buttons = {}
+	local epsilon = LibStub("JigBoltgripToolkit-1.0"):RegisterModule("Epsilon")
+	LibStub("JigBoltgripToolkit-1.0"):RegisterCommands(epsilon, "epsilon", {
+		{ action = "go", description = "Go", note = "Goes somewhere.", run = function() end },
+		{ action = "stop", description = "Stop", run = function() end },
+	})
+	LibStub("JigBoltgripToolkit-1.0"):FinishModule(epsilon)
+	local noteAfter = {}
+	for index, row in ipairs(buttons) do
+		if row.button then noteAfter[row.button] = buttons[index + 1] and buttons[index + 1].note end
+	end
+	check("each command on the options page has its own note under it", noteAfter["/epsilon go"] == "Goes somewhere."
+		and noteAfter["/epsilon stop"] == "Stop")
+end
 check("help rows sit under the header text", chat[2] ~= nil and chat[2]:sub(1, #"|TInterface\\Common\\spacer") == "|TInterface\\Common\\spacer")
 
 -- Chat: one shape for the whole family. Fails if the mark or the shared word goes missing, the device
@@ -272,8 +292,13 @@ do
 	CreateFrame = realCreateFrame
 	local cap, trim = toolkit.LOG_LINES, toolkit.LOG_TRIM
 	saved.devLog = {} -- without the session header, so the count is exact
-	for index = 1, cap + trim + 1 do toolkit:Log(module, "line " .. index, true) end
-	check("the log keeps the newest lines, in order, per module", #saved.devLog == cap
+	local most = 0
+	for index = 1, cap + trim + 1 do
+		toolkit:Log(module, "line " .. index, true)
+		most = math.max(most, #saved.devLog)
+	end
+	check("the log keeps the newest lines, in order, per module, never more than its cap", #saved.devLog == cap
+		and most == cap
 		and saved.devLog[1] == "line " .. (trim + 2) and saved.devLog[cap] == "line " .. (cap + trim + 1))
 	-- Fails if /boltgrip watch misses a module that started a log, or writes one module's lines to another.
 	local otherSaved, seen = {}, {}
@@ -297,8 +322,9 @@ do
 	SlashCmdList.BOLTGRIP("watch off")
 	local count = #freshSaved.devLog
 	toolkit:Trace(fresh, "not this")
-	check("a working build logs from the start, and a paused log traces nothing",
-		traced and #freshSaved.devLog == count and freshSaved.watch == false)
+	toolkit:LogAll("nor this")
+	check("a working build logs from the start, and a paused log takes no trace or shared context",
+		traced and #freshSaved.devLog == count and freshSaved.watch == false and not toolkit:IsLogging(fresh))
 end
 
 -- Fails if the library holds a packager token, even in a comment: the packager turns "--@debug@" into the

@@ -52,7 +52,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 
 - [ ] Every chat line is in one file and printed by the library: one action, exact facts, nothing that explains what the addon will do.
 - [ ] The lines are modeled on real in-game text and copy none of it.
-- [ ] A line is printed as the addon's name, a colon and the text, in the game's NPC speech color.
+- [ ] A voiced line is the kit's: the gear mark, "Boltgrip's", the device name in its class color, the noise, then the report, in the family's teal (standards.md, "Voice").
 - [ ] Settings and tooltips are in Blizzard's wording, not in the voice.
 
 ## Proven
