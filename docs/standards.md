@@ -85,11 +85,11 @@ Each kind of data has one home, and none is copied into another.
 
 ## Voice
 
-The toolkit's chat lines say what a gnomish machine just did, in the shape the game gives an emote: "Boltgrip's Tackletron deploys a bobber!"
+The toolkit's chat lines show a gnomish machine at work: the noise it makes, then its own report, the way the game's robots speak. "Boltgrip's Recipe Vacuum whirs and rattles. Intake complete! 2 recipes from Corporal Bluth!" (owner, 2026-11-25, of this line: "I like the 1 options above, can we apply that to all lines in both addons?").
 
-1. One action per line, in the present tense, with one exclamation mark. The library puts the mark and "Boltgrip's <Device>" in front, so a line in `Voice.lua` is the rest of the sentence: "deploys a bobber!".
-2. The verb never repeats the device's name ("Recipe Vacuum sucks up", not "vacuums"). No doubled words, no questions, no jokes.
-3. Facts stay exact: real counts, names and places. A line never explains what the addon will do.
+1. Two parts. The noise: a short present-tense phrase, no end mark ("whirs and rattles", "starts whirring and beeping"); the library adds the period after it. The report: one or more robot-speak beats, each ending in "!", with no "I" and no subject ("Intake complete!", "Hostile contact detected!"). In code, `lib:Say(module, noise, report)`.
+2. The noise never repeats the device's name. No doubled words, no questions, no jokes.
+3. Facts stay exact: real counts, names and places. A line that changes a setting ends its report with the plain effect ("A lure for every cast!"); other lines do not explain what the addon will do.
 4. Read real in-game gnome text before writing a line and model on it without copying it: Homing Robot OOX-17/TN ("Flight systems online! CLUCK! Engaging rockets for transport to Booty Bay!", [Rescue OOX-17/TN!](https://warcraft.wiki.gg/wiki/Rescue_OOX-17/TN!)), the Mobile Alert System, Tinkmaster Overspark ("Our scanners report...").
 5. Fitting the game's forms is the aim. What a line never borrows is one of the game's own chat colors (whisper, emote, system announcement), which would make it read as that kind of message.
 
@@ -99,7 +99,7 @@ The library prints every chat line, and an addon keeps no chat formatting of its
 
 | Call | Prints | Use |
 |---|---|---|
-| `lib:Say(module, action)` | the gear mark, "Boltgrip's", the device's name, the action | a voiced line |
+| `lib:Say(module, noise, report)` | the gear mark, "Boltgrip's", the device's name, the noise and a period, the report | a voiced line |
 | `lib:Print(text)` | the gear mark, the text | a plain line: an error's text, a development answer |
 | `lib:PrintBlock(header, rows)` | the header with the mark, then rows aligned under its text | several lines that belong together, such as help |
 

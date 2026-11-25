@@ -191,10 +191,10 @@ check("help rows sit under the header text", chat[2] ~= nil and chat[2]:sub(1, #
 local MARK = "|TInterface\\WorldMap\\GEAR_64GREY:0|t"
 local blue = toolkit:RegisterModule("Alpha", "MAGE")
 chat = {}
-toolkit:Say(blue, "deploys a bobber!")
+toolkit:Say(blue, "whirs and rattles", "Intake complete!")
 -- The class color (0, 0, 1) with 25% of the line color (91, 217, 222): 23, 54, 247.
-check("a voiced line is the mark, the shared word, the class-colored name and the action",
-	chat[1] == MARK .. " Boltgrip's |cff1736f7Alpha title|r deploys a bobber!")
+check("a voiced line is the mark, the shared word, the class-colored name, the noise and the report",
+	chat[1] == MARK .. " Boltgrip's |cff1736f7Alpha title|r whirs and rattles. Intake complete!")
 -- Fails if the line stops being the family's own teal.
 check("a line is printed in the family's color",
 	math.abs(chat.color[1] - 91 / 255) < 0.001 and math.abs(chat.color[2] - 217 / 255) < 0.001 and math.abs(chat.color[3] - 222 / 255) < 0.001)
@@ -204,8 +204,8 @@ local ALIGN = "|TInterface\\Common\\spacer:0|t "
 check("a block marks its header and aligns its rows under the header text", chat[1] == MARK .. " Header"
 	and chat[2] == ALIGN .. "one" and chat[3] == ALIGN .. "two")
 chat = {}
-toolkit:Say({ title = "Plain" }, "hums!")
-check("a module without a class keeps the line color", chat[1] == MARK .. " Boltgrip's Plain hums!")
+toolkit:Say({ title = "Plain" }, "hums", "Ready!")
+check("a module without a class keeps the line color", chat[1] == MARK .. " Boltgrip's Plain hums. Ready!")
 
 print(failures == 0 and "ALL LOAD ORDER CHECKS PASSED" or (failures .. " FAILED"))
 os.exit(failures == 0 and 0 or 1)
