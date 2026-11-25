@@ -239,6 +239,8 @@ do
 	UnitLevel = UnitLevel or function() return 1 end
 	C_Map = C_Map or { GetBestMapForUnit = function() return 1429 end, GetMapInfo = function() return { name = "Elwynn Forest" } end }
 	GetSubZoneText = GetSubZoneText or function() return "" end
+	C_Map.GetPlayerMapPosition = C_Map.GetPlayerMapPosition or function() return nil end
+	C_MapExplorationInfo = C_MapExplorationInfo or { GetExploredAreaIDsAtPosition = function() return nil end }
 	local saved = {}
 	local module = { addon = "Logger", title = "Logger" }
 	local realCreateFrame = CreateFrame
