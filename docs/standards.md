@@ -110,7 +110,7 @@ The library prints every chat line, and an addon keeps no chat formatting of its
 
 Known limits, from a survey of 22 addons' chat output (2026-11-24): chat-copy features in other addons (another addon, another addon) strip inline textures, so the gear is missing from copied text and "Boltgrip's" carries the family there; lines printed this way get no Blizzard timestamp; they cannot be redirected to another chat frame. An icon before the name has precedent (another addon, another addon, another addon); a possessive family prefix and emote-shaped lines were found in none of them, and are this toolkit's own.
 
-Help lists commands in Blizzard's own shape (`CHAT_HELP_TEXT_LINE*`): "/command <arguments> - What it does", one short line each, no indent, help itself not listed. An entry's `usage` field holds its arguments ("on|off", "[all|clear]").
+Help lists commands in Blizzard's own shape (`CHAT_HELP_TEXT_LINE*`): "/command <arguments> - What it does", one short line each, help itself not listed. Commands are indented two spaces under their section line and shown in the device's color; the description stays in the line color. An entry's `usage` field holds its arguments ("on|off", "[all|clear]").
 
 Settings labels and tooltips are not in this voice. They follow Blizzard's wording and capitalization ("Auto Loot", "Enable Sound").
 

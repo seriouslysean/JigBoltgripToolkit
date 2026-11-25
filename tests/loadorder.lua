@@ -108,6 +108,7 @@ chat = {}
 SlashCmdList.BOLTGRIP_ALPHA("nonsense")
 local help = table.concat(chat, "\n")
 check("unknown command prints the help", help:find("/alpha go", 1, true) and not help:find("/alpha help", 1, true) and true or false)
+check("help rows are indented under the header", chat[2] ~= nil and chat[2]:sub(1, 2) == "  ")
 
 -- Chat: one shape for the whole family. Fails if the mark or the shared word goes missing, the device
 -- color reaches beyond the name, or rows under a header carry their own mark.
