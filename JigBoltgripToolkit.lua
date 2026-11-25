@@ -122,7 +122,7 @@ local measure
 
 function lib:AddNote(layout, text)
 	local initializer = Settings.CreateElementInitializer("JigBoltgripToolkitNoteTemplate", { text = text })
-	function initializer:GetExtent()
+	initializer.GetExtent = function()
 		if not measure then
 			measure = UIParent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 			measure:Hide()
@@ -131,7 +131,7 @@ function lib:AddNote(layout, text)
 		measure:SetText(text)
 		return math.ceil(measure:GetStringHeight()) + NOTE_GAP
 	end
-	function initializer:InitFrame(frame)
+	initializer.InitFrame = function(_, frame)
 		frame.Text:SetWidth(NOTE_WIDTH)
 		frame.Text:SetText(text)
 		frame.Text:SetTextColor(GRAY_FONT_COLOR:GetRGB())
