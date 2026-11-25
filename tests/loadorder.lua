@@ -129,6 +129,57 @@ do
 	check("troubleshooting commands sit one step in", probe ~= nil and probe:sub(1, 2 * #SPACER) == SPACER .. SPACER)
 end
 
+-- Options built from data. Fails if a setting loses its derived name or saved key, a note does not
+-- follow its row, an indented checkbox loses its parent, or a change stops reaching onChange.
+do
+	local registered, made, changed = {}, {}, nil
+	Settings.VarType = { Boolean = "boolean", Number = "number", String = "string" }
+	Settings.RegisterAddOnSetting = function(_, variable, key, db, varType, label, default)
+		local setting = { variable = variable, key = key, varType = varType, value = default }
+		function setting:SetValueChangedCallback(fn) self.callback = fn end
+		function setting:GetValue() return self.value end
+		function setting:SetValue(value) self.value = value; if self.callback then self.callback(self, value) end end
+		registered[key] = setting
+		return setting
+	end
+	Settings.CreateCheckbox = function(_, setting)
+		local row = { checkbox = setting.key }
+		function row:SetParentInitializer(parent) self.parent = parent end
+		table.insert(buttons, row); made[setting.key] = row
+		return row
+	end
+	Settings.CreateDropdown = function(_, setting, options)
+		local row = { dropdown = setting.key, options = options() }
+		table.insert(buttons, row); made[setting.key] = row
+		return row
+	end
+	Settings.CreateControlTextContainer = function()
+		local data = {}
+		return { Add = function(_, value, label) table.insert(data, { value = value, label = label }) end, GetData = function() return data end }
+	end
+	local tk = LibStub("JigBoltgripToolkit-1.0")
+	local m = tk:RegisterModule("Delta")
+	buttons = {}
+	local saved = {}
+	local built = tk:BuildOptions(m, saved, {
+		{ heading = "Things", rows = {
+			{ kind = "checkbox", key = "record", label = "Record Things", tooltip = "t", default = true, note = "Why." },
+			{ kind = "checkbox", key = "announce", label = "Announce Things", tooltip = "t", default = true, under = "record" },
+			{ kind = "dropdown", key = "mode", label = "Mode", tooltip = "t", default = 2,
+				values = { { 1, "One" }, { 2, "Two" } }, onChange = function(value) changed = value end },
+		} },
+	})
+	check("a setting is named after the addon and saved under its key",
+		registered.record.variable == "Delta_record" and registered.record.varType == "boolean" and registered.mode.varType == "number")
+	local afterRecord
+	for index, row in ipairs(buttons) do if row.checkbox == "record" then afterRecord = buttons[index + 1] end end
+	check("a note follows its row", afterRecord ~= nil and afterRecord.note == "Why.")
+	check("an indented checkbox sits under its parent", made.announce.parent == made.record)
+	check("a dropdown lists its choices", #made.mode.options == 2 and made.mode.options[2].label == "Two")
+	built.mode:SetValue(1)
+	check("a change reaches the row's onChange", changed == 1)
+end
+
 -- Fails if a command on the options page loses the note that explains it.
 local notes = 0
 for _, row in ipairs(buttons) do if row.note then notes = notes + 1 end end

@@ -114,6 +114,15 @@ Help lists commands in Blizzard's own shape (`CHAT_HELP_TEXT_LINE*`): "/command 
 
 Settings labels and tooltips are not in this voice. They follow Blizzard's wording and capitalization ("Auto Loot", "Enable Sound").
 
+## Options
+
+Every module's options page is built by the library from data: `lib:BuildOptions(module, db, sections)`, then `lib:RegisterCommands` and `lib:FinishModule`. A module never builds rows itself. The row kinds and fields are listed above `lib:BuildOptions` in the library.
+
+- Section headings use Blizzard's own words where one exists (`KEY_BINDING`, `SOUND`, `DISPLAY`); otherwise Title Case.
+- Labels in Title Case, as Blizzard's options are ("Auto Loot", "Enable Sound").
+- A tooltip is one sentence. Anything longer goes in the row's note: gray text under it, in plain words.
+- A choice best seen side by side is a row of cards; anything else a dropdown.
+
 ## Working build
 
 - Code between `--@debug@` and `--@end-debug@` exists in a checkout and is stripped from released builds by the BigWigs packager. Development commands, captures and timing live there.
