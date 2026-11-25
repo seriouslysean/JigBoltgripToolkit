@@ -19,6 +19,7 @@ local function NewClient()
 	LibStub = nil
 	dofile(LIBSTUB)
 	SlashCmdList = {}
+	NORMAL_FONT_COLOR = { WrapTextInColorCode = function(_, text) return "|cffffd100" .. text .. "|r" end }
 	ChatTypeInfo = { SYSTEM = { r = 1, g = 1, b = 0, id = 1 }, MONSTER_SAY = { r = 1, g = 1, b = 0.5, id = 12 } }
 	DEFAULT_CHAT_FRAME = { AddMessage = function(_, text, r, g, b) table.insert(chat, text); chat.color = { r, g, b } end }
 	RAID_CLASS_COLORS = { MAGE = { r = 0, g = 0, b = 1 } }
@@ -109,6 +110,25 @@ chat = {}
 SlashCmdList.BOLTGRIP_ALPHA("nonsense")
 local help = table.concat(chat, "\n")
 check("unknown command prints the help", help:find("/alpha go", 1, true) and not help:find("/alpha help", 1, true) and true or false)
+-- A troubleshooting section: a gold heading, its commands one step further in. Fails if the heading
+-- reads like a command row or its commands lose the extra step.
+do
+	local tk = LibStub("JigBoltgripToolkit-1.0")
+	local m = tk:RegisterModule("Gamma")
+	tk:RegisterCommands(m, "gamma", { { action = "go", description = "Go", run = function() end },
+		{ action = "probe", description = "Probe", run = function() end, troubleshooting = true } })
+	chat = {}
+	SlashCmdList.BOLTGRIP_GAMMA("nonsense")
+	local SPACER = "|TInterface\\Common\\spacer:0|t "
+	local heading, probe
+	for _, line in ipairs(chat) do
+		if line:find("Troubleshooting", 1, true) then heading = line end
+		if line:find("/gamma probe", 1, true) then probe = line end
+	end
+	check("a troubleshooting heading is gold and not a command row", heading == SPACER .. "|cffffd100Troubleshooting|r")
+	check("troubleshooting commands sit one step in", probe ~= nil and probe:sub(1, 2 * #SPACER) == SPACER .. SPACER)
+end
+
 -- Fails if a command on the options page loses the note that explains it.
 local notes = 0
 for _, row in ipairs(buttons) do if row.note then notes = notes + 1 end end
