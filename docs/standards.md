@@ -101,6 +101,7 @@ Everything a player reads outside the voiced line: options labels, tooltips, not
 2. Say the number and what it is for ("%d to cast, %d so no fish get away", not "from %d").
 3. Prefer the game's own phrases and global strings.
 4. A setting's text says exactly what changes when it is on.
+6. WoW-style plain language (owner, 2026-11-25: "wow style plain language, simple sentences"; "Your subnotes are also insanely long"): no colons or semicolons in labels, tooltips, notes, cards or command help; sentences of 16 words at most; a note 120 characters at most. Enforced by: conformance.
 5. Cards share one sentence shape in every module (rule under Options). Enforced by: runtime (`lib:SourceCards` writes the sentences).
 
 ### Delivery
@@ -152,7 +153,7 @@ Every module's options page is built by the library from data: `lib:BuildOptions
   3. Sections Blizzard names, in Blizzard's order: Key Binding, Combat, Sound.
   4. The kit's Commands and Links (added by `lib:FinishModule`).
   Each section declares `place = "sources" | "features" | "blizzard"`; `lib:BuildOptions` puts them in this order and stops with an error on a section without one, or on a sources section without exactly one row of cards. Enforced by: runtime.
-- The sources cards are the kit's, words included (owner, 2026-11-25: "These words don't match how recipe vacuum works which feels like a miss"): `lib:SourceCards(spec)` gives Self Found, Friends and Public (`lib.SOURCE_LEVEL` 1, 2, 3), their icons, the "Short range." / "Medium range." / "Long range." openings and each card's sentence: "Tracks only <what> from what you see for yourself[: <seen>].", "Also tracks what your party, guild and friends find.", "Also tracks <public>.". The module passes only `what` (game terms), optional `seen`, `friends = true` if it shares, `public` if it has a Public level, and `openings = false` to leave out the range openings (Tackletron). Enforced by: runtime (BuildOptions refuses cards not made here).
+- The sources cards are the kit's, words included (owner, 2026-11-25: "These words don't match how recipe vacuum works which feels like a miss"): `lib:SourceCards(spec)` gives Self Found, Friends and Public (`lib.SOURCE_LEVEL` 1, 2, 3), their icons, the "Short range." / "Medium range." / "Long range." openings and each card's sentence: "Tracks only <what> you see for yourself.", "Also tracks what your party, guild and friends find.", "Also tracks <public>.". The module passes only `what` (game terms), `friends = true` if it shares, `public` if it has a Public level, and `openings = false` to leave out the range openings (Tackletron). Enforced by: runtime (BuildOptions refuses cards not made here).
 - Section headings use Blizzard's own words where one exists (`KEY_BINDING`, `SOUND`, `DISPLAY`); otherwise Title Case. Enforced by: conformance.
 - Labels in Title Case, as Blizzard's options are ("Auto Loot", "Enable Sound"). Enforced by: conformance.
 - A tooltip is one sentence. Anything longer goes in the row's note: gray text under it, in plain words. Enforced by: conformance.

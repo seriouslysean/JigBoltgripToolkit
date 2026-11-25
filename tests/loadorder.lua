@@ -182,10 +182,10 @@ do
 	-- Fails if hand-built cards pass, or a module's choice to drop the range openings is ignored.
 	local handBuilt = pcall(tk.BuildOptions, tk, m, {}, { { heading = "Hand Sources", place = "sources", rows = {
 		{ kind = "cards", key = "hand", label = "Hand Sources", default = 1, values = { { 1, "Self Found", "", "Mine." } } } } } })
-	local cards = tk:SourceCards({ what = "fish", seen = "your casts", openings = false })
+	local cards = tk:SourceCards({ what = "fish", openings = false })
 	local withOpenings = tk:SourceCards({ what = "recipes", friends = true, public = "recipes people link in chat" })
 	check("cards come only from the kit, in one sentence shape, with or without the range openings", not handBuilt
-		and #cards == 1 and cards[1][4] == "Tracks only fish from what you see for yourself: your casts."
+		and #cards == 1 and cards[1][4] == "Tracks only fish you see for yourself."
 		and #withOpenings == 3 and withOpenings[2][4] == "Medium range. Also tracks what your party, guild and friends find."
 		and withOpenings[3][4] == "Long range. Also tracks recipes people link in chat.")
 	check("a setting is named after the addon and saved under its key",
