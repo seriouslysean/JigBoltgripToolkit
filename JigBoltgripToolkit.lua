@@ -114,6 +114,32 @@ function lib:RegisterModule(addonName, class)
 	return module
 end
 
+-- A note under an options row: gray, wrapped, in plain words, for what a hover tooltip alone would hide.
+-- The template is in JigBoltgripToolkit.xml; the row's height is measured from the text.
+local NOTE_WIDTH = 520    -- room for a note beside the options list's left margin
+local NOTE_GAP = 8        -- space below a note, before the next row
+local measure
+
+function lib:AddNote(layout, text)
+	local initializer = Settings.CreateElementInitializer("JigBoltgripToolkitNoteTemplate", { text = text })
+	function initializer:GetExtent()
+		if not measure then
+			measure = UIParent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+			measure:Hide()
+		end
+		measure:SetWidth(NOTE_WIDTH)
+		measure:SetText(text)
+		return math.ceil(measure:GetStringHeight()) + NOTE_GAP
+	end
+	function initializer:InitFrame(frame)
+		frame.Text:SetWidth(NOTE_WIDTH)
+		frame.Text:SetText(text)
+		frame.Text:SetTextColor(GRAY_FONT_COLOR:GetRGB())
+	end
+	layout:AddInitializer(initializer)
+	return initializer
+end
+
 -- Closing sections every module page shares: commands and links.
 function lib:FinishModule(module)
 	local command = self.commands[module.command or ""]
@@ -130,6 +156,8 @@ function lib:FinishModule(module)
 			for _, entry in ipairs(rows) do
 				module.layout:AddInitializer(CreateSettingsButtonInitializer(
 					"/" .. command.name .. " " .. entry.action, "Run", entry.run, entry.description, false))
+				-- entry.note says what the command does in a sentence or two; the description is the short form.
+				self:AddNote(module.layout, entry.note or entry.description)
 			end
 		end
 	end
@@ -252,7 +280,8 @@ function lib:RegisterCommands(module, name, entries)
 		hasHelp = hasHelp or entry.action == "help"
 	end
 	if not hasHelp then
-		table.insert(entries, { action = "help", description = "List these commands", run = function()
+		table.insert(entries, { action = "help", description = "List these commands",
+			note = "Prints this addon's commands in your chat window, with what each one does.", run = function()
 			lib:PrintHelp(name)
 		end })
 	end

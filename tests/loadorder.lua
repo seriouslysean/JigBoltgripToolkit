@@ -34,6 +34,7 @@ local function NewClient()
 		RegisterVerticalLayoutSubcategory = Category,
 		RegisterAddOnCategory = function() end,
 		OpenToCategory = function() end,
+		CreateElementInitializer = function(template, data) return { note = data.text, template = template } end,
 	}
 	function CreateSettingsListSectionHeaderInitializer(title) return { header = title } end
 	function CreateSettingsButtonInitializer(title) return { button = title } end
@@ -108,6 +109,10 @@ chat = {}
 SlashCmdList.BOLTGRIP_ALPHA("nonsense")
 local help = table.concat(chat, "\n")
 check("unknown command prints the help", help:find("/alpha go", 1, true) and not help:find("/alpha help", 1, true) and true or false)
+-- Fails if a command on the options page loses the note that explains it.
+local notes = 0
+for _, row in ipairs(buttons) do if row.note then notes = notes + 1 end end
+check("each command on the options page has a note under it", notes > 0)
 check("help rows sit under the header text", chat[2] ~= nil and chat[2]:sub(1, #"|TInterface\\Common\\spacer") == "|TInterface\\Common\\spacer")
 
 -- Chat: one shape for the whole family. Fails if the mark or the shared word goes missing, the device
