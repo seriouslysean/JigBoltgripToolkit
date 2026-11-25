@@ -116,7 +116,7 @@ Settings labels and tooltips are not in this voice. They follow Blizzard's wordi
 
 ## Side panels
 
-No module needs a side panel yet. If one does, the candidate is the Dressing Room's custom set details panel, which the owner picked on 2026-11-25: it sits beside its main frame and lists rows with icons. Blizzard draws it as a black background, a class background and the `dressingroom-sideframe` atlas on top (`Blizzard_UIPanels_Game/Mainline/DressUpFrames.xml`, `CustomSetDetailsPanel`). Not yet checked: whether the atlas exists on Forever and how it stretches.
+No module needs a side panel yet. The first expected use is Recipe Vacuum's sources when there are more than its recipe pane shows: one row per source, each with its own map button (owner, 2026-11-25). If one is needed, the candidate is the Dressing Room's custom set details panel, which the owner picked on 2026-11-25: it sits beside its main frame and lists rows with icons. Blizzard draws it as a black background, a class background and the `dressingroom-sideframe` atlas on top (`Blizzard_UIPanels_Game/Mainline/DressUpFrames.xml`, `CustomSetDetailsPanel`). Not yet checked: whether the atlas exists on Forever and how it stretches.
 
 ## Working build helpers
 
