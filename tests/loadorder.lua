@@ -217,6 +217,7 @@ do
 		local frame = { RegisterEvent = function() end, SetScript = function() end }
 		return frame
 	end
+	EventUtil = EventUtil or { ContinueOnAddOnLoaded = function() end }
 	toolkit:EnableWorkingBuild()
 	toolkit:EnableWorkingBuild()
 	CreateFrame = realCreateFrame
@@ -230,6 +231,14 @@ end
 
 -- Working-build log. Fails if lines go to another module's log, lose their order, or the cap drops the newest.
 do
+	date = date or os.date
+	GetBuildInfo = GetBuildInfo or function() return "1.60.1", "71091" end
+	C_AddOns = C_AddOns or {}
+	C_AddOns.GetAddOnMetadata = C_AddOns.GetAddOnMetadata or function() return "test" end
+	UnitName = UnitName or function() return "Tester" end
+	UnitLevel = UnitLevel or function() return 1 end
+	C_Map = C_Map or { GetBestMapForUnit = function() return 1429 end, GetMapInfo = function() return { name = "Elwynn Forest" } end }
+	GetSubZoneText = GetSubZoneText or function() return "" end
 	local saved = {}
 	local module = { addon = "Logger", title = "Logger" }
 	local realCreateFrame = CreateFrame
@@ -240,17 +249,24 @@ do
 	check("the log keeps the newest lines, in order, per module", #saved.devLog == 2000
 		and saved.devLog[1] == "line 6" and saved.devLog[2000] == "line 2005")
 	-- Fails if /boltgrip watch misses a module that started a log, or writes one module's lines to another.
-	date = date or os.date
-	local otherSaved = {}
+	local otherSaved, seen = {}, {}
 	local other = { addon = "Other", title = "Other" }
+	local listener
 	CreateFrame = function()
-		return { RegisterEvent = function() end, SetScript = function() end, UnregisterAllEvents = function() end }
+		local frame = { RegisterEvent = function() end, UnregisterAllEvents = function() end }
+		frame.SetScript = function(self, _, fn) self.script = fn; listener = self end
+		return frame
 	end
-	toolkit:StartLog(other, otherSaved)
+	toolkit:StartLog(other, otherSaved, { LOOT_READY = function(slot) seen[#seen + 1] = slot end })
 	SlashCmdList.BOLTGRIP("watch on")
 	CreateFrame = realCreateFrame
 	check("/boltgrip watch switches every module's own watch", saved.watch == true and otherSaved.watch == true
 		and otherSaved.devLog[#otherSaved.devLog]:find("watch on", 1, true) ~= nil and #saved.devLog == 2000)
+	-- Fails if the shared listener drops a module's event, or passes it while the watch is off.
+	listener.script(listener, "LOOT_READY", 7)
+	SlashCmdList.BOLTGRIP("watch off")
+	listener.script(listener, "LOOT_READY", 8)
+	check("the shared listener passes events only while watching", #seen == 1 and seen[1] == 7)
 end
 
 print(failures == 0 and "ALL LOAD ORDER CHECKS PASSED" or (failures .. " FAILED"))

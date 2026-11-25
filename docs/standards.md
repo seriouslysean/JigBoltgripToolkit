@@ -129,7 +129,7 @@ The library holds the working-build helpers, so every module gets the same ones 
   - `lib:Log(module, line)` appends a timestamped line; `lib:ShowLog(module, all)` opens it in the copy window.
   - `lib:LoggedCommand(module, action, run, details)` wraps a command with a header and shows its lines.
   - `/boltgrip watch on|off` and `/boltgrip log [all|clear]` act on every module that started a log; there is no per-module form (owner, 2026-11-25: "Go, kit commands only"). The log window shows one section per module, not merged by time. Both are listed in `/boltgrip` help only once a log has started, so release builds never show them.
-  - Blocked actions are logged to the blocked addon's own log with the call stack; each session's timings are logged at logout.
+  - The split (owner, 2026-11-25, "All three"): each module says which events it watches and what its lines mean; the kit owns the switch, the window, saving, timings, one listener that passes each event to every watching module, one chat line for `/boltgrip watch`, and shared context written into every log: a session header at each load, zone changes while watching, blocked actions with the call stack, and Lua errors (hooked on Blizzard's error window, since `AddLuaErrorHandler` takes secure code only). Each session's timings are logged at logout.
 
 ## Options
 
