@@ -19,7 +19,7 @@ local function NewClient()
 	LibStub = nil
 	dofile(LIBSTUB)
 	SlashCmdList = {}
-	ChatTypeInfo = { SYSTEM = { r = 1, g = 1, b = 0, id = 1 } }
+	ChatTypeInfo = { SYSTEM = { r = 1, g = 1, b = 0, id = 1 }, MONSTER_SAY = { r = 1, g = 1, b = 0.5 } }
 	DEFAULT_CHAT_FRAME = { AddMessage = function(_, text) table.insert(chat, text) end }
 	function strtrim(text) return (text:gsub("^%s+", ""):gsub("%s+$", "")) end
 	C_AddOns = { GetAddOnMetadata = function(addon, field)
@@ -107,6 +107,22 @@ chat = {}
 SlashCmdList.BOLTGRIP_ALPHA("nonsense")
 local help = table.concat(chat, "\n")
 check("unknown command prints the help", help:find("/alpha go", 1, true) and help:find("/alpha help", 1, true) and true or false)
+
+-- Chat: one shape for the whole family. Fails if the mark or the shared word goes missing, the device
+-- color reaches beyond the name, or rows under a header carry their own mark.
+local MARK = "|TInterface\\WorldMap\\GEAR_64GREY:0|t"
+local blue = toolkit:RegisterModule("Alpha", { r = 0, g = 0, b = 1 })
+chat = {}
+toolkit:Say(blue, "deploys a bobber!")
+-- 60% of the device color (0, 0, 1) into the line color (1, 1, 0.5): 102, 102, 204.
+check("a voiced line is the mark, the shared word, the tinted name and the action",
+	chat[1] == MARK .. " Boltgrip's |cff6666ccAlpha title|r deploys a bobber!")
+chat = {}
+toolkit:PrintBlock("Header", { "one", "two" })
+check("a block marks its header only", chat[1] == MARK .. " Header" and chat[2] == "    one" and chat[3] == "    two")
+chat = {}
+toolkit:Say({ title = "Plain" }, "hums!")
+check("a module without a color keeps the line color", chat[1] == MARK .. " Boltgrip's Plain hums!")
 
 print(failures == 0 and "ALL LOAD ORDER CHECKS PASSED" or (failures .. " FAILED"))
 os.exit(failures == 0 and 0 or 1)

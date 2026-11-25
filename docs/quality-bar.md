@@ -7,7 +7,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 - [ ] Every frame, control, icon, font, color and label is Blizzard's own, or is on a list of what is custom and why.
 - [ ] It looks and behaves like part of the game's own window. Nothing native is replaced or restyled.
 - [ ] Wording and capitalization follow Blizzard's. Labels use the game's own strings where one exists.
-- [ ] It never imitates the game's message formats, and changes nothing in normal chat or play outside its feature.
+- [ ] Its chat lines never use one of the game's own chat colors (whisper, emote, system), and it changes nothing in normal chat or play outside its feature.
 - [ ] Each pattern names the Blizzard code or established addon it follows.
 - [ ] Where standing out and matching the game pull apart, it matches the game.
 
@@ -50,7 +50,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 
 ## Voice
 
-- [ ] Every chat line is in one file, in the machine voice: two beats, exact facts, nothing that explains what the addon will do.
+- [ ] Every chat line is in one file and printed by the library: one action, exact facts, nothing that explains what the addon will do.
 - [ ] The lines are modeled on real in-game text and copy none of it.
 - [ ] A line is printed as the addon's name, a colon and the text, in the game's NPC speech color.
 - [ ] Settings and tooltips are in Blizzard's wording, not in the voice.

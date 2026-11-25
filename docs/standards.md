@@ -85,15 +85,28 @@ Each kind of data has one home, and none is copied into another.
 
 ## Voice
 
-The toolkit's chat lines speak as a gnomish machine reporting to its owner. Each module has its own vocabulary (Recipe Vacuum: suction, sensors, nozzle, intake, scanners).
+The toolkit's chat lines say what a gnomish machine just did, in the shape the game gives an emote: "Boltgrip's Tackletron deploys a bobber!"
 
-1. Two beats: a state shouted as fact, then what the machine is doing about it or the reading it took. "Suction enabled! Calibrating recipe sensors!"
-2. Every beat ends with an exclamation mark. No doubled words, no questions, no jokes.
-3. At most one machine part per line, and a part belongs to one line only.
-4. Facts stay exact. A line never explains what the addon will do.
-5. Switches say "enabled" and "disabled". Failures say "Malfunction!" or "aborted!".
-6. Read real in-game gnome text before writing a line and model on it without copying it: Homing Robot OOX-17/TN ("Flight systems online! CLUCK! Engaging rockets for transport to Booty Bay!", [Rescue OOX-17/TN!](https://warcraft.wiki.gg/wiki/Rescue_OOX-17/TN!)), the Mobile Alert System, Tinkmaster Overspark ("Our scanners report...").
-7. Delivery: the addon's name, a colon and the text, all in the color the game gives an NPC's speech (`ChatTypeInfo.MONSTER_SAY`). No brackets around the name, since Forever writes player names that way.
+1. One action per line, in the present tense, with one exclamation mark. The library puts the mark and "Boltgrip's <Device>" in front, so a line in `Voice.lua` is the rest of the sentence: "deploys a bobber!".
+2. The verb never repeats the device's name ("Recipe Vacuum sucks up", not "vacuums"). No doubled words, no questions, no jokes.
+3. Facts stay exact: real counts, names and places. A line never explains what the addon will do.
+4. Read real in-game gnome text before writing a line and model on it without copying it: Homing Robot OOX-17/TN ("Flight systems online! CLUCK! Engaging rockets for transport to Booty Bay!", [Rescue OOX-17/TN!](https://warcraft.wiki.gg/wiki/Rescue_OOX-17/TN!)), the Mobile Alert System, Tinkmaster Overspark ("Our scanners report...").
+5. Fitting the game's forms is the aim. What a line never borrows is one of the game's own chat colors (whisper, emote, system announcement), which would make it read as that kind of message.
+
+### Delivery
+
+The library prints every chat line, and an addon keeps no chat formatting of its own.
+
+| Call | Prints | Use |
+|---|---|---|
+| `lib:Say(module, action)` | the gear mark, "Boltgrip's", the device's name, the action | a voiced line |
+| `lib:Print(text)` | the gear mark, the text | a plain line: an error's text, a development answer |
+| `lib:PrintBlock(header, rows)` | the header with the mark, then indented rows without one | several lines that belong together, such as help |
+
+- The mark is the world map's gear. The line color is the one the game gives an NPC's speech (`ChatTypeInfo.MONSTER_SAY`).
+- Only the device's name is tinted: its own color mixed 60% into the line color, so the shared word looks the same across the family. A module gives its color once, at `RegisterModule`.
+- Device colors: Recipe Vacuum brown, Tackletron blue, the sparkle tool pink, the buff tool violet.
+- A failure is a voiced line followed by the error's text on a plain line, so the text stays exact.
 
 Settings labels and tooltips are not in this voice. They follow Blizzard's wording and capitalization ("Auto Loot", "Enable Sound").
 
