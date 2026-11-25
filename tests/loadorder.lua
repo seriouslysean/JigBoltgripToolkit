@@ -228,5 +228,18 @@ do
 		and lines[1]:find("slowest    4.00", 1, true) ~= nil and #toolkit:TimingLines(two) == 1)
 end
 
+-- Working-build log. Fails if lines go to another module's log, lose their order, or the cap drops the newest.
+do
+	local saved = {}
+	local module = { addon = "Logger", title = "Logger" }
+	local realCreateFrame = CreateFrame
+	CreateFrame = function() return { RegisterEvent = function() end, SetScript = function() end } end
+	toolkit:StartLog(module, saved)
+	CreateFrame = realCreateFrame
+	for index = 1, 2005 do toolkit:Log(module, "line " .. index, true) end
+	check("the log keeps the newest lines, in order, per module", #saved.devLog == 2000
+		and saved.devLog[1] == "line 6" and saved.devLog[2000] == "line 2005")
+end
+
 print(failures == 0 and "ALL LOAD ORDER CHECKS PASSED" or (failures .. " FAILED"))
 os.exit(failures == 0 and 0 or 1)
