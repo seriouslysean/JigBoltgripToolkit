@@ -162,13 +162,20 @@ do
 	buttons = {}
 	local saved = {}
 	local built = tk:BuildOptions(m, saved, {
-		{ heading = "Things", rows = {
+		{ heading = "Sound", place = "blizzard", rows = {} },
+		{ heading = "Things", place = "features", rows = {
 			{ kind = "checkbox", key = "record", label = "Record Things", tooltip = "t", default = true, note = "Why." },
 			{ kind = "checkbox", key = "announce", label = "Announce Things", tooltip = "t", default = true, under = "record" },
 			{ kind = "dropdown", key = "mode", label = "Mode", tooltip = "t", default = 2,
 				values = { { 1, "One" }, { 2, "Two" } }, onChange = function(value) changed = value end },
 		} },
+		{ heading = "Thing Sources", place = "sources", rows = {} },
 	})
+	-- Fails if a module's sections are not put in the toolkit's one order: sources, features, Blizzard's.
+	local headings = {}
+	for _, row in ipairs(buttons) do if row.header then headings[#headings + 1] = row.header end end
+	check("sections follow the toolkit's order whatever order a module lists them in",
+		table.concat(headings, ",") == "Thing Sources,Things,Sound")
 	check("a setting is named after the addon and saved under its key",
 		registered.record.variable == "Delta_record" and registered.record.varType == "boolean" and registered.mode.varType == "number")
 	local afterRecord

@@ -136,6 +136,13 @@ The library holds the working-build helpers, so every module gets the same ones 
 
 Every module's options page is built by the library from data: `lib:BuildOptions(module, db, sections)`, then `lib:RegisterCommands` and `lib:FinishModule`. A module never builds rows itself. The library ships no XML: a named template in an embedded library is defined again by every addon that embeds it, and the client warns on the second (seen in game, 2026-11-25). Its custom rows are built in Lua on Blizzard's `BackdropTemplate`. The row kinds and fields are listed above `lib:BuildOptions` in the library.
 
+- One order on every page (owner, 2026-11-25: "The order needs to be aligned between both addons, we need standardized language, positioning, and order"; chose "Sources first"):
+  1. Sources: the sources cards, headed "<what> Sources" ("Recipe Sources", "Fishing Sources"), with sharing under them if the module shares.
+  2. The module's own features ("Personal Finds", "Lures").
+  3. Sections Blizzard names, in Blizzard's order: Key Binding, Combat, Sound.
+  4. The kit's Commands and Links (added by `lib:FinishModule`).
+  Each section declares `place = "sources" | "features" | "blizzard"`; `lib:BuildOptions` puts them in this order and stops with an error on a section without one.
+- The sources cards are the kit's: `lib:SourceCards(texts)` gives Self Found, Friends and Public (`lib.SOURCE_LEVEL` 1, 2, 3), their icons and the "Short range." / "Medium range." / "Long range." openings; the module adds one sentence per level saying what that range tracks for it, and leaves out a level it has no use for.
 - Section headings use Blizzard's own words where one exists (`KEY_BINDING`, `SOUND`, `DISPLAY`); otherwise Title Case.
 - Labels in Title Case, as Blizzard's options are ("Auto Loot", "Enable Sound").
 - A tooltip is one sentence. Anything longer goes in the row's note: gray text under it, in plain words.
