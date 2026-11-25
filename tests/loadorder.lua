@@ -270,9 +270,11 @@ do
 	end
 	toolkit:StartLog(module, saved)
 	CreateFrame = realCreateFrame
-	for index = 1, 2005 do toolkit:Log(module, "line " .. index, true) end
-	check("the log keeps the newest lines, in order, per module", #saved.devLog == 2000
-		and saved.devLog[1] == "line 6" and saved.devLog[2000] == "line 2005")
+	local cap, trim = toolkit.LOG_LINES, toolkit.LOG_TRIM
+	saved.devLog = {} -- without the session header, so the count is exact
+	for index = 1, cap + trim + 1 do toolkit:Log(module, "line " .. index, true) end
+	check("the log keeps the newest lines, in order, per module", #saved.devLog == cap
+		and saved.devLog[1] == "line " .. (trim + 2) and saved.devLog[cap] == "line " .. (cap + trim + 1))
 	-- Fails if /boltgrip watch misses a module that started a log, or writes one module's lines to another.
 	local otherSaved, seen = {}, {}
 	local other = { addon = "Other", title = "Other" }
@@ -280,7 +282,7 @@ do
 	SlashCmdList.BOLTGRIP("watch on")
 	local listener = toolkit.watchFrame
 	check("/boltgrip watch switches every module's own watch", saved.watch == true and otherSaved.watch == true
-		and otherSaved.devLog[#otherSaved.devLog]:find("watch on", 1, true) ~= nil and #saved.devLog == 2000)
+		and otherSaved.devLog[#otherSaved.devLog]:find("watch on", 1, true) ~= nil and #saved.devLog <= toolkit.LOG_LINES + toolkit.LOG_TRIM)
 	-- Fails if the shared listener drops a module's event, or passes it while the watch is off.
 	listener.script(listener, "LOOT_READY", 7)
 	SlashCmdList.BOLTGRIP("watch off")
