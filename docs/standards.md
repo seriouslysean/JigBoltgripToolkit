@@ -107,6 +107,9 @@ The library prints every chat line, and an addon keeps no chat formatting of its
 - Only the device's name is tinted: its own color mixed 60% into the line color, so the shared word looks the same across the family. A module gives its color once, at `RegisterModule`.
 - Device colors: Recipe Vacuum brown, Tackletron blue, the sparkle tool pink, the buff tool violet.
 - A failure is a voiced line followed by the error's text on a plain line, so the text stays exact.
+- Lines are printed with the chat color's id, so they follow a player's change to that color; the tinted name keeps its own color.
+
+Known limits, from a survey of 22 addons' chat output (2026-11-24): chat-copy features in other addons (another addon, another addon) strip inline textures, so the gear is missing from copied text and "Boltgrip's" carries the family there; lines printed this way get no Blizzard timestamp; they cannot be redirected to another chat frame. An icon before the name has precedent (another addon, another addon, another addon); a possessive family prefix and emote-shaped lines were found in none of them, and are this toolkit's own.
 
 Settings labels and tooltips are not in this voice. They follow Blizzard's wording and capitalization ("Auto Loot", "Enable Sound").
 

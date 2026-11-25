@@ -19,8 +19,8 @@ local function NewClient()
 	LibStub = nil
 	dofile(LIBSTUB)
 	SlashCmdList = {}
-	ChatTypeInfo = { SYSTEM = { r = 1, g = 1, b = 0, id = 1 }, MONSTER_SAY = { r = 1, g = 1, b = 0.5 } }
-	DEFAULT_CHAT_FRAME = { AddMessage = function(_, text) table.insert(chat, text) end }
+	ChatTypeInfo = { SYSTEM = { r = 1, g = 1, b = 0, id = 1 }, MONSTER_SAY = { r = 1, g = 1, b = 0.5, id = 12 } }
+	DEFAULT_CHAT_FRAME = { AddMessage = function(_, text, _, _, _, id) table.insert(chat, text); chat.id = id end }
 	function strtrim(text) return (text:gsub("^%s+", ""):gsub("%s+$", "")) end
 	C_AddOns = { GetAddOnMetadata = function(addon, field)
 		if field == "Title" then return addon .. " title" end
@@ -123,6 +123,8 @@ check("a block marks its header only", chat[1] == MARK .. " Header" and chat[2] 
 chat = {}
 toolkit:Say({ title = "Plain" }, "hums!")
 check("a module without a color keeps the line color", chat[1] == MARK .. " Boltgrip's Plain hums!")
+-- Fails if a line is printed without its chat color id, so it would not follow a color change.
+check("a line carries its chat color's id", chat.id == 12)
 
 print(failures == 0 and "ALL LOAD ORDER CHECKS PASSED" or (failures .. " FAILED"))
 os.exit(failures == 0 and 0 or 1)
