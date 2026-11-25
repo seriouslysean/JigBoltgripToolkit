@@ -101,7 +101,7 @@ The library prints every chat line, and an addon keeps no chat formatting of its
 |---|---|---|
 | `lib:Say(module, action)` | the gear mark, "Boltgrip's", the device's name, the action | a voiced line |
 | `lib:Print(text)` | the gear mark, the text | a plain line: an error's text, a development answer |
-| `lib:PrintBlock(header, rows)` | the header with the mark, then rows without one or an indent | several lines that belong together, such as help |
+| `lib:PrintBlock(header, rows)` | the header with the mark, then rows aligned under its text | several lines that belong together, such as help |
 
 - The mark is the world map's gear. The line color is the family's own, a teal (5BD9DE) chosen in game because it matches none of the game's chat colors; measured against the client's `ChatTypeInfo` on 2026-11-25, its nearest neighbours are party chat and the Battle.net whisper.
 - Only the device's name has its own color: a class color from `RAID_CLASS_COLORS`, with a quarter of the line color mixed in so the names sit together. A module names its class once, at `RegisterModule`.
@@ -110,7 +110,7 @@ The library prints every chat line, and an addon keeps no chat formatting of its
 
 Known limits, from a survey of 22 addons' chat output (2026-11-24): chat-copy features in other addons (another addon, another addon) strip inline textures, so the gear is missing from copied text and "Boltgrip's" carries the family there; lines printed this way get no Blizzard timestamp; they cannot be redirected to another chat frame. An icon before the name has precedent (another addon, another addon, another addon); a possessive family prefix and emote-shaped lines were found in none of them, and are this toolkit's own.
 
-Help lists commands in Blizzard's own shape (`CHAT_HELP_TEXT_LINE*`): "/command <arguments> - What it does", one short line each, help itself not listed. Commands are indented two spaces under their section line and shown in the device's color; the description stays in the line color. Help must be clear above all: each description says exactly what happens, in plain words, and says what each argument does; no shorthand a new player would have to guess at. An entry's `usage` field holds its arguments ("on|off", "[all|clear]").
+Help lists commands in Blizzard's own shape (`CHAT_HELP_TEXT_LINE*`): "/command <arguments> - What it does", one short line each, help itself not listed. Rows sit under the header's text, after a blank the gear's size (Blizzard's `Interface\\Common\\spacer`), as a tooltip's lines sit under its heading. Commands are in the device's color; the description stays in the line color. Help must be clear above all: each description says exactly what happens, in plain words, and says what each argument does; no shorthand a new player would have to guess at. An entry's `usage` field holds its arguments ("on|off", "[all|clear]").
 
 Settings labels and tooltips are not in this voice. They follow Blizzard's wording and capitalization ("Auto Loot", "Enable Sound").
 
