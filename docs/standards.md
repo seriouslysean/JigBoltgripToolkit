@@ -116,7 +116,7 @@ Settings labels and tooltips are not in this voice. They follow Blizzard's wordi
 
 ## Options
 
-Every module's options page is built by the library from data: `lib:BuildOptions(module, db, sections)`, then `lib:RegisterCommands` and `lib:FinishModule`. A module never builds rows itself. The row kinds and fields are listed above `lib:BuildOptions` in the library.
+Every module's options page is built by the library from data: `lib:BuildOptions(module, db, sections)`, then `lib:RegisterCommands` and `lib:FinishModule`. A module never builds rows itself. The library ships no XML: a named template in an embedded library is defined again by every addon that embeds it, and the client warns on the second (seen in game, 2026-11-25). Its custom rows are built in Lua on Blizzard's `BackdropTemplate`. The row kinds and fields are listed above `lib:BuildOptions` in the library.
 
 - Section headings use Blizzard's own words where one exists (`KEY_BINDING`, `SOUND`, `DISPLAY`); otherwise Title Case.
 - Labels in Title Case, as Blizzard's options are ("Auto Loot", "Enable Sound").
