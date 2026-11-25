@@ -207,5 +207,26 @@ chat = {}
 toolkit:Say({ title = "Plain" }, "hums", "Ready!")
 check("a module without a class keeps the line color", chat[1] == MARK .. " Boltgrip's Plain hums. Ready!")
 
+-- Working builds. Fails if a second call makes a second listener, or timings mix between modules.
+do
+	local cvars, frames = {}, 0
+	C_CVar = { SetCVar = function(name, value) cvars[name] = value end }
+	local realCreateFrame = CreateFrame
+	CreateFrame = function(...)
+		frames = frames + 1
+		local frame = { RegisterEvent = function() end, SetScript = function() end }
+		return frame
+	end
+	toolkit:EnableWorkingBuild()
+	toolkit:EnableWorkingBuild()
+	CreateFrame = realCreateFrame
+	check("a working build shows Lua errors and listens once", cvars.scriptErrors == "1" and frames == 1)
+	local one, two = { addon = "One" }, { addon = "Two" }
+	toolkit:TimeMs(one, "build", 4); toolkit:TimeMs(one, "build", 2); toolkit:TimeMs(two, "scan", 1)
+	local lines = toolkit:TimingLines(one)
+	check("timings are kept per module", #lines == 1 and lines[1]:find("runs     2", 1, true) ~= nil
+		and lines[1]:find("slowest    4.00", 1, true) ~= nil and #toolkit:TimingLines(two) == 1)
+end
+
 print(failures == 0 and "ALL LOAD ORDER CHECKS PASSED" or (failures .. " FAILED"))
 os.exit(failures == 0 and 0 or 1)

@@ -114,6 +114,13 @@ Help lists commands in Blizzard's own shape (`CHAT_HELP_TEXT_LINE*`): "/command 
 
 Settings labels and tooltips are not in this voice. They follow Blizzard's wording and capitalization ("Auto Loot", "Enable Sound").
 
+## Working build helpers
+
+The library holds the working-build helpers, so every module gets the same ones and no release runs them (owner, 2026-11-25: "that debug functionality seems really nice while testing, we won't want to ship it, so it should also live in the shared kit"). The library file is identical in every build, so a module calls them only from its own `--@debug@` block:
+
+- `lib:EnableWorkingBuild()`: turns on the game's Lua error display and prints any action the client blocked (`ADDON_ACTION_BLOCKED`, `ADDON_ACTION_FORBIDDEN`). Safe to call from several modules.
+- `lib:Time(module, name, started)` and `lib:TimeMs(module, name, ms)`: record a timing; `lib:TimingLines(module)` returns them for the module's own log.
+
 ## Options
 
 Every module's options page is built by the library from data: `lib:BuildOptions(module, db, sections)`, then `lib:RegisterCommands` and `lib:FinishModule`. A module never builds rows itself. The library ships no XML: a named template in an embedded library is defined again by every addon that embeds it, and the client warns on the second (seen in game, 2026-11-25). Its custom rows are built in Lua on Blizzard's `BackdropTemplate`. The row kinds and fields are listed above `lib:BuildOptions` in the library.
