@@ -128,7 +128,7 @@ The library holds the working-build helpers, so every module gets the same ones 
   - `lib:StartLog(module, saved, handlers)` once saved data is loaded; `handlers` are `{ [event] = function(...) }` that run while the watch is on.
   - `lib:Log(module, line)` appends a timestamped line; `lib:ShowLog(module, all)` opens it in the copy window.
   - `lib:LoggedCommand(module, action, run, details)` wraps a command with a header and shows its lines.
-  - `lib:WorkingBuildCommands(module)` returns the `watch on|off` and `log [all|clear]` entries for the module's command table.
+  - `/boltgrip watch on|off` and `/boltgrip log [all|clear]` act on every module that started a log; there is no per-module form (owner, 2026-11-25: "Go, kit commands only"). The log window shows one section per module, not merged by time. Both are listed in `/boltgrip` help only once a log has started, so release builds never show them.
   - Blocked actions are logged to the blocked addon's own log with the call stack; each session's timings are logged at logout.
 
 ## Options

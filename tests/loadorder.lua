@@ -239,6 +239,18 @@ do
 	for index = 1, 2005 do toolkit:Log(module, "line " .. index, true) end
 	check("the log keeps the newest lines, in order, per module", #saved.devLog == 2000
 		and saved.devLog[1] == "line 6" and saved.devLog[2000] == "line 2005")
+	-- Fails if /boltgrip watch misses a module that started a log, or writes one module's lines to another.
+	date = date or os.date
+	local otherSaved = {}
+	local other = { addon = "Other", title = "Other" }
+	CreateFrame = function()
+		return { RegisterEvent = function() end, SetScript = function() end, UnregisterAllEvents = function() end }
+	end
+	toolkit:StartLog(other, otherSaved)
+	SlashCmdList.BOLTGRIP("watch on")
+	CreateFrame = realCreateFrame
+	check("/boltgrip watch switches every module's own watch", saved.watch == true and otherSaved.watch == true
+		and otherSaved.devLog[#otherSaved.devLog]:find("watch on", 1, true) ~= nil and #saved.devLog == 2000)
 end
 
 print(failures == 0 and "ALL LOAD ORDER CHECKS PASSED" or (failures .. " FAILED"))
