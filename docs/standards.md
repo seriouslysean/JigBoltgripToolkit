@@ -262,6 +262,7 @@ Every module's options page is built by the library from data: `lib:BuildOptions
 - A file must still compile with the marked blocks removed; check it.
 - Commands for players reporting a problem ship in every build and are listed in the chat help only. Development commands are removed once their question is answered.
 - A development command prints one or two lines to chat and puts the detail in the log.
+- A test copy to a device is labeled by its copy time and commit: the copied TOC's version becomes `<MMDD.HHMM> <git describe --tags --always --dirty>`, the module shows the time where it shows its version, and the session log shows both. No build counter (a counter numbers copies, not code, and lives in one clone). Releases take the tag through `@project-version@`. Recipe Vacuum's `scripts/deploy-deck` is the reference (owner, 2026-11-26).
 
 ## Versions
 
