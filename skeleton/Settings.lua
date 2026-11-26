@@ -4,7 +4,7 @@ local L = ns.L
 -- One table drives the chat help and the Commands rows.
 ns.commands = {
 	{ action = "", description = L["Open the options"], run = function()
-		Settings.OpenToCategory(ns.module.category:GetID())
+		ns.toolkit:OpenOptions(ns.module) -- Settings.OpenToCategory taints the Gamepad UI (docs/standards.md, "Gamepad UI")
 	end },
 }
 
