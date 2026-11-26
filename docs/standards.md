@@ -21,7 +21,7 @@ The owner's rules; where they and anything below disagree, these win (owner, 202
 ## Game-facing principles
 
 1. Blizzard's design language, on Forever's own frames: its templates, atlases, fonts, colors, global strings, enums and APIs.
-2. Patterns established addons use, cited in a short comment. Nothing custom without a real need.
+2. Blizzard's own patterns, cited in a short comment: Blizzard's source, game data, or our own in-game tests. Other addons may be studied in research but are not named or credited in the repos (owner, 2026-11-26). Nothing custom without a real need.
 3. When standing out and matching the game pull in different directions, match the game.
 4. Simple and in one place. Data lives in tables, not in branches.
 5. Quiet: the addon says something only when it has done something for the player.
@@ -102,7 +102,7 @@ Runtime checks stay for what would break the page or the line; style is never a 
 
 # Part 3. WoW addon standards
 
-Blizzard's UI Add-On policy, Forever's own interface code and the patterns established addons use; each section cites its source.
+Blizzard's UI Add-On policy, Forever's own interface code and our own in-game tests; each section cites its source.
 
 
 
@@ -157,13 +157,13 @@ Each kind of data has one home, and none is copied into another.
 On WoW Forever with the Gamepad UI (Steam Deck), anything addon code adds into Blizzard's Settings list or menus is tainted, and Blizzard's gamepad navigation refuses to work on it. The same rule holds for every input: one way, not a gamepad-only branch (owner, 2026-11-26: "That just means no cards and stick to blizzard standard implementation with enough supplementary information").
 
 - Never write into Blizzard's lists, menus or panels from addon code. Evidence: the kit's source cards, a custom row built with `Settings.CreateElementInitializer`, could not be reached or changed with the d-pad and broke navigation of the list (seen in game, 2026-11-26); `SmartNavigation.lua` refuses an insecure target (`EnsureIsSecure`) and the client reports `ADDON_ACTION_FORBIDDEN` for `SetPreferredGamepadInteractTarget`. Enforced by: conformance.
-- No addon-owned dropdowns or menus (`Settings.CreateDropdown`, `Menu.ModifyMenu`, `MenuUtil.CreateContextMenu`, `SetupMenu`); a choice is Blizzard's slider. Evidence: opening an addon-owned Settings dropdown runs the addon's option function, then the menu takes gamepad focus and taints; Tweaks Forever reproduced it in the live client and fixed it with the standard slider (cjber/another addon PR #383). Enforced by: conformance.
-- No `ShowUIPanel`, `HideUIPanel` or `OpenWorldMap` from addon code. Show a map pin with `C_Map.SetUserWaypoint` instead. Evidence: SkillUp Forever (cjber/skillup-forever CHANGELOG, #398, #454, #460), TrainerSpells PR #9 and Macro Assist PR #311. Enforced by: conformance.
+- No addon-owned dropdowns or menus (`Settings.CreateDropdown`, `Menu.ModifyMenu`, `MenuUtil.CreateContextMenu`, `SetupMenu`); a choice is Blizzard's slider. Evidence: opening an addon-owned Settings dropdown runs the addon's option function, then the menu takes gamepad focus and taints; the kit's own source-choice dropdowns broke Settings navigation on the Steam Deck, and Blizzard's slider fixed it (2026-11-26). Enforced by: conformance.
+- No `ShowUIPanel`, `HideUIPanel` or `OpenWorldMap` from addon code. Show a map pin with `C_Map.SetUserWaypoint` instead. Evidence: Recipe Vacuum's menus and panels opened from addon code led to `ADDON_ACTION_FORBIDDEN: SetPreferredGamepadInteractTarget()` (`MainActionBarFrame.lua`, `UpdateInteractIcons`) on the Steam Deck (2026-11-26). Enforced by: conformance.
 - Our own controls are real `Button`s, so the gamepad cursor can focus and click them (same sources). Enforced by: review.
-- A decoration on a Blizzard frame lives in our own weak table keyed by that frame, and nothing is written onto Blizzard's frames. Evidence: SkillUp Forever CHANGELOG, as above. Enforced by: review.
+- A decoration on a Blizzard frame lives in our own weak table keyed by that frame, and nothing is written onto Blizzard's frames. Evidence: Recipe Vacuum's rows inserted into Blizzard's recipe list stopped the d-pad, refused in `SmartNavigation` `EnsureIsSecure` (Steam Deck, 2026-11-26). Enforced by: review.
 - Under the Gamepad UI Forever shows one window at a time: opening the character window from the gamepad radial closed Professions (seen on the Steam Deck, 2026-11-26). A panel of ours is a child of a Blizzard window, never a window of its own. Enforced by: review.
 - The options page opens through `lib:OpenOptions(module)`, never `Settings.OpenToCategory`: from addon code it runs `ShowUIPanel` tainted, so under the Gamepad UI the kit says where the page is instead, and leaves out its Open buttons (the gamepad interface is chosen before load). Enforced by: conformance.
-- A list of our own is a Blizzard `ScrollFrame` (`UIPanelScrollFrameTemplate`) with one real `Button` per row: the gamepad moves between rows that exist and scrolls the frame to reach one out of view, and a `ScrollBox` would hand our data to Blizzard's secure navigation. Evidence: Field Guide Forever's list; a pool of one screenful of relabelled rows left the d-pad stuck at the last row shown (Steam Deck, 2026-11-26). Enforced by: review.
+- A list of our own is a Blizzard `ScrollFrame` (`UIPanelScrollFrameTemplate`) with one real `Button` per row: the gamepad moves between rows that exist and scrolls the frame to reach one out of view, and a `ScrollBox` would hand our data to Blizzard's secure navigation. Evidence: a pool of one screenful of relabelled rows left the d-pad stuck at the last row shown (Steam Deck, 2026-11-26). Enforced by: review.
 - Selection works as Blizzard's lists do: a press (gamepad A or a click) selects, and what it shows stays until the next selection; moving the gamepad cursor or hovering only shows a tooltip. Nothing changes layout on focus: the d-pad has to leave a row to reach the controls its selection shows, and a layout that moves on focus moves rows under the cursor (Recipe Vacuum's panel, owner, 2026-11-26). Enforced by: review.
 - Shared findings about the client are in [client-notes.md](client-notes.md).
 
@@ -207,7 +207,7 @@ The library prints every chat line, and an addon keeps no chat formatting of its
 - Devices: Recipe Vacuum Druid, Tackletron Shaman, the sparkle tool Paladin, the buff tool Warlock. Mage is not used: it is too close to the line color.
 - A failure is a voiced line followed by the error's text on a plain line, so the text stays exact.
 
-Known limits, from a survey of 22 addons' chat output (2026-11-24): chat-copy features in other addons (another addon, another addon) strip inline textures, so the gear is missing from copied text and "Boltgrip's" carries the family there; lines printed this way get no Blizzard timestamp; they cannot be redirected to another chat frame. An icon before the name has precedent (another addon, another addon, another addon); a possessive family prefix and emote-shaped lines were found in none of them, and are this toolkit's own.
+Known limits: chat-copy features strip inline textures, so the gear is missing from copied text and "Boltgrip's" carries the family there; lines printed this way get no Blizzard timestamp; they cannot be redirected to another chat frame.
 
 Help lists commands in Blizzard's own shape (`CHAT_HELP_TEXT_LINE*`): "/command <arguments> - What it does", one short line each, help itself not listed. Rows sit under the header's text, after a blank the gear's size (Blizzard's `Interface\\Common\\spacer`), as a tooltip's lines sit under its heading. Commands are in the device's color; the description stays in the line color. Help must be clear above all: each description says exactly what happens, in plain words, and says what each argument does; no shorthand a new player would have to guess at. An entry's `usage` field holds its arguments ("on|off", "[all|clear]").
 

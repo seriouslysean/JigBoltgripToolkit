@@ -48,9 +48,8 @@ local function ShowLink(title, url)
 	lib:ShowText(title, url)
 end
 
--- Links from standard TOC fields (X-Website as other addons, X-Curse-Project-ID
--- as Can I Mog It and another addon). LaunchURL and CopyToClipboard are restricted, so a button opens the
--- copy window with the address selected, as another addon Discord link does.
+-- Links from the standard TOC fields X-Website and X-Curse-Project-ID. LaunchURL and CopyToClipboard
+-- are restricted, so a button opens the copy window with the address selected.
 local CURSEFORGE_PROJECT_URL = "https://www.curseforge.com/projects/"
 
 local function ModuleLinks(addonName)

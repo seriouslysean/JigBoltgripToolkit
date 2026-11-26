@@ -74,7 +74,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 
 ## How it was built
 
-- [ ] Prior art and the game's own way were researched and cited before designing.
+- [ ] The game's own way was researched and cited before designing (other addons may be studied, never named in the repo).
 - [ ] Design questions were talked through with the owner before anything was built.
 - [ ] Small requests got small changes, and what the owner approved was left alone.
 - [ ] The owner's part of each test was kept short: the addon collects its own data.
