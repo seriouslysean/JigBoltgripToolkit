@@ -104,6 +104,10 @@ Everything a player reads outside the voiced line: options labels, tooltips, not
 6. WoW-style plain language (owner, 2026-11-25: "wow style plain language, simple sentences"; "Your subnotes are also insanely long"): no colons or semicolons in labels, tooltips, notes, cards or command help; sentences of 16 words at most; a note 120 characters at most. Enforced by: conformance.
 5. Cards share one sentence shape in every module (rule under Options). Enforced by: runtime (`lib:SourceCards` writes the sentences).
 
+### Translations
+
+Every string a player reads is looked up through AceLocale-3.0 (Ace3), English by default, the key being the English text (owner, 2026-11-25: "English as the default ... I want the strings pulled out for localization"). Each module keeps its own `Locales/enUS.lua`; the kit registers its own strings as "JigBoltgripToolkit". An addon embeds `Libs/AceLocale-3.0` before the kit, and without it the kit's English stands. Releases ship English only for now; other languages are added as files, made with Opus against Blizzard's own translated game terms. Working-build lines stay English. Enforced by: conformance (player text written in place outside working-build blocks fails).
+
 ### Delivery
 
 The library prints every chat line, and an addon keeps no chat formatting of its own.
