@@ -18,6 +18,14 @@ Every control prints one chat line, `ControlTest: <name> = <value>`. `ADDON_ACTI
 
 Skipped: a key binding row. Binding names are declared in a `Bindings.xml`, which a module-free addon does not have.
 
+| Case: Shown predicate | Checkbox with `AddShownPredicate` reading another checkbox | reported "Interface action failed" (another addon PR #601) |
+| Case: Inserted with CreateCheckbox | Checkbox via `Settings.CreateCheckbox` | the current way |
+| Case: Inserted with RegisterInitializer | Same checkbox via `CreateCheckboxInitializer` + `Settings.RegisterInitializer` | reported fix (another addon PR #50) |
+| Case: Search tags | Checkbox with `AddSearchTags("ControlTest tag")` | reported `ADDON_ACTION_FORBIDDEN` (another addon #9) |
+| Case: Open from code | Button row and `/controltest open` call `Settings.OpenToCategory` | |
+
+The case rows come from other authors' reports and are unreproduced; measure each separately.
+
 ## Run it
 
 ```
@@ -35,6 +43,12 @@ Pass means all of: no "Interface action failed" and no `ADDON_ACTION_*` line, th
 
 Keyboard and mouse: click or drag each control. Pass means the value changes and its chat line prints.
 
+Cases:
+- Shown predicate: toggle the source checkbox off and on, with the d-pad and with the mouse. The next checkbox should hide and show, with no "Interface action failed".
+- Inserted with CreateCheckbox and with RegisterInitializer: reach and change each, then leave the page and come back.
+- Search tags: type `ControlTest tag` into the Settings search box with the mouse, and with the on-screen keyboard if there is one, then pick the result. Watch for `ADDON_ACTION_FORBIDDEN`.
+- Open from code: press "Open this page" with the panel open. Then run `/controltest open` once with the panel closed and once with it open. Watch for `ADDON_ACTION_*` lines and whether the gamepad still navigates after.
+
 ## Results
 
 | Control | Gamepad | Mouse | Notes |
@@ -46,3 +60,9 @@ Keyboard and mouse: click or drag each control. Pass means the value changes and
 | Grouped checkboxes | | | |
 | Button row | | | |
 | Checkbox and slider row | | | |
+| Case: Shown predicate | | | |
+| Case: Inserted with CreateCheckbox | | | |
+| Case: Inserted with RegisterInitializer | | | |
+| Case: Search tags | | | |
+| Case: Open from code (button) | | | |
+| Case: /controltest open (closed, open) | | | |

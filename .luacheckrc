@@ -12,4 +12,4 @@ files["tests"] = { std = "+busted", ignore = { "111", "112", "121", "122", "142"
 files["skeleton"] = { globals = { "__ADDON__DB" } }
 
 -- The throwaway control-test addon owns its saved variables.
-files["tools/ControlTest"] = { globals = { "JigBoltgripControlTestDB" } }
+files["tools/ControlTest"] = { globals = { "JigBoltgripControlTestDB", "SLASH_JBCONTROLTEST1" } }

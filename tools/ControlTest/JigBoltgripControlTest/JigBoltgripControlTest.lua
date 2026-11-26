@@ -90,6 +90,34 @@ local function Build()
 		Say("CreateSettingsCheckboxSliderInitializer is not on this client")
 	end
 
+	-- 6. Reported cases from other Forever authors, unreproduced; each is measured on its own.
+	Header("Case: Shown predicate")
+	Settings.CreateCheckbox(category, Setting("shownsource", "Shown predicate: source checkbox", Settings.VarType.Boolean, true), "The next checkbox is shown only while this is on.")
+	local shown = Settings.CreateCheckbox(category, Setting("shown", "Shown predicate: checkbox with AddShownPredicate", Settings.VarType.Boolean, false), "Hidden when the source is off.")
+	shown:AddShownPredicate(function() return db.shownsource end)
+
+	Header("Case: Inserted with CreateCheckbox")
+	Settings.CreateCheckbox(category, Setting("insertA", "Inserted with CreateCheckbox", Settings.VarType.Boolean, false), "Settings.CreateCheckbox.")
+
+	Header("Case: Inserted with RegisterInitializer")
+	local insertB = Setting("insertB", "Inserted with RegisterInitializer", Settings.VarType.Boolean, false)
+	Settings.RegisterInitializer(category, Settings.CreateCheckboxInitializer(insertB, nil, "CreateCheckboxInitializer then Settings.RegisterInitializer."))
+
+	Header("Case: Search tags")
+	local tagged = Settings.CreateCheckbox(category, Setting("tagged", "Search tags: checkbox with AddSearchTags", Settings.VarType.Boolean, false), "Search the Settings box for the tag.")
+	tagged:AddSearchTags("ControlTest tag")
+
+	Header("Case: Open from code")
+	local function OpenHere()
+		Say("Settings.OpenToCategory")
+		Settings.OpenToCategory(category:GetID())
+	end
+	layout:AddInitializer(CreateSettingsButtonInitializer("Open from code", "Open this page", OpenHere, "Calls Settings.OpenToCategory while the panel is open.", true))
+	SLASH_JBCONTROLTEST1 = "/controltest"
+	SlashCmdList.JBCONTROLTEST = function(arg)
+		if arg == "open" then OpenHere() else Say("/controltest open") end
+	end
+
 	Settings.RegisterAddOnCategory(category)
 end
 
