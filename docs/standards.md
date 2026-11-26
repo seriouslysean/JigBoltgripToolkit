@@ -15,7 +15,7 @@ The owner's rules; where they and anything below disagree, these win (owner, 202
 5. Vanilla-style quality of life. Each module does one job the game leaves undone, and looks and behaves like part of the game. Enforced by: review, quality bar.
 6. Quiet. A module speaks only when it has done something the player wants to know. Enforced by: quality bar.
 7. Plain game words, the machine voice for the one voiced line (Part 3, "Voice"). Enforced by: conformance.
-8. Controller and accessibility first: everything works from a gamepad and reads clearly. No minimap icons. Enforced by: review.
+8. Mouse and keyboard and gamepad are both first-class: every feature works fully either way, and reads clearly. No release until both are checked in game. No minimap icons. Enforced by: review and the quality bar.
 9. Documentation holds the reasons, decisions and history; code holds the reason only (Part 2, "Comments"). Enforced by: conformance.
 
 ## Game-facing principles

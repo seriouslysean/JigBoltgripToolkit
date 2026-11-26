@@ -11,6 +11,11 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 - [ ] Each pattern names the Blizzard code or established addon it follows.
 - [ ] Where standing out and matching the game pull apart, it matches the game.
 
+## Every way to play
+
+- [ ] Every feature works with mouse and keyboard, and with a gamepad, both as first-class ways to play: nothing is reachable only one way, and neither feels like an afterthought.
+- [ ] Both were checked in game before the release: mouse and keyboard on a desktop, and a gamepad (the Steam Deck).
+
 ## Does one job
 
 - [ ] It has one purpose a player can say in a sentence.
