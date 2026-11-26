@@ -65,6 +65,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 - [ ] `luac`, `luacheck` and the offline tests pass, and a stripped release build still compiles.
 - [ ] Tests run the addon's real code and each names the breakage it would catch.
 - [ ] Everything has been seen working in the game. What has not is reported as untested.
+- [ ] Every feature logs its decisions and times its per-row or per-event work in the working build, so the owner's play answers what went wrong.
 
 ## Kept in order
 
