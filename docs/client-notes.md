@@ -11,6 +11,7 @@ What WoW Forever's client does that any toolkit module can run into, as measured
 - Smart navigation focuses any `Button` or `EditBox`, and anything with an `OnMouseUp` or `OnMouseDown` script (`Utility.lua`, `SmartNavigation_CanFocusFrame`), found among a window's child frames. A plain `ScrollFrame` it scrolls with `SetVerticalScroll` only.
 - The professions window's gamepad Create press clicks `CraftingPage.CreateButton` whenever it is enabled, even while hidden (`Blizzard_ProfessionsFrame.lua`, `CanCreate`).
 - Under the Gamepad UI, Forever shows one UI window at a time. Changing the interface style reloads the UI.
+- A gamepad bar trigger held with a face button arrives as that button's own binding: RT + X as plain `PAD3`, LT + X as `SHIFT-PAD3` (LT is also the emulated Shift). `GamepadMode.OnCrossBarModifierChanged`, run by the `GAMEPADLEFTMOD`/`GAMEPADRIGHTMOD` bindings, is the hookable moment a trigger changes (Tackletron, 2026-11-26).
 - `GAME_PAD_ACTIVE_CHANGED (isActive)` fires on switching between gamepad and keyboard and mouse; working-build logs record it as `input:` lines.
 - On the Steam Deck the controller layout's key picker has no Print Screen; bind a numpad key (Num Pad \* is untouched by Num Lock) to a back button with Double Press, and WoW's Screen Shot to that key. Each WoW screenshot is logged (`SCREENSHOT_SUCCEEDED`) with the file's own time stamp.
 
