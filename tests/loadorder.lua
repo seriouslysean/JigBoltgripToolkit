@@ -23,7 +23,8 @@ local function NewClient()
 	ChatTypeInfo = { SYSTEM = { r = 1, g = 1, b = 0, id = 1 }, MONSTER_SAY = { r = 1, g = 1, b = 0.5, id = 12 } }
 	DEFAULT_CHAT_FRAME = { AddMessage = function(_, text, r, g, b) table.insert(chat, text); chat.color = { r, g, b } end }
 	RAID_CLASS_COLORS = { MAGE = { r = 0, g = 0, b = 1 } }
-	KEY_BINDING, COMBAT, SOUND = "Key Binding", "Combat", "Sound" -- Blizzard's global strings, enUS
+	KEY_BINDING, COMBAT, SOUND, FRIENDS = "Key Binding", "Combat", "Sound", "Friends" -- Blizzard's global strings, enUS
+	CONTEXT_ACTION_LABEL_OPEN = "Open"
 	function strtrim(text) return (text:gsub("^%s+", ""):gsub("%s+$", "")) end
 	C_AddOns = { GetAddOnMetadata = function(addon, field)
 		if field == "Title" then return addon .. " title" end
@@ -36,7 +37,11 @@ local function NewClient()
 		RegisterVerticalLayoutSubcategory = Category,
 		RegisterAddOnCategory = function() end,
 		OpenToCategory = function() end,
-		CreateElementInitializer = function(template, data) return { note = data.text, template = template } end,
+		CreateElementInitializer = function(template, data)
+			local row = { note = data.text, template = template }
+			function row:AddSearchTags(...) self.tags = { ... } end
+			return row
+		end,
 	}
 	function CreateSettingsListSectionHeaderInitializer(title) return { header = title } end
 	function CreateSettingsButtonInitializer(title) return { button = title } end
@@ -186,6 +191,11 @@ do
 		{ kind = "checkbox", key = "early", label = "Early", default = true },
 		{ kind = "cards", key = "late", label = "Late Sources", default = 1, values = tk:SourceCards({ what = "things" }) } } } })
 	check("a sources section starts with its cards", not cardsSecond)
+	-- Fails if options search cannot find the cards row by its label or a card's name.
+	local cardsRow
+	for _, row in ipairs(buttons) do if row.tags then cardsRow = row end end
+	check("the cards row is found by search under its label and card names", cardsRow ~= nil
+		and cardsRow.tags[1] == "Thing Sources" and cardsRow.tags[2] == "Self Found")
 	-- Fails if hand-built cards pass, or a module's choice to drop the range openings is ignored.
 	local handBuilt = pcall(tk.BuildOptions, tk, m, {}, { { heading = "Hand Sources", place = "sources", rows = {
 		{ kind = "cards", key = "hand", label = "Hand Sources", default = 1, values = { { 1, "Self Found", "", "Mine." } } } } } })
