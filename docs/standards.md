@@ -8,7 +8,7 @@ The bar an addon is checked against before a release: [quality-bar.md](quality-b
 
 The owner's rules; where they and anything below disagree, these win (owner, 2026-11-25: "the most important is simple, dry, kiss code. Working from data, documentation, and that the code looks like one person wrote it. All tests need to add value, no low value tests at all, for any reason unless there's a specific, known bug we're preventing").
 
-1. Simple, DRY, KISS. The smallest version that does the job; one place for each thing. Enforced by: review.
+1. Simple, DRY, KISS. The smallest version that does the job; one place for each thing. Duplication is a DRY violation by default; performance is the one reason to accept it (a hot path that cannot afford the call), and only after asking the owner (owner, 2026-11-25: "I also want to be really careful with duplication, sometimes it's ok, but generally it's a dry violation"; "Performance IS important though, so performance take precedence when considering those things, but definitely ask me first"). Enforced by: review.
 2. Work from data and documentation. Behavior comes from tables and the game's own data, decisions from the docs; code follows them. Enforced by: review.
 3. One author. Every file reads as if one person wrote it: one way to write each thing, enforced by tooling where it can be. Enforced by: conformance, luacheck, review.
 4. Tests only where they prevent a specific, known bug. No test for coverage, completeness or habit. Each names the bug it guards. Enforced by: review.
@@ -41,6 +41,23 @@ Lua 5.1, as the client runs. Where WoW practice and general Lua practice differ,
 ## Comments
 
 A comment gives the reason for the code: why it is this way, what it protects, which Blizzard file or established addon it follows. Never what the code does, and never history: no quotes, dates, review findings or who decided. Anything that specific goes in `docs/`, and the comment may point there. At most three lines. Debug-only blocks, third-party libraries and tests are exempt. The LuaRocks guide puts it the same way: "the implementation should be simple enough so that comments aren't needed". Enforced by: conformance.
+
+## Tests
+
+Rules for every module's tests (owner, 2026-11-25: "Rules now, then migrate"), from the community's practice for WoW addons and Lua; Blizzard publishes no testing standard.
+
+1. Test only to prevent a specific, known bug, and name it in the test.
+2. Run tests under Lua 5.1 semantics, as the client does.
+3. Use the community's test runner (busted, as other addons do), not a home-made one.
+4. Stand in for only the game calls the code makes, and check the stand-ins against the client's own API documentation so they cannot drift.
+5. Run the addon's real files; never re-implement them in a test.
+6. Assert what a player or a saved file would see, never which internal calls were made.
+7. Test the release build as well as the working build.
+8. Never let a test skip itself; a missing input fails the run.
+9. Prove each new test can fail: break the code, watch it fail, restore it.
+10. Treat offline tests as evidence, not proof; confirm in the client before calling work done.
+
+Enforced by: review, the check script (rules 2, 7, 8), conformance (stand-ins, once checked against the API docs).
 
 ## Code
 
