@@ -26,7 +26,12 @@ end
 local function Build()
 	JigBoltgripControlTestDB = JigBoltgripControlTestDB or {}
 	local db = JigBoltgripControlTestDB
-	local category, layout = Settings.RegisterVerticalLayoutCategory("Control Test")
+	-- Each case gets its own page, so a control that stops the d-pad leaves the others testable.
+	local main = Settings.RegisterVerticalLayoutCategory("Control Test")
+	local category, layout = main, nil
+	local function Page(name)
+		category, layout = Settings.RegisterVerticalLayoutSubcategory(main, name)
+	end
 
 	local function Header(name)
 		layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(name))
@@ -42,20 +47,26 @@ local function Build()
 	end
 
 	-- 1. Basic
+	Page("1 Checkboxes")
 	Header("Basic")
 	Settings.CreateCheckbox(category, Setting("check", "Checkbox", Settings.VarType.Boolean, false), "A plain checkbox.")
+	Settings.CreateCheckbox(category, Setting("check2", "Second checkbox", Settings.VarType.Boolean, false), "Another plain checkbox.")
+	Settings.CreateCheckbox(category, Setting("check3", "Third checkbox", Settings.VarType.Boolean, false), "Another plain checkbox.")
+
+	Page("2 Checkbox with child")
 
 	local parent = Settings.CreateCheckbox(category, Setting("parent", "Checkbox with child", Settings.VarType.Boolean, false), "Turns the child on.")
 	local child = Settings.CreateCheckbox(category, Setting("child", "Child checkbox", Settings.VarType.Boolean, false), "Indented under the parent.")
 	child:SetParentInitializer(parent, function() return db.parent end)
 
+	Page("3 Slider")
 	local stops = { "Off", "Low", "Medium", "High", "Max" }
 	local sliderOptions = Settings.CreateSliderOptions(1, 5, 1)
 	sliderOptions:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, function(value) return stops[value] or tostring(value) end)
 	Settings.CreateSlider(category, Setting("stops", "Slider with named stops", Settings.VarType.Number, 3), sliderOptions, "Five stops with words.")
 
 	-- 2. Dropdown
-	Header("Dropdown")
+	Page("4 Dropdown")
 	local words = { "Thank", "Bow", "Cheer", "Wave" } -- the game's emote labels are command strings, so plain words
 	local function Options()
 		local container = Settings.CreateControlTextContainer()
@@ -65,7 +76,7 @@ local function Build()
 	Settings.CreateDropdown(category, Setting("dropdown", "Dropdown", Settings.VarType.Number, 1), Options, "A static list of four.")
 
 	-- 3. Grouped choices
-	Header("Grouped choices")
+	Page("5 Grouped choices")
 	for group = 1, 3 do
 		Header("Group " .. group)
 		for n = 1, 6 do
@@ -75,7 +86,7 @@ local function Build()
 	end
 
 	-- 4. Other
-	Header("Other")
+	Page("6 Button and combined row")
 	layout:AddInitializer(CreateSettingsButtonInitializer("Button row", "Press", function() Say("Button pressed") end, "Prints a chat line.", true))
 	-- A key binding row needs a Bindings.xml entry (binding names are declared there), so it is skipped here.
 
@@ -91,11 +102,12 @@ local function Build()
 	end
 
 	-- 6. Reported cases from other Forever authors, unreproduced; each is measured on its own.
-	Header("Case: Shown predicate")
+	Page("7 Shown predicate")
 	Settings.CreateCheckbox(category, Setting("shownsource", "Shown predicate: source checkbox", Settings.VarType.Boolean, true), "The next checkbox is shown only while this is on.")
 	local shown = Settings.CreateCheckbox(category, Setting("shown", "Shown predicate: checkbox with AddShownPredicate", Settings.VarType.Boolean, false), "Hidden when the source is off.")
 	shown:AddShownPredicate(function() return db.shownsource end)
 
+	Page("8 Inserted two ways")
 	Header("Case: Inserted with CreateCheckbox")
 	Settings.CreateCheckbox(category, Setting("insertA", "Inserted with CreateCheckbox", Settings.VarType.Boolean, false), "Settings.CreateCheckbox.")
 
@@ -103,14 +115,14 @@ local function Build()
 	local insertB = Setting("insertB", "Inserted with RegisterInitializer", Settings.VarType.Boolean, false)
 	Settings.RegisterInitializer(category, Settings.CreateCheckboxInitializer(insertB, nil, "CreateCheckboxInitializer then Settings.RegisterInitializer."))
 
-	Header("Case: Search tags")
+	Page("9 Search tags")
 	local tagged = Settings.CreateCheckbox(category, Setting("tagged", "Search tags: checkbox with AddSearchTags", Settings.VarType.Boolean, false), "Search the Settings box for the tag.")
 	tagged:AddSearchTags("ControlTest tag")
 
-	Header("Case: Open from code")
+	Page("10 Open from code")
 	local function OpenHere()
 		Say("Settings.OpenToCategory")
-		Settings.OpenToCategory(category:GetID())
+		Settings.OpenToCategory(main:GetID())
 	end
 	layout:AddInitializer(CreateSettingsButtonInitializer("Open from code", "Open this page", OpenHere, "Calls Settings.OpenToCategory while the panel is open.", true))
 	SLASH_JBCONTROLTEST1 = "/controltest"
@@ -118,7 +130,7 @@ local function Build()
 		if arg == "open" then OpenHere() else Say("/controltest open") end
 	end
 
-	Settings.RegisterAddOnCategory(category)
+	Settings.RegisterAddOnCategory(main)
 end
 
 frame:SetScript("OnEvent", function(_, event, a, b)
