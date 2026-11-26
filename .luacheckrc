@@ -10,3 +10,6 @@ files["tests"] = { std = "+busted", ignore = { "111", "112", "121", "122", "142"
 
 -- The new-module skeleton names its saved variables with a placeholder that tools/new-module.sh replaces.
 files["skeleton"] = { globals = { "__ADDON__DB" } }
+
+-- The throwaway control-test addon owns its saved variables.
+files["tools/ControlTest"] = { globals = { "JigBoltgripControlTestDB" } }
