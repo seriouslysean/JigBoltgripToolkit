@@ -12,7 +12,7 @@ The owner's rules; where they and anything below disagree, these win (owner, 202
 2. Work from data and documentation. Behavior comes from tables and the game's own data, decisions from the docs; code follows them. Enforced by: review.
 3. One author. Every file reads as if one person wrote it: one way to write each thing, enforced by tooling where it can be. Enforced by: conformance, luacheck, review.
 4. Tests only where they prevent a specific, known bug. No test for coverage, completeness or habit. Each names the bug it guards. Enforced by: review.
-5. Vanilla-style quality of life. Each module does one job the game leaves undone, and looks and behaves like part of the game. Enforced by: review, quality bar.
+5. Vanilla-style quality of life. Each module does one job the game leaves undone, does it well and keeps it working, and looks and behaves like part of the game. Anything outside that job, or that doesn't fit it, is left out or becomes its own module. Enforced by: review, quality bar.
 6. Quiet. A module speaks only when it has done something the player wants to know. Enforced by: quality bar.
 7. Plain game words, the machine voice for the one voiced line (Part 3, "Voice"). Enforced by: conformance.
 8. Mouse and keyboard and gamepad are both first-class: every feature works fully either way, and reads clearly. No release until both are checked in game. Not breaking the controller is a release requirement; an extra beside a module's main feature may work by mouse and keyboard only, as long as it never gets in the controller's way; anything that gives the player information or an action they need is not an extra and must be reachable both ways (owner, 2026-11-26). No minimap icons. Enforced by: review and the quality bar.
