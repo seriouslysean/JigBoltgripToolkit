@@ -15,12 +15,12 @@ How a Jig Boltgrip's Toolkit module is translated. Releases ship English; anothe
   ```
 
 - A key left out shows in English. A new file stays out of the TOC until it has been read in game; the conformance check reads it either way.
-- The kit's own strings (card names, the friends card, "Boltgrip's %s %s.", the Commands and Links sections) are registered as `JigBoltgripToolkit` and translated the same way, in the kit.
+- The kit's own strings (source option names, the friends option, "Boltgrip's %s %s.", the Commands and Links sections) are registered as `JigBoltgripToolkit` and translated the same way, in the kit.
 - The game's client languages: deDE, esES, esMX, frFR, itIT, koKR, ptBR, ruRU, zhCN, zhTW.
 
 ## Rules
 
-1. Translate whole sentences. A module never slots a word into another sentence (the source cards take the module's own sentences), since word order, case and gender change around the slot.
+1. Translate whole sentences. A module never slots a word into another sentence (the source choices take the module's own sentences), since word order, case and gender change around the slot.
 2. Keep every format argument. `%s` and `%d` may be reordered with positions: `"Aufnahme von %2$s fertig! %1$d Rezept!"`. The conformance check fails a line that drops or adds one, and a key the English file does not have.
 3. Game terms are the game's own words in that language, never a guess. Read them by ID with the glossary tool:
 

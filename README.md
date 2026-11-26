@@ -32,8 +32,8 @@ local module = toolkit:RegisterModule(addonName, "DRUID")
 -- The whole page is data: the kit builds every row, in one order, from Blizzard's controls.
 toolkit:BuildOptions(module, savedTable, {
 	{ heading = L["Thing Sources"], place = "sources", rows = {
-		{ kind = "cards", key = "level", label = L["Thing Sources"], default = toolkit.SOURCE_LEVEL.FRIENDS,
-			values = toolkit:SourceCards({ self = L["Tracks only things you see for yourself."], friends = true,
+		{ kind = "choice", key = "level", label = L["Thing Sources"], default = toolkit.SOURCE_LEVEL.FRIENDS,
+			values = toolkit:SourceChoices({ self = L["Tracks only things you see for yourself."], friends = true,
 				public = L["Also tracks things people link in chat."] }) },
 	} },
 	{ heading = L["Things"], place = "features", rows = {

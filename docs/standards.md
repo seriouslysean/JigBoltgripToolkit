@@ -92,11 +92,11 @@ Suggested files: `Core.lua` (saved data, schema, migrations), `Voice.lua`, `Sett
 
 One checker, `tests/conformance.lua` (not a busted spec: it runs on each addon's own files), runs the rules above on each addon's own files, so a rule lands in every addon at once (owner, 2026-11-25: "lets get some rules baked in to the kit so we don't make this mistake or drift again"). It travels with the library in `Libs/JigBoltgripToolkit/tests/` together with `tests/stubs.lua`, the kit's stand-ins for every client call it makes; the addon's packaging leaves that folder out. Each addon's checks run `luajit Libs/JigBoltgripToolkit/tests/conformance.lua .`. It checks:
 
-- the addon's own files: no chat, options rows or working-build setup outside the kit (`DEFAULT_CHAT_FRAME`, `print(`, `Settings.Create*`, `CreateSettingsListSectionHeaderInitializer`, `SetCVar("scriptErrors")`); no XML; packager markers alone on their lines and in pairs;
+- the addon's own files: no chat, options rows or working-build setup outside the kit (`DEFAULT_CHAT_FRAME`, `print(`, `Settings.Create*`, `CreateSettingsListSectionHeaderInitializer`, `SetCVar("scriptErrors")`); nothing that taints the Gamepad UI ("Gamepad UI" below: `Settings.CreateDropdown`, `Settings.CreateElementInitializer`, `Menu.ModifyMenu`, `MenuUtil.CreateContextMenu`, `SetupMenu`, `ShowUIPanel`, `HideUIPanel`, `OpenWorldMap`); a row kind other than checkbox, choice, button or keybinding; no XML; packager markers alone on their lines and in pairs;
 - the embedded kit: no XML, and the same files as the toolkit checkout beside the addon when there is one;
 - `AGENTS.md`: its first `##` section is the kit's `tests/agents-opening.md`, word for word, so every module's agents read the same rules first;
 - translations: every key in a `Locales/<locale>.lua` is an English key, with the same format arguments;
-- the addon loaded on the stand-ins: headings, labels, tooltips, command descriptions, cards and voiced lines against the rules marked "Enforced by: conformance".
+- the addon loaded on the stand-ins: headings, labels, tooltips, command descriptions, source choices and voiced lines against the rules marked "Enforced by: conformance".
 
 Runtime checks stay for what would break the page or the line; style is never a load error for a player. A rule marked "Enforced by: review" has no check yet.
 
@@ -152,6 +152,17 @@ Each kind of data has one home, and none is copied into another.
 - Server requests are paced in small batches, and only for what has never been asked.
 - Ordinary play costs almost nothing: non-relevant loot is one item-class check.
 
+## Gamepad UI
+
+On WoW Forever with the Gamepad UI (Steam Deck), anything addon code adds into Blizzard's Settings list or menus is tainted, and Blizzard's gamepad navigation refuses to work on it. The same rule holds for every input: one way, not a gamepad-only branch (owner, 2026-11-26: "That just means no cards and stick to blizzard standard implementation with enough supplementary information").
+
+- Never write into Blizzard's lists, menus or panels from addon code. Evidence: the kit's source cards, a custom row built with `Settings.CreateElementInitializer`, could not be reached or changed with the d-pad and broke navigation of the list (seen in game, 2026-11-26); `SmartNavigation.lua` refuses an insecure target (`EnsureIsSecure`) and the client reports `ADDON_ACTION_FORBIDDEN` for `SetPreferredGamepadInteractTarget`. Enforced by: conformance.
+- No addon-owned dropdowns or menus (`Settings.CreateDropdown`, `Menu.ModifyMenu`, `MenuUtil.CreateContextMenu`, `SetupMenu`); a choice is Blizzard's slider. Evidence: opening an addon-owned Settings dropdown runs the addon's option function, then the menu takes gamepad focus and taints; Tweaks Forever reproduced it in the live client and fixed it with the standard slider (cjber/another addon PR #383). Enforced by: conformance.
+- No `ShowUIPanel`, `HideUIPanel` or `OpenWorldMap` from addon code. Show a map pin with `C_Map.SetUserWaypoint` instead. Evidence: SkillUp Forever (cjber/skillup-forever CHANGELOG, #398, #454, #460), TrainerSpells PR #9 and Macro Assist PR #311. Enforced by: conformance.
+- Our own controls are real `Button`s, so the gamepad cursor can focus and click them (same sources). Enforced by: review.
+- A decoration on a Blizzard frame lives in our own weak table keyed by that frame, and nothing is written onto Blizzard's frames. Evidence: SkillUp Forever CHANGELOG, as above. Enforced by: review.
+- Under the Gamepad UI Forever shows one window at a time, so a window of ours is not opened beside Blizzard's. Evidence: SkillUp Forever CHANGELOG, as above. Enforced by: review.
+
 ## Voice
 
 The toolkit's chat lines show a gnomish machine at work: the noise it makes, then its own report, the way the game's robots speak. "Boltgrip's Recipe Vacuum whirs and rattles. Intake complete! 2 recipes from Corporal Bluth!" (owner, 2026-11-25, of this line: "I like the 1 options above, can we apply that to all lines in both addons?").
@@ -164,14 +175,14 @@ The toolkit's chat lines show a gnomish machine at work: the noise it makes, the
 
 ### Plain text
 
-Everything a player reads outside the voiced line: options labels, tooltips, notes, cards, command help, window titles (owner, 2026-11-25: "specificity matters"; "please be specific, and stick to game terms, just like our bot/device language").
+Everything a player reads outside the voiced line: options labels, tooltips, notes, option descriptions, command help, window titles (owner, 2026-11-25: "specificity matters"; "please be specific, and stick to game terms, just like our bot/device language").
 
 1. Name the exact game thing: Fishing skill, lure, fishing pole, trainer, vendor, recipe, "a fish got away". Never the addon's machinery: addon, data, database, community, server, sync, export, record. Enforced by: conformance (a word list).
 2. Say the number and what it is for ("%d to cast, %d so no fish get away", not "from %d").
 3. Prefer the game's own phrases and global strings.
 4. A setting's text says exactly what changes when it is on.
-6. WoW-style plain language (owner, 2026-11-25: "wow style plain language, simple sentences"; "Your subnotes are also insanely long"): no colons or semicolons in labels, tooltips, notes, cards or command help; sentences of 16 words at most; a note 120 characters at most. Enforced by: conformance.
-5. Cards share one sentence shape in every module (rule under Options). Enforced by: runtime (`lib:SourceCards` writes the sentences).
+6. WoW-style plain language (owner, 2026-11-25: "wow style plain language, simple sentences"; "Your subnotes are also insanely long"): no colons or semicolons in labels, tooltips, notes, option descriptions or command help; sentences of 16 words at most; a note 120 characters at most. Enforced by: conformance.
+5. Source choices share one sentence shape in every module (rule under Options). Enforced by: runtime (`lib:SourceChoices` writes the sentences) and conformance.
 
 ### Translations
 
@@ -219,26 +230,25 @@ The library holds the working-build helpers, so every module gets the same ones 
 
 ## Options
 
-Every module's options page is built by the library from data: `lib:BuildOptions(module, db, sections)`, then `lib:RegisterCommands` and `lib:FinishModule`. A module never builds rows itself. The library ships no XML: a named template in an embedded library is defined again by every addon that embeds it, and the client warns on the second (seen in game, 2026-11-25). Its custom rows are built in Lua on Blizzard's `BackdropTemplate`. The row kinds and fields are listed above `lib:BuildOptions` in the library.
+Every module's options page is built by the library from data: `lib:BuildOptions(module, db, sections)`, then `lib:RegisterCommands` and `lib:FinishModule`. A module never builds rows itself. The library ships no XML: a named template in an embedded library is defined again by every addon that embeds it, and the client warns on the second (seen in game, 2026-11-25). Every row is one of Blizzard's own controls (checkbox, slider, button, key binding); the kit adds no row of its own ("Gamepad UI", Part 3). The row kinds and fields are listed below.
 
 - One order on every page (owner, 2026-11-25: "The order needs to be aligned between both addons, we need standardized language, positioning, and order"; chose "Sources first"):
-  1. Sources: the sources cards, headed "<what> Sources" ("Recipe Sources", "Fishing Sources"), with sharing under them if the module shares.
+  1. Sources: the source choice, headed "<what> Sources" ("Recipe Sources", "Fishing Sources"), with sharing under them if the module shares.
   2. The module's own features ("Personal Finds", "Lures").
   3. Sections Blizzard names, titled with its Settings page titles (`COMBAT_LABEL`, `SETTINGS_KEYBINDINGS_LABEL`, `AUDIO_LABEL`), in the order of Blizzard's own pages (`CUSTOM_GAMEPLAY_SETTINGS_ORDER`); a page not in that table comes after, in the order listed.
   4. The kit's Commands and Links (added by `lib:FinishModule`).
-  Each section declares `place = "sources" | "features" | "blizzard"`; `lib:BuildOptions` puts them in this order, Blizzard's sections among themselves in the order of its own pages, and stops with an error on a section without a place, or on a sources section that does not start with its one row of cards. Enforced by: runtime.
-- The sources cards are the kit's, words included (owner, 2026-11-25: "These words don't match how recipe vacuum works which feels like a miss"): `lib:SourceCards(spec)` gives Self Found, Friends and Public (`lib.SOURCE_LEVEL` 1, 2, 3), their icons, the "Short range." / "Medium range." / "Long range." openings and each card's sentence: "Tracks only <what> you see for yourself.", "Also tracks what your party, guild and friends find.", "Also tracks <public>.". The module passes only `what` (game terms), `friends = true` if it shares, `public` if it has a Public level, and `openings = false` to leave out the range openings (Tackletron). Enforced by: runtime (BuildOptions refuses cards not made here).
+  Each section declares `place = "sources" | "features" | "blizzard"`; `lib:BuildOptions` puts them in this order, Blizzard's sections among themselves in the order of its own pages, and stops with an error on a section without a place, or on a sources section that does not start with its one source choice. Enforced by: runtime.
+- The source choices are the kit's, words included (owner, 2026-11-25: "These words don't match how recipe vacuum works which feels like a miss"): `lib:SourceChoices(spec)` gives the values of a `choice` row: Self Found, Friends and Public (`lib.SOURCE_LEVEL` 1, 2, 3), each as `{ value, label, description }`, with the "Short range." / "Medium range." / "Long range." openings and each description's sentence: "Tracks only <what> you see for yourself.", "Also tracks what your party, guild and friends find.", "Also tracks <public>.". The module passes only `what` (game terms), `friends = true` if it shares, `public` if it has a Public level, and `openings = false` to leave out the range openings (Tackletron). Enforced by: runtime (BuildOptions refuses source choices not made here).
 - Section headings use Blizzard's own words where one exists (`SETTINGS_KEYBINDINGS_LABEL`, `COMBAT_LABEL`, `AUDIO_LABEL`); otherwise Title Case. Enforced by: conformance.
 - Labels in Title Case, as Blizzard's options are ("Auto Loot", "Enable Sound"). Enforced by: conformance.
-- A tooltip is one sentence. Anything longer goes in the row's note: gray text under it, in plain words. Enforced by: conformance.
+- A tooltip is one sentence. Anything longer goes in the row's `note`, in plain words; the kit appends it to the control's tooltip, after the option lines of a choice. A command's note goes into its Run button's tooltip, after its description. A key binding row has no tooltip, so no note. Enforced by: conformance.
 - A command's description is short (60 characters) with its arguments in `usage`. Enforced by: conformance.
-- A choice best seen side by side is a row of cards; anything else a dropdown. Enforced by: review.
-- Row kinds, in `lib:BuildOptions(module, db, sections)`, where `sections = { { heading = text, rows = { row, ... } }, ... }`. Every row may have a `note`. Saved values live in `db[key]`; the setting is named `<addon>_<key>`; it returns the settings by key.
+- A choice is a `choice` row: Blizzard's slider over the options, never a dropdown ("Gamepad UI"). The tooltip carries what the label cannot: the row's tooltip, then one line "Label: description" per option. Enforced by: conformance (row kinds).
+- Row kinds, in `lib:BuildOptions(module, db, sections)`, where `sections = { { heading = text, rows = { row, ... } }, ... }`. Every row may have a `note`, and a section a `tooltip` (shown on its heading). Saved values live in `db[key]`; the setting is named `<addon>_<key>`; it returns the settings by key.
   - `{ kind = "checkbox", key, label, tooltip, default, onChange, under = key of a checkbox it is indented under }`
-  - `{ kind = "dropdown", key, label, tooltip, default, values = { { value, label }, ... }, onChange }`
-  - `{ kind = "cards", key, label, default, values = { { value, label, icon, text }, ... }, onChange }`
+  - `{ kind = "choice", key, label, tooltip, default = a value, values = { { value, label, description }, ... }, onChange }`: the slider's value is the option's position; the module's saved value stays its own `value`, and a saved value no option has reads as the default. `onChange` gets the option's `value`.
   - `{ kind = "keybinding", binding = the Bindings.xml name }`
-- `lib:SourceCards(spec)`: `spec.self` is the module's whole sentence for the Self Found card ("Tracks only recipes you see for yourself."); `spec.friends` is true when it shares with party, guild and friends, otherwise there is no Friends card (the kit words that card); `spec.public` is the module's whole sentence for what Public adds ("Also tracks recipes people link in chat."), nil leaves out the Public card; `spec.openings = false` leaves out the range openings (owner, 2026-11-25, Tackletron: "Game terms, no range opening"). Whole sentences, not a word slotted into the kit's, because word order, case and gender change around the slot in other languages.
+- `lib:SourceChoices(spec)`: `spec.self` is the module's whole sentence for the Self Found option ("Tracks only recipes you see for yourself."); `spec.friends` is true when it shares with party, guild and friends, otherwise there is no Friends option (the kit words it); `spec.public` is the module's whole sentence for what Public adds ("Also tracks recipes people link in chat."), nil leaves out the Public option; `spec.openings = false` leaves out the range openings (owner, 2026-11-25, Tackletron: "Game terms, no range opening"). Whole sentences, not a word slotted into the kit's, because word order, case and gender change around the slot in other languages.
 - Commands: `lib:RegisterCommands` takes a table of entries, `{ action = "" | word, usage = arguments shown in help ("on|off"), description, run = function(arguments), troubleshooting = true for diagnostics }`. It drives both the chat help and the Commands rows. Troubleshooting entries ship in every build and show in chat help under their own heading, not on the settings page (as other addons). Each module answers to `/boltgrip <module>` and `/<module>`: full names, not aliases, since slash clashes resolve unpredictably (`ChatFrameUtil.lua` imports `SlashCmdList`).
 
 ## Working build

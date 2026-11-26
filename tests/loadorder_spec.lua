@@ -43,14 +43,10 @@ local function NewClient()
 		RegisterVerticalLayoutSubcategory = Category,
 		RegisterAddOnCategory = function() end,
 		OpenToCategory = function() end,
-		CreateElementInitializer = function(template, data)
-			local row = { note = data.text, template = template }
-			function row:AddSearchTags(...) self.tags = { ... } end
-			return row
-		end,
 	}
+	MinimalSliderWithSteppersMixin = { Label = { Right = 1 } }
 	function CreateSettingsListSectionHeaderInitializer(title) return { header = title } end
-	function CreateSettingsButtonInitializer(title, _, click) return { button = title, click = click } end
+	function CreateSettingsButtonInitializer(title, _, click, tooltip) return { button = title, click = click, tooltip = tooltip } end
 end
 setfenv(NewClient, G)
 
@@ -171,52 +167,55 @@ describe("load order", function()
 		assert(probe ~= nil and probe:sub(1, 2 * #SPACER) == SPACER .. SPACER, "troubleshooting commands sit one step in")
 	end)
 
-	-- Options built from data. Fails if a setting loses its derived name or saved key, a note does not
-	-- follow its row, an indented checkbox loses its parent, or a change stops reaching onChange.
-	local registered, made, changed, built, m, tk
+	-- Options built from data. Fails if a setting loses its derived name or saved key, a note leaves its
+	-- row's tooltip, an indented checkbox loses its parent, or a change stops reaching onChange.
+	local registered, made, changed, built, m, tk, optionsSaved
 	it("sections follow the toolkit's order whatever order a module lists them in", function()
 		registered, made, changed = {}, {}, nil
 		Settings.VarType = { Boolean = "boolean", Number = "number", String = "string" }
-		Settings.RegisterAddOnSetting = function(_, variable, key, _, varType, _, default)
-			local setting = { variable = variable, key = key, varType = varType, value = default }
+		-- As Blizzard's add-on setting does: the value is read from and written to the module's table.
+		Settings.RegisterAddOnSetting = function(_, variable, key, store, varType, _, default)
+			local setting = { variable = variable, key = key, varType = varType }
 			function setting:SetValueChangedCallback(fn) self.callback = fn end
-			function setting:GetValue() return self.value end
-			function setting:SetValue(value) self.value = value; if self.callback then self.callback(self, value) end end
+			function setting:GetValue() if store[key] == nil then return default end return store[key] end
+			function setting:SetValue(value) store[key] = value; if self.callback then self.callback(self, value) end end
 			registered[key] = setting
 			return setting
 		end
-		Settings.CreateCheckbox = function(_, setting)
-			local row = { checkbox = setting.key }
+		Settings.CreateCheckbox = function(_, setting, tooltip)
+			local row = { checkbox = setting.key, tooltip = tooltip }
 			function row:SetParentInitializer(parent) self.parent = parent end
 			table.insert(buttons, row); made[setting.key] = row
 			return row
 		end
-		Settings.CreateDropdown = function(_, setting, options)
-			local row = { dropdown = setting.key, options = options() }
+		Settings.CreateSliderOptions = function(minimum, maximum)
+			local options = { minimum = minimum, maximum = maximum }
+			function options:SetLabelFormatter(_, formatter) self.formatter = formatter end
+			return options
+		end
+		Settings.CreateSlider = function(_, setting, options, tooltip)
+			local row = { slider = setting.key, options = options, tooltip = tooltip }
 			table.insert(buttons, row); made[setting.key] = row
 			return row
-		end
-		Settings.CreateControlTextContainer = function()
-			local data = {}
-			return { Add = function(_, value, label) table.insert(data, { value = value, label = label }) end, GetData = function() return data end }
 		end
 		tk = LibStub("JigBoltgripToolkit-1.0")
 		m = tk:RegisterModule("Delta")
 		buttons = {}
-		local saved = {}
-		built = tk:BuildOptions(m, saved, {
+		optionsSaved = {}
+		built = tk:BuildOptions(m, optionsSaved, {
 			{ heading = "Audio", place = "blizzard", rows = {} },
 			{ heading = "Keybindings", place = "blizzard", rows = {} },
 			{ heading = "Combat", place = "blizzard", rows = {} },
 			{ heading = "Things", place = "features", rows = {
 				{ kind = "checkbox", key = "record", label = "Record Things", tooltip = "t", default = true, note = "Why." },
 				{ kind = "checkbox", key = "announce", label = "Announce Things", tooltip = "t", default = true, under = "record" },
-				{ kind = "dropdown", key = "mode", label = "Mode", tooltip = "t", default = 2,
-					values = { { 1, "One" }, { 2, "Two" } }, onChange = function(value) changed = value end },
+				{ kind = "choice", key = "mode", label = "Mode", tooltip = "t", default = 20,
+					values = { { value = 10, label = "One", description = "The first." }, { value = 20, label = "Two" },
+						{ value = 30, label = "Three" } }, onChange = function(value) changed = value end },
 			} },
 			{ heading = "Thing Sources", place = "sources", rows = {
-				{ kind = "cards", key = "level", label = "Thing Sources", default = 1,
-					values = tk:SourceCards({ self = "Tracks only things you see for yourself.", public = "Also tracks things people link in chat.", openings = false }) },
+				{ kind = "choice", key = "level", label = "Thing Sources", default = 1,
+					values = tk:SourceChoices({ self = "Tracks only things you see for yourself.", public = "Also tracks things people link in chat.", openings = false }) },
 			} },
 		})
 		-- Fails if a module's sections are not put in the toolkit's one order: sources, features, Blizzard's.
@@ -225,57 +224,57 @@ describe("load order", function()
 		assert(table.concat(headings, ",") == "Thing Sources,Things,Combat,Keybindings,Audio",
 			"sections follow the toolkit's order whatever order a module lists them in")
 	end)
-	-- Fails if a sources section may put another row above its cards.
-	it("a sources section starts with its cards", function()
-		local cardsSecond = pcall(tk.BuildOptions, tk, m, {}, { { heading = "Late Sources", place = "sources", rows = {
+	-- Fails if a sources section may put another row above its source choice.
+	it("a sources section starts with its source choice", function()
+		local choiceSecond = pcall(tk.BuildOptions, tk, m, {}, { { heading = "Late Sources", place = "sources", rows = {
 			{ kind = "checkbox", key = "early", label = "Early", default = true },
-			{ kind = "cards", key = "late", label = "Late Sources", default = 1, values = tk:SourceCards({ self = "Tracks only things you see for yourself." }) } } } })
-		assert(not cardsSecond, "a sources section starts with its cards")
+			{ kind = "choice", key = "late", label = "Late Sources", default = 1, values = tk:SourceChoices({ self = "Tracks only things you see for yourself." }) } } } })
+		assert(not choiceSecond, "a sources section starts with its source choice")
 	end)
-	-- Fails if options search cannot find the cards row by its label or a card's name.
-	it("the cards row is found by search under its label and card names", function()
-		local cardsRow
-		for _, row in ipairs(buttons) do if row.tags then cardsRow = row end end
-		assert(cardsRow ~= nil and cardsRow.tags[1] == "Thing Sources" and cardsRow.tags[2] == "Self Found",
-			"the cards row is found by search under its label and card names")
-	end)
-	-- Fails if hand-built cards pass, or a module's choice to drop the range openings is ignored.
-	it("cards come only from the kit, in one sentence shape, with or without the range openings", function()
+	-- Fails if hand-built source choices pass, or a module's choice to drop the range openings is ignored.
+	it("source choices come only from the kit, in one sentence shape, with or without the range openings", function()
 		local handBuilt = pcall(tk.BuildOptions, tk, m, {}, { { heading = "Hand Sources", place = "sources", rows = {
-			{ kind = "cards", key = "hand", label = "Hand Sources", default = 1, values = { { 1, "Self Found", "", "Mine." } } } } } })
-		local cards = tk:SourceCards({ self = "Tracks only fish you see for yourself.", openings = false })
-		local withOpenings = tk:SourceCards({ self = "Tracks only recipes you see for yourself.", friends = true,
+			{ kind = "choice", key = "hand", label = "Hand Sources", default = 1, values = { { value = 1, label = "Self Found", description = "Mine." } } } } } })
+		local choices = tk:SourceChoices({ self = "Tracks only fish you see for yourself.", openings = false })
+		local withOpenings = tk:SourceChoices({ self = "Tracks only recipes you see for yourself.", friends = true,
 			public = "Also tracks recipes people link in chat." })
 		assert(not handBuilt
-			and #cards == 1 and cards[1][4] == "Tracks only fish you see for yourself."
-			and #withOpenings == 3 and withOpenings[2][4] == "Medium range. Also tracks what your party, guild and friends find."
-			and withOpenings[3][4] == "Long range. Also tracks recipes people link in chat.",
-			"cards come only from the kit, in one sentence shape, with or without the range openings")
+			and #choices == 1 and choices[1].description == "Tracks only fish you see for yourself."
+			and #withOpenings == 3 and withOpenings[2].description == "Medium range. Also tracks what your party, guild and friends find."
+			and withOpenings[3].description == "Long range. Also tracks recipes people link in chat.",
+			"source choices come only from the kit, in one sentence shape, with or without the range openings")
 	end)
 	it("a setting is named after the addon and saved under its key", function()
 		assert(registered.record.variable == "Delta_record" and registered.record.varType == "boolean" and registered.mode.varType == "number",
 			"a setting is named after the addon and saved under its key")
 	end)
-	it("a note follows its row", function()
-		local afterRecord
-		for index, row in ipairs(buttons) do if row.checkbox == "record" then afterRecord = buttons[index + 1] end end
-		assert(afterRecord ~= nil and afterRecord.note == "Why.", "a note follows its row")
+	it("a note joins its row's tooltip", function()
+		assert(made.record.tooltip == "t\nWhy.", "a note joins its row's tooltip")
 	end)
 	it("an indented checkbox sits under its parent", function()
 		assert(made.announce.parent == made.record, "an indented checkbox sits under its parent")
 	end)
-	it("a dropdown lists its choices", function()
-		assert(#made.mode.options == 2 and made.mode.options[2].label == "Two", "a dropdown lists its choices")
+	-- Fails if a choice row stops mapping the slider's position to the module's saved value and back, or an
+	-- unknown saved value (a removed option) no longer reads as the default.
+	it("a choice row maps position to saved value both ways, and an unknown saved value reads as the default", function()
+		optionsSaved.mode = 30
+		local reads = registered.mode:GetValue()
+		registered.mode:SetValue(1)
+		local writes = optionsSaved.mode
+		optionsSaved.mode = 99
+		local unknown = registered.mode:GetValue()
+		assert(reads == 3 and writes == 10 and unknown == 2 and made.mode.options.maximum == 3,
+			"a choice row maps position to saved value both ways, and an unknown saved value reads as the default")
+		optionsSaved.mode = nil
 	end)
 	it("a change reaches the row's onChange", function()
-		built.mode:SetValue(1)
-		assert(changed == 1, "a change reaches the row's onChange")
+		built.mode:SetValue(3)
+		assert(changed == 30, "a change reaches the row's onChange")
 	end)
 
-	-- Fails if a command on the options page loses the note that explains it, or gets another row's note
-	-- (an earlier version counted any note on the page).
+	-- Fails if a command on the options page loses the note that explains it, or gets another row's note.
 	local goRow
-	it("a command's note sits under its button, and one without a note repeats nothing", function()
+	it("a command's note joins its button's tooltip, and one without a note repeats nothing", function()
 		buttons = {}
 		local epsilon = LibStub("JigBoltgripToolkit-1.0"):RegisterModule("Epsilon")
 		LibStub("JigBoltgripToolkit-1.0"):RegisterCommands(epsilon, "epsilon", {
@@ -283,13 +282,13 @@ describe("load order", function()
 			{ action = "stop", description = "Stop", run = function() end },
 		})
 		LibStub("JigBoltgripToolkit-1.0"):FinishModule(epsilon)
-		local noteAfter = {}
-		for index, row in ipairs(buttons) do
-			if row.button then noteAfter[row.button] = buttons[index + 1] and buttons[index + 1].note end
+		local tips = {}
+		for _, row in ipairs(buttons) do
+			if row.button then tips[row.button] = row.tooltip end
 			if row.button == "/epsilon go" then goRow = row end
 		end
-		assert(noteAfter["/epsilon go"] == "Goes somewhere." and noteAfter["/epsilon stop"] == nil,
-			"a command's note sits under its button, and one without a note repeats nothing")
+		assert(tips["/epsilon go"] == "Go\nGoes somewhere." and tips["/epsilon stop"] == "Stop",
+			"a command's note joins its button's tooltip, and one without a note repeats nothing")
 	end)
 	-- Fails if Run hands the command the clicked button, where typed words would go.
 	it("Run runs the command as if typed with nothing after it", function()
