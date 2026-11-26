@@ -1,12 +1,24 @@
 # Toolkit standards
 
-How every Jig Boltgrip's Toolkit addon is written. Worked out on Recipe Vacuum against WoW Forever 1.60.1 (build 71037); each rule names what it protects. A module's own `AGENTS.md` adds only what is specific to that module and links here.
+How every Jig Boltgrip's Toolkit addon is written, in three parts: the ethos first, because it decides everything else, then Lua practice, then WoW addon standards. Each rule says what enforces it: the kit at runtime, the shared conformance test, or review. A module's own `AGENTS.md` adds only what is specific to that module and links here.
 
-The bar an addon is checked against before a release: [quality-bar.md](quality-bar.md). This document is how to meet it.
+The bar an addon is checked against before a release: [quality-bar.md](quality-bar.md). Worked examples: [Recipe Vacuum](https://github.com/seriouslysean/RecipeVacuum) and Tackletron.
 
-Worked example for everything below: [Recipe Vacuum](https://github.com/seriouslysean/RecipeVacuum).
+# Part 1. Ethos
 
-## Principles
+The owner's rules; where they and anything below disagree, these win (owner, 2026-11-25: "the most important is simple, dry, kiss code. Working from data, documentation, and that the code looks like one person wrote it. All tests need to add value, no low value tests at all, for any reason unless there's a specific, known bug we're preventing").
+
+1. Simple, DRY, KISS. The smallest version that does the job; one place for each thing. Enforced by: review.
+2. Work from data and documentation. Behavior comes from tables and the game's own data, decisions from the docs; code follows them. Enforced by: review.
+3. One author. Every file reads as if one person wrote it: one way to write each thing, enforced by tooling where it can be. Enforced by: conformance, luacheck, review.
+4. Tests only where they prevent a specific, known bug. No test for coverage, completeness or habit. Each names the bug it guards. Enforced by: review.
+5. Vanilla-style quality of life. Each module does one job the game leaves undone, and looks and behaves like part of the game. Enforced by: review, quality bar.
+6. Quiet. A module speaks only when it has done something the player wants to know. Enforced by: quality bar.
+7. Plain game words, the machine voice for the one voiced line (Part 3, "Voice"). Enforced by: conformance.
+8. Controller and accessibility first: everything works from a gamepad and reads clearly. No minimap icons. Enforced by: review.
+9. Documentation holds the reasons, decisions and history; code holds the reason only (Part 2, "Comments"). Enforced by: conformance.
+
+## Game-facing principles
 
 1. Blizzard's design language, on Forever's own frames: its templates, atlases, fonts, colors, global strings, enums and APIs.
 2. Patterns established addons use, cited in a short comment. Nothing custom without a real need.
@@ -22,6 +34,14 @@ Worked example for everything below: [Recipe Vacuum](https://github.com/seriousl
 - A copied Blizzard value (a size, an anchor, a texture path) is named at the top of the file and marked with the file it came from.
 - Never imitate the game's own message formats ("says:", "whispers:", bracketed names). Fit in beside them.
 
+# Part 2. Lua
+
+Lua 5.1, as the client runs. Where WoW practice and general Lua practice differ, Blizzard's own code wins (tabs, `PascalCase` functions, `UPPER_CASE` constants); otherwise the [LuaRocks style guide](https://github.com/luarocks/lua-style-guide) (one reference among several it cites, with its reasons given).
+
+## Comments
+
+A comment gives the reason for the code: why it is this way, what it protects, which Blizzard file or established addon it follows. Never what the code does, and never history: no quotes, dates, review findings or who decided. Anything that specific goes in `docs/`, and the comment may point there. At most three lines. Debug-only blocks, third-party libraries and tests are exempt. The LuaRocks guide puts it the same way: "the implementation should be simple enough so that comments aren't needed". Enforced by: conformance.
+
 ## Code
 
 | Pattern | Rule |
@@ -36,6 +56,30 @@ Worked example for everything below: [Recipe Vacuum](https://github.com/seriousl
 | Lua | 5.1, as the client runs; `luacheck` with reads of WoW globals allowed and writes reported |
 
 Suggested files: `Core.lua` (saved data, schema, migrations), `Voice.lua`, `Settings.lua`, `Troubleshooting.lua`, feature files, `Data/` for shipped data, `tools/` for generators, `tests/`, `docs/`.
+
+## Checks
+
+- Before every commit: `luac -p` on each file, `luacheck .`, and the offline tests.
+- Tests run the addon's real code, against a real saved-variables file and, where the interface matters, against Blizzard's real UI code from the source mirror.
+- A test stand-in must not share a value with the code under test. A stand-in color defined equal to the constant it was compared with hid a bug here until it was seen in game.
+- A test exists only to prevent a specific, known bug, and names it (Part 1, rule 4). A test that guards nothing known is removed.
+- Offline tests do not replace the game. Work not yet seen in the client is reported as untested in game.
+
+## Conformance
+
+One test, `tests/conformance.lua`, runs the rules above on each addon's own files, so a rule lands in every addon at once (owner, 2026-11-25: "lets get some rules baked in to the kit so we don't make this mistake or drift again"). It travels with the library in `Libs/JigBoltgripToolkit/tests/` together with `tests/stubs.lua`, the kit's stand-ins for every client call it makes; the addon's packaging leaves that folder out. Each addon's checks run `luajit Libs/JigBoltgripToolkit/tests/conformance.lua .`. It checks:
+
+- the addon's own files: no chat, options rows or working-build setup outside the kit (`DEFAULT_CHAT_FRAME`, `print(`, `Settings.Create*`, `CreateSettingsListSectionHeaderInitializer`, `SetCVar("scriptErrors")`); no XML; packager markers alone on their lines and in pairs;
+- the embedded kit: no XML, and the same files as the toolkit checkout beside the addon when there is one;
+- the addon loaded on the stand-ins: headings, labels, tooltips, command descriptions, cards and voiced lines against the rules marked "Enforced by: conformance".
+
+Runtime checks stay for what would break the page or the line; style is never a load error for a player. A rule marked "Enforced by: review" has no check yet.
+
+# Part 3. WoW addon standards
+
+Blizzard's UI Add-On policy, Forever's own interface code and the patterns established addons use; each section cites its source.
+
+
 
 ## IDs, never text
 
@@ -171,24 +215,6 @@ Every module's options page is built by the library from data: `lib:BuildOptions
 - A file must still compile with the marked blocks removed; check it.
 - Commands for players reporting a problem ship in every build and are listed in the chat help only. Development commands are removed once their question is answered.
 - A development command prints one or two lines to chat and puts the detail in the log.
-
-## Checks
-
-- Before every commit: `luac -p` on each file, `luacheck .`, and the offline tests.
-- Tests run the addon's real code, against a real saved-variables file and, where the interface matters, against Blizzard's real UI code from the source mirror.
-- A test stand-in must not share a value with the code under test. A stand-in color defined equal to the constant it was compared with hid a bug here until it was seen in game.
-- Each test names the regression it fails on.
-- Offline tests do not replace the game. Work not yet seen in the client is reported as untested in game.
-
-## Conformance
-
-One test, `tests/conformance.lua`, runs the rules above on each addon's own files, so a rule lands in every addon at once (owner, 2026-11-25: "lets get some rules baked in to the kit so we don't make this mistake or drift again"). It travels with the library in `Libs/JigBoltgripToolkit/tests/` together with `tests/stubs.lua`, the kit's stand-ins for every client call it makes; the addon's packaging leaves that folder out. Each addon's checks run `luajit Libs/JigBoltgripToolkit/tests/conformance.lua .`. It checks:
-
-- the addon's own files: no chat, options rows or working-build setup outside the kit (`DEFAULT_CHAT_FRAME`, `print(`, `Settings.Create*`, `CreateSettingsListSectionHeaderInitializer`, `SetCVar("scriptErrors")`); no XML; packager markers alone on their lines and in pairs;
-- the embedded kit: no XML, and the same files as the toolkit checkout beside the addon when there is one;
-- the addon loaded on the stand-ins: headings, labels, tooltips, command descriptions, cards and voiced lines against the rules marked "Enforced by: conformance".
-
-Runtime checks stay for what would break the page or the line; style is never a load error for a player. A rule marked "Enforced by: review" has no check yet.
 
 ## Versions
 
