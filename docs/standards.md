@@ -265,6 +265,11 @@ Every module's options page is built by the library from data: `lib:BuildOptions
 - A test copy to a device is labeled by its copy time and commit: the copied TOC's version becomes `<MMDD.HHMM> <git describe --tags --always --dirty>`, the module shows the time where it shows its version, and the session log shows both. No build counter (a counter numbers copies, not code, and lives in one clone). Releases take the tag through `@project-version@`. Every module's `scripts/deploy-deck` is the skeleton's one line, calling the kit's shared `tests/deploy-deck.sh`. Enforced by: conformance.
 - A working build starts its log through one hook, `ns.StartWorkingLog`, defined in the module's debug-only `Troubleshooting.lua` and called by the skeleton's `Core.lua` after `ns.InitSettings` (owner, 2026-11-26: "we need to be perfect considering we're sharing a grouping"). Enforced by: review.
 
+## Game settings
+
+- A module changes a game setting only as a temporary value (`C_CVar.SetTempCVar`), never a saved one, so removing the addon leaves the player's settings as they were.
+- A temporary value has one holder in the game, shared with every addon: another addon's `RemoveTempCVar` clears ours. So a module only ever asks for a setting on (never forces one off, which would fight any addon that wants it on), puts its value back when it sees it reverted while it still needs it, and removes it only once it no longer does. There is no shared holder in the kit (owner, 2026-11-26: "Sounds good, handle them").
+
 ## Versions
 
 The kit follows LibStub's versioning, as Ace3 does: the major is in the name (`JigBoltgripToolkit-1.0`) and promises compatible calls; `MINOR` rises with every change, and LibStub keeps the highest copy any addon embeds. So an older addon can run on a newer kit. From the first released addon on, a call under `-1.0` is never removed and never changes what it takes or returns; new behavior is a new call. A change that cannot keep that becomes `JigBoltgripToolkit-2.0`, which loads beside 1.0. Enforced by: review (before that release, calls changed freely; versions 19 to 29 were never released).
