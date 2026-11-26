@@ -33,7 +33,8 @@ local module = toolkit:RegisterModule(addonName, "DRUID")
 toolkit:BuildOptions(module, savedTable, {
 	{ heading = L["Thing Sources"], place = "sources", rows = {
 		{ kind = "cards", key = "level", label = L["Thing Sources"], default = toolkit.SOURCE_LEVEL.FRIENDS,
-			values = toolkit:SourceCards({ what = L["things"], friends = true, public = L["things people link in chat"] }) },
+			values = toolkit:SourceCards({ self = L["Tracks only things you see for yourself."], friends = true,
+				public = L["Also tracks things people link in chat."] }) },
 	} },
 	{ heading = L["Things"], place = "features", rows = {
 		{ kind = "checkbox", key = "record", label = L["Record Things"], default = true, tooltip = L["Remembers the things you see."] },
@@ -46,6 +47,10 @@ toolkit:FinishModule(module)
 ```
 
 Rows are never added by hand: the conformance check rejects it. Row kinds, fields and the section order are in [docs/standards.md](docs/standards.md), "Options". A command entry is `{ action, description, note, run, troubleshooting }`; entries marked `troubleshooting = true` show in the chat help only.
+
+## Translations
+
+How a module is translated, and the tool that reads the game's own translated terms: [docs/translations.md](docs/translations.md).
 
 ## Versions
 

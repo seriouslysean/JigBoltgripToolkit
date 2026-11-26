@@ -215,7 +215,7 @@ describe("load order", function()
 			} },
 			{ heading = "Thing Sources", place = "sources", rows = {
 				{ kind = "cards", key = "level", label = "Thing Sources", default = 1,
-					values = tk:SourceCards({ what = "things", public = "things people link in chat", openings = false }) },
+					values = tk:SourceCards({ self = "Tracks only things you see for yourself.", public = "Also tracks things people link in chat.", openings = false }) },
 			} },
 		})
 		-- Fails if a module's sections are not put in the toolkit's one order: sources, features, Blizzard's.
@@ -228,7 +228,7 @@ describe("load order", function()
 	it("a sources section starts with its cards", function()
 		local cardsSecond = pcall(tk.BuildOptions, tk, m, {}, { { heading = "Late Sources", place = "sources", rows = {
 			{ kind = "checkbox", key = "early", label = "Early", default = true },
-			{ kind = "cards", key = "late", label = "Late Sources", default = 1, values = tk:SourceCards({ what = "things" }) } } } })
+			{ kind = "cards", key = "late", label = "Late Sources", default = 1, values = tk:SourceCards({ self = "Tracks only things you see for yourself." }) } } } })
 		assert(not cardsSecond, "a sources section starts with its cards")
 	end)
 	-- Fails if options search cannot find the cards row by its label or a card's name.
@@ -242,8 +242,9 @@ describe("load order", function()
 	it("cards come only from the kit, in one sentence shape, with or without the range openings", function()
 		local handBuilt = pcall(tk.BuildOptions, tk, m, {}, { { heading = "Hand Sources", place = "sources", rows = {
 			{ kind = "cards", key = "hand", label = "Hand Sources", default = 1, values = { { 1, "Self Found", "", "Mine." } } } } } })
-		local cards = tk:SourceCards({ what = "fish", openings = false })
-		local withOpenings = tk:SourceCards({ what = "recipes", friends = true, public = "recipes people link in chat" })
+		local cards = tk:SourceCards({ self = "Tracks only fish you see for yourself.", openings = false })
+		local withOpenings = tk:SourceCards({ self = "Tracks only recipes you see for yourself.", friends = true,
+			public = "Also tracks recipes people link in chat." })
 		assert(not handBuilt
 			and #cards == 1 and cards[1][4] == "Tracks only fish you see for yourself."
 			and #withOpenings == 3 and withOpenings[2][4] == "Medium range. Also tracks what your party, guild and friends find."
