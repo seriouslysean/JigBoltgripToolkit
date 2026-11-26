@@ -26,6 +26,7 @@ The owner's rules; where they and anything below disagree, these win (owner, 202
 4. Simple and in one place. Data lives in tables, not in branches.
 5. Quiet: the addon says something only when it has done something for the player.
 6. Claims are backed by data from the game, not by reading the code.
+7. Self-found and friends first. A module enhances the game with what the player and their friends find; data from public sources (included tables, outside databases) is opt-in, never the default. The source choice defaults to Friends where the module shares, else Self Found. The suite reads as Jig Boltgrip building what he finds useful for himself and others (owner, 2026-11-26: "Opt in only for public data sources"). Enforced by: review.
 
 ## Look before designing
 
