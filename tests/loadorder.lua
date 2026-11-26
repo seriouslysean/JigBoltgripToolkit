@@ -13,7 +13,7 @@ local function check(name, ok)
 end
 
 -- A fresh client: globals the library reads, and a record of what it shows the player.
-local chat, buttons
+local chat, buttons, epsilonText
 local function NewClient()
 	chat, buttons = {}, {}
 	LibStub = nil
@@ -23,7 +23,9 @@ local function NewClient()
 	ChatTypeInfo = { SYSTEM = { r = 1, g = 1, b = 0, id = 1 }, MONSTER_SAY = { r = 1, g = 1, b = 0.5, id = 12 } }
 	DEFAULT_CHAT_FRAME = { AddMessage = function(_, text, r, g, b) table.insert(chat, text); chat.color = { r, g, b } end }
 	RAID_CLASS_COLORS = { MAGE = { r = 0, g = 0, b = 1 } }
-	KEY_BINDING, COMBAT, SOUND, FRIENDS = "Key Binding", "Combat", "Sound", "Friends" -- Blizzard's global strings, enUS
+	FRIENDS = "Friends" -- Blizzard's global string, enUS
+	-- Blizzard's Settings page order (GameplaySettingsGroup.lua), enUS titles.
+	CUSTOM_GAMEPLAY_SETTINGS_ORDER = { ["Combat"] = 10, ["Keybindings"] = 14 }
 	CONTEXT_ACTION_LABEL_OPEN = "Open"
 	function strtrim(text) return (text:gsub("^%s+", ""):gsub("%s+$", "")) end
 	C_AddOns = { GetAddOnMetadata = function(addon, field)
@@ -44,7 +46,7 @@ local function NewClient()
 		end,
 	}
 	function CreateSettingsListSectionHeaderInitializer(title) return { header = title } end
-	function CreateSettingsButtonInitializer(title) return { button = title } end
+	function CreateSettingsButtonInitializer(title, _, click) return { button = title, click = click } end
 end
 
 -- Loads the library as a copy with the given MINOR.
@@ -168,8 +170,9 @@ do
 	buttons = {}
 	local saved = {}
 	local built = tk:BuildOptions(m, saved, {
-		{ heading = "Sound", place = "blizzard", rows = {} },
-		{ heading = "Key Binding", place = "blizzard", rows = {} },
+		{ heading = "Audio", place = "blizzard", rows = {} },
+		{ heading = "Keybindings", place = "blizzard", rows = {} },
+		{ heading = "Combat", place = "blizzard", rows = {} },
 		{ heading = "Things", place = "features", rows = {
 			{ kind = "checkbox", key = "record", label = "Record Things", tooltip = "t", default = true, note = "Why." },
 			{ kind = "checkbox", key = "announce", label = "Announce Things", tooltip = "t", default = true, under = "record" },
@@ -185,7 +188,7 @@ do
 	local headings = {}
 	for _, row in ipairs(buttons) do if row.header then headings[#headings + 1] = row.header end end
 	check("sections follow the toolkit's order whatever order a module lists them in",
-		table.concat(headings, ",") == "Thing Sources,Things,Key Binding,Sound")
+		table.concat(headings, ",") == "Thing Sources,Things,Combat,Keybindings,Audio")
 	-- Fails if a sources section may put another row above its cards.
 	local cardsSecond = pcall(tk.BuildOptions, tk, m, {}, { { heading = "Late Sources", place = "sources", rows = {
 		{ kind = "checkbox", key = "early", label = "Early", default = true },
@@ -222,17 +225,23 @@ do
 	buttons = {}
 	local epsilon = LibStub("JigBoltgripToolkit-1.0"):RegisterModule("Epsilon")
 	LibStub("JigBoltgripToolkit-1.0"):RegisterCommands(epsilon, "epsilon", {
-		{ action = "go", description = "Go", note = "Goes somewhere.", run = function() end },
+		{ action = "go", description = "Go", note = "Goes somewhere.", run = function(text) epsilonText = text end },
 		{ action = "stop", description = "Stop", run = function() end },
 	})
 	LibStub("JigBoltgripToolkit-1.0"):FinishModule(epsilon)
-	local noteAfter = {}
+	local noteAfter, goRow = {}, nil
 	for index, row in ipairs(buttons) do
 		if row.button then noteAfter[row.button] = buttons[index + 1] and buttons[index + 1].note end
+		if row.button == "/epsilon go" then goRow = row end
 	end
-	check("each command on the options page has its own note under it", noteAfter["/epsilon go"] == "Goes somewhere."
-		and noteAfter["/epsilon stop"] == "Stop")
+	check("a command's note sits under its button, and one without a note repeats nothing",
+		noteAfter["/epsilon go"] == "Goes somewhere." and noteAfter["/epsilon stop"] == nil)
+	-- Fails if Run hands the command the clicked button, where typed words would go.
+	goRow.click({ IsObjectType = function() return true end }, "LeftButton", false)
+	check("Run runs the command as if typed with nothing after it", epsilonText == "")
 end
+chat = {}
+LibStub("JigBoltgripToolkit-1.0"):Dispatch("alpha", "nonsense")
 check("help rows sit under the header text", chat[2] ~= nil and chat[2]:sub(1, #"|TInterface\\Common\\spacer") == "|TInterface\\Common\\spacer")
 
 -- Chat: one shape for the whole family. Fails if the mark or the shared word goes missing, the device
@@ -337,6 +346,13 @@ do
 	toolkit:LogAll("nor this")
 	check("a working build logs from the start, and a paused log takes no trace or shared context",
 		traced and #freshSaved.devLog == count and freshSaved.watch == false and not toolkit:IsLogging(fresh))
+	-- Fails if a load with the watch left off still writes its session lines.
+	toolkit:StartLog(fresh, freshSaved)
+	check("a paused log stays as it is across a reload", #freshSaved.devLog == count)
+	-- Fails if a mistyped watch word is read as off.
+	SlashCmdList.BOLTGRIP("watch on")
+	SlashCmdList.BOLTGRIP("watch onn")
+	check("a mistyped watch word changes nothing", freshSaved.watch == true)
 end
 
 -- Fails if the library holds a packager token, even in a comment: the packager turns "--@debug@" into the

@@ -1,0 +1,8 @@
+package-as: JigBoltgripToolkit
+
+# Repository-only files. Dotfiles are left out by the packager on its own.
+ignore:
+  - AGENTS.md
+  - CLAUDE.md
+  - docs
+  - tests

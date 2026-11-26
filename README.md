@@ -27,15 +27,25 @@ Set `## Category: Jig Boltgrip's Toolkit` in the TOC. Then, once saved variables
 
 ```lua
 local toolkit = LibStub("JigBoltgripToolkit-1.0")
-local module = toolkit:RegisterModule(addonName)
--- add rows to module.category and module.layout with Blizzard's Settings functions
+-- The class (a RAID_CLASS_COLORS key) colors the module's name in chat.
+local module = toolkit:RegisterModule(addonName, "DRUID")
+-- The whole page is data: the kit builds every row, in one order, from Blizzard's controls.
+toolkit:BuildOptions(module, savedTable, {
+	{ heading = L["Thing Sources"], place = "sources", rows = {
+		{ kind = "cards", key = "level", label = L["Thing Sources"], default = toolkit.SOURCE_LEVEL.FRIENDS,
+			values = toolkit:SourceCards({ what = L["things"], friends = true, public = L["things people link in chat"] }) },
+	} },
+	{ heading = L["Things"], place = "features", rows = {
+		{ kind = "checkbox", key = "record", label = L["Record Things"], default = true, tooltip = L["Remembers the things you see."] },
+	} },
+})
 toolkit:RegisterCommands(module, "mymodule", {
-	{ action = "", description = "Open the options", run = function() end },
+	{ action = "", description = L["Open the options"], run = function() end },
 })
 toolkit:FinishModule(module)
 ```
 
-A command entry is `{ action, description, run, troubleshooting }`. Entries marked `troubleshooting = true` show in the chat help only.
+Rows are never added by hand: the conformance check rejects it. Row kinds, fields and the section order are in [docs/standards.md](docs/standards.md), "Options". A command entry is `{ action, description, note, run, troubleshooting }`; entries marked `troubleshooting = true` show in the chat help only.
 
 ## Versions
 
@@ -48,6 +58,8 @@ luac -p JigBoltgripToolkit.lua
 luacheck .
 luajit tests/loadorder.lua JigBoltgripToolkit.lua <path to LibStub.lua>
 ```
+
+Each module also runs the kit's conformance check on its own files, from its embedded copy: `luajit Libs/JigBoltgripToolkit/tests/conformance.lua .`
 
 ## License
 
