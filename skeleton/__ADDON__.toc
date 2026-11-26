@@ -1,0 +1,16 @@
+## Interface: 16001
+## Title: __TITLE__
+## Notes: __NOTES__
+## Category: Jig Boltgrip's Toolkit
+## Author: Jig Boltgrip
+## Version: @project-version@
+## X-License: GPL-3.0
+## SavedVariables: __ADDON__DB
+
+Libs\LibStub\LibStub.lua
+Libs\AceLocale-3.0\AceLocale-3.0.lua
+Libs\JigBoltgripToolkit\JigBoltgripToolkit.lua
+
+Locales\enUS.lua
+Core.lua
+Settings.lua

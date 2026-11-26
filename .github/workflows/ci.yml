@@ -1,0 +1,14 @@
+# The library's own checks: scripts/check, through the same pinned-tools workflow every module calls.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    uses: ./.github/workflows/module-ci.yml

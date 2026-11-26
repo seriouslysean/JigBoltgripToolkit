@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Every check, in one command; the pre-push hook and CI run it. The steps are the toolkit's shared
+# module check; export here anything this module's specs read.
+set -euo pipefail
+exec Libs/JigBoltgripToolkit/tests/module-check.sh

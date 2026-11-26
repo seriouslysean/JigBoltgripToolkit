@@ -77,7 +77,10 @@ Suggested files: `Core.lua` (saved data, schema, migrations), `Voice.lua`, `Sett
 
 ## Checks
 
-- Before every commit: `luac -p` on each file, `luacheck .`, and the offline specs (`busted`, run from the repository root; this repository's `loadorder_spec.lua` also needs `JBT_LIBSTUB=<path to LibStub.lua>`).
+- One command, `scripts/check`, runs every check; the pre-push hook (`.githooks/pre-push`, copied byte for byte from splitleafhq/.github) runs it before every push, and CI runs it on every pull request and push to `main`. Turn the hook on once per clone with `git config core.hooksPath .githooks`; never skip it.
+- A module's `scripts/check` exports what its specs read and runs the kit's shared steps, `Libs/JigBoltgripToolkit/tests/module-check.sh`: Lua 5.1 syntax, ShellCheck and shfmt on `scripts/check`, luacheck, conformance, the release build with debug blocks removed, and the specs on the source and on that release build. Each step prints one `ok` or `FAIL` line with its seconds; a failure shows its output and fails the run. Inputs a spec needs (Blizzard's UI source at a pinned commit, a saved file) are provisioned by `scripts/check` or kept as made-up fixtures in `tests/fixtures`, so no spec ever skips.
+- A module's `.github/workflows/ci.yml`, named `CI`, has one job, `test`, which calls the kit's `.github/workflows/module-ci.yml` at a pinned commit; that workflow installs the pinned tools (Lua 5.1, LuaJIT, luacheck 1.2.0, busted 2.3.0, ShellCheck 0.11.0, shfmt 3.14.1) and runs `scripts/check`. A change to a workflow is run with act on the local Podman before it is pushed.
+- A new module starts from `tools/new-module.sh` in the kit, which copies `skeleton/` (the smallest module that passes every check), embeds the kit, LibStub and AceLocale, turns the hook on and runs the check.
 - Specs are `tests/*_spec.lua`, found by the `.busted` file in the repository root. Inputs the specs need (a UI source checkout, a saved file) come in as environment variables, not fixed paths. The client's globals are set on the real global table (busted gives each spec function its own environment, which the loaded addon files cannot see), so a spec wraps its `it` and `setup` functions to run there.
 - `luacheck` lints `tests/` with busted's globals (`std = "+busted"`).
 - Tests run the addon's real code, against a real saved-variables file and, where the interface matters, against Blizzard's real UI code from the source mirror.
@@ -91,6 +94,8 @@ One checker, `tests/conformance.lua` (not a busted spec: it runs on each addon's
 
 - the addon's own files: no chat, options rows or working-build setup outside the kit (`DEFAULT_CHAT_FRAME`, `print(`, `Settings.Create*`, `CreateSettingsListSectionHeaderInitializer`, `SetCVar("scriptErrors")`); no XML; packager markers alone on their lines and in pairs;
 - the embedded kit: no XML, and the same files as the toolkit checkout beside the addon when there is one;
+- `AGENTS.md`: its first `##` section is the kit's `tests/agents-opening.md`, word for word, so every module's agents read the same rules first;
+- translations: every key in a `Locales/<locale>.lua` is an English key, with the same format arguments;
 - the addon loaded on the stand-ins: headings, labels, tooltips, command descriptions, cards and voiced lines against the rules marked "Enforced by: conformance".
 
 Runtime checks stay for what would break the page or the line; style is never a load error for a player. A rule marked "Enforced by: review" has no check yet.
@@ -249,8 +254,8 @@ The kit follows LibStub's versioning, as Ace3 does: the major is in the name (`J
 
 ## Repository
 
-- `README.md`, `AGENTS.md` (rules, file layout, a table of the docs), a one-line `CLAUDE.md`, `LICENSE` (GPL-3.0), `.pkgmeta`, `.luacheckrc` at the root; every other document in lowercase `docs/`.
+- `README.md`, `AGENTS.md` (the kit's opening, then rules, file layout, a table of the docs), a one-line `CLAUDE.md`, `LICENSE` (GPL-3.0), `.pkgmeta`, `.luacheckrc`, `.busted`, `scripts/check`, `.githooks/pre-push` and `.github/workflows/ci.yml` at the root; every other document in lowercase `docs/`.
 - Typical docs: `data.md`, `client-notes.md` (what the client does, as measured), `voice.md`, `development.md`.
 - Working notes and decision logs are never committed. Keep them out through `.git/info/exclude`, and list the tracked files before a first push.
-- `.pkgmeta` excludes everything that is not the addon: `AGENTS.md`, `CLAUDE.md`, `docs`, `tests`, `tools`.
+- `.pkgmeta` excludes everything that is not the addon: `AGENTS.md`, `CLAUDE.md`, `docs`, `scripts`, `tests`, `tools`, `Libs/JigBoltgripToolkit/tests`.
 - The toolkit library is embedded unchanged in every module. Any change raises its `MINOR`, and every module takes the identical file.

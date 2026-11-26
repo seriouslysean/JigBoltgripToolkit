@@ -58,15 +58,9 @@ Every module carries its own copy, and LibStub keeps the newest one loaded. Any 
 
 ## Checks
 
-The specs in `tests/*_spec.lua` run on [busted](https://lunarmodules.github.io/busted/) under LuaJIT (`luarocks --lua-version 5.1 install busted`). `.busted` sets the folder and the file pattern.
+`scripts/check` runs every check: Lua 5.1 syntax, ShellCheck and shfmt, luacheck, the comment rule on the library, and the specs (busted). The pre-push hook and CI run it too; turn the hook on once per clone with `git config core.hooksPath .githooks`.
 
-```sh
-luac -p JigBoltgripToolkit.lua
-luacheck .
-JBT_LIBSTUB=<path to LibStub.lua> busted
-```
-
-Each module also runs the kit's conformance check on its own files, from its embedded copy: `luajit Libs/JigBoltgripToolkit/tests/conformance.lua .`
+Each module runs the kit's shared check from its embedded copy, `Libs/JigBoltgripToolkit/tests/module-check.sh`, through its own `scripts/check`, and its CI calls the shared workflow `.github/workflows/module-ci.yml` at a pinned commit. A new module starts from `skeleton/` (see below).
 
 ## License
 

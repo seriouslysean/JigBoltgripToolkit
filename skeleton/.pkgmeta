@@ -1,0 +1,10 @@
+package-as: __ADDON__
+
+# Repository-only files. Dotfiles are left out by the packager on its own.
+ignore:
+  - AGENTS.md
+  - CLAUDE.md
+  - docs
+  - scripts
+  - tests
+  - Libs/JigBoltgripToolkit/tests

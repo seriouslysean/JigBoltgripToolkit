@@ -1,10 +1,11 @@
 -- Offline specs: the real library file loaded more than once through the real LibStub, as happens
 -- when two addons embed copies. Client functions are stubs.
--- JBT_LIBSTUB=<path to LibStub.lua> busted        (JBT_LIBRARY defaults to JigBoltgripToolkit.lua)
+-- busted        (JBT_LIBRARY defaults to JigBoltgripToolkit.lua, JBT_LIBSTUB to tests/LibStub.lua)
 -- The specs build one client step by step, so `it` blocks run in file order and later ones read what
 -- earlier ones set up.
 local LIBRARY = os.getenv("JBT_LIBRARY") or "JigBoltgripToolkit.lua"
-local LIBSTUB = assert(os.getenv("JBT_LIBSTUB"), "JBT_LIBSTUB: path to LibStub.lua")
+-- LibStub (public domain) is kept in tests/ so the library's checks need nothing beside it.
+local LIBSTUB = os.getenv("JBT_LIBSTUB") or "tests/LibStub.lua"
 
 local source, CURRENT, toolkit, ran
 
