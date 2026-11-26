@@ -48,6 +48,7 @@ A comment gives the reason for the code: why it is this way, what it protects, w
 |---|---|
 | Namespace | `local addonName, ns = ...`; nothing global but saved variables, slash commands and frames the game must find by name (a key binding's click target, a window closed by Escape), all listed in `.luacheckrc` |
 | Constants | No number or path inline: name it at the top of the file |
+| Names written once | `Core.lua` looks the libraries up once and keeps them on the namespace (`ns.toolkit`, `ns.L`); locale tables are named by the addon's name from the TOC (`local addonName = ...`), never a string. A string that is a contract (a message prefix, an export format) is a named constant. Enforced by: conformance |
 | Hooks | After Blizzard's code only: `hooksecurefunc`, `Menu.ModifyMenu`, `ScrollUtil.AddInitializedFrameCallback` |
 | State on Blizzard frames | In a weak-keyed side table, never as fields on their frames |
 | Settings and commands | Through the toolkit library: `RegisterModule`, `RegisterCommands`, `FinishModule`; one command table drives chat help and the settings rows |
