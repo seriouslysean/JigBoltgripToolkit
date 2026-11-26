@@ -6,4 +6,4 @@ max_line_length = false
 ignore = { "113", "21./self", "212" }
 
 -- The offline test stands in for the client, so it defines its globals on purpose.
-files["tests"] = { ignore = { "111", "112", "121", "122", "142", "143", "211" } }
+files["tests"] = { std = "+busted", ignore = { "111", "112", "121", "122", "142", "143", "211" } }

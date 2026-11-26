@@ -53,10 +53,12 @@ Every module carries its own copy, and LibStub keeps the newest one loaded. Any 
 
 ## Checks
 
+The specs in `tests/*_spec.lua` run on [busted](https://lunarmodules.github.io/busted/) under LuaJIT (`luarocks --lua-version 5.1 install busted`). `.busted` sets the folder and the file pattern.
+
 ```sh
 luac -p JigBoltgripToolkit.lua
 luacheck .
-luajit tests/loadorder.lua JigBoltgripToolkit.lua <path to LibStub.lua>
+JBT_LIBSTUB=<path to LibStub.lua> busted
 ```
 
 Each module also runs the kit's conformance check on its own files, from its embedded copy: `luajit Libs/JigBoltgripToolkit/tests/conformance.lua .`

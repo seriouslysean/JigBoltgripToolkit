@@ -77,7 +77,9 @@ Suggested files: `Core.lua` (saved data, schema, migrations), `Voice.lua`, `Sett
 
 ## Checks
 
-- Before every commit: `luac -p` on each file, `luacheck .`, and the offline tests.
+- Before every commit: `luac -p` on each file, `luacheck .`, and the offline specs (`busted`, run from the repository root; this repository's `loadorder_spec.lua` also needs `JBT_LIBSTUB=<path to LibStub.lua>`).
+- Specs are `tests/*_spec.lua`, found by the `.busted` file in the repository root. Inputs the specs need (a UI source checkout, a saved file) come in as environment variables, not fixed paths. The client's globals are set on the real global table (busted gives each spec function its own environment, which the loaded addon files cannot see), so a spec wraps its `it` and `setup` functions to run there.
+- `luacheck` lints `tests/` with busted's globals (`std = "+busted"`).
 - Tests run the addon's real code, against a real saved-variables file and, where the interface matters, against Blizzard's real UI code from the source mirror.
 - A test stand-in must not share a value with the code under test. A stand-in color defined equal to the constant it was compared with hid a bug here until it was seen in game.
 - A test exists only to prevent a specific, known bug, and names it (Part 1, rule 4). A test that guards nothing known is removed.
@@ -85,7 +87,7 @@ Suggested files: `Core.lua` (saved data, schema, migrations), `Voice.lua`, `Sett
 
 ## Conformance
 
-One test, `tests/conformance.lua`, runs the rules above on each addon's own files, so a rule lands in every addon at once (owner, 2026-11-25: "lets get some rules baked in to the kit so we don't make this mistake or drift again"). It travels with the library in `Libs/JigBoltgripToolkit/tests/` together with `tests/stubs.lua`, the kit's stand-ins for every client call it makes; the addon's packaging leaves that folder out. Each addon's checks run `luajit Libs/JigBoltgripToolkit/tests/conformance.lua .`. It checks:
+One checker, `tests/conformance.lua` (not a busted spec: it runs on each addon's own files), runs the rules above on each addon's own files, so a rule lands in every addon at once (owner, 2026-11-25: "lets get some rules baked in to the kit so we don't make this mistake or drift again"). It travels with the library in `Libs/JigBoltgripToolkit/tests/` together with `tests/stubs.lua`, the kit's stand-ins for every client call it makes; the addon's packaging leaves that folder out. Each addon's checks run `luajit Libs/JigBoltgripToolkit/tests/conformance.lua .`. It checks:
 
 - the addon's own files: no chat, options rows or working-build setup outside the kit (`DEFAULT_CHAT_FRAME`, `print(`, `Settings.Create*`, `CreateSettingsListSectionHeaderInitializer`, `SetCVar("scriptErrors")`); no XML; packager markers alone on their lines and in pairs;
 - the embedded kit: no XML, and the same files as the toolkit checkout beside the addon when there is one;
@@ -208,7 +210,7 @@ The library holds the working-build helpers, so every module gets the same ones 
   - `lib:LoggedCommand(module, action, run, details)` wraps a command with a header and shows its lines.
   - `/boltgrip watch on|off` and `/boltgrip log [all|clear]` act on every module that started a log; there is no per-module form (owner, 2026-11-25: "Go, kit commands only"). The log window shows one section per module, not merged by time. Both are listed in `/boltgrip` help only once a log has started, so release builds never show them.
   - The split (owner, 2026-11-25, "All three"): each module says which events it watches and what its lines mean; the kit owns the switch, the window, saving, timings, one listener that passes each event to every watching module, one chat line for `/boltgrip watch`, and shared context written into every log: a session header at each load, zone changes while watching, blocked actions with the call stack, and Lua errors (hooked on Blizzard's error window, since `AddLuaErrorHandler` takes secure code only). Each session's timings are logged at logout, with the game's own measurement of the addon (`C_AddOnProfiler`, read as Blizzard's addon list reads it: share of frame time, peak, frames over 1, 5 and 10 ms; owner, 2026-11-25: "Add CPU numbers"). The zone line gives IDs first (uiMapID and explored area IDs), names after, so anything that reads it back uses the IDs.
-  - Offline tests: since MINOR 22, `StartLog` and `EnableWorkingBuild` call `GetBuildInfo`, `date`, `UnitName`, `UnitLevel`, `C_AddOns.GetAddOnMetadata`, `C_Map`, `C_MapExplorationInfo`, `GetSubZoneText`, `EventUtil` and `hooksecurefunc`, so a test that loads the library and starts a log stubs those (tests/loadorder.lua shows the set).
+  - Offline tests: since MINOR 22, `StartLog` and `EnableWorkingBuild` call `GetBuildInfo`, `date`, `UnitName`, `UnitLevel`, `C_AddOns.GetAddOnMetadata`, `C_Map`, `C_MapExplorationInfo`, `GetSubZoneText`, `EventUtil` and `hooksecurefunc`, so a test that loads the library and starts a log stubs those (tests/loadorder_spec.lua shows the set).
 
 ## Options
 
