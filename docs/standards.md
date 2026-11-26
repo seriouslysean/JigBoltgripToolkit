@@ -262,7 +262,8 @@ Every module's options page is built by the library from data: `lib:BuildOptions
 - A file must still compile with the marked blocks removed; check it.
 - Commands for players reporting a problem ship in every build and are listed in the chat help only. Development commands are removed once their question is answered.
 - A development command prints one or two lines to chat and puts the detail in the log.
-- A test copy to a device is labeled by its copy time and commit: the copied TOC's version becomes `<MMDD.HHMM> <git describe --tags --always --dirty>`, the module shows the time where it shows its version, and the session log shows both. No build counter (a counter numbers copies, not code, and lives in one clone). Releases take the tag through `@project-version@`. Recipe Vacuum's `scripts/deploy-deck` is the reference (owner, 2026-11-26).
+- A test copy to a device is labeled by its copy time and commit: the copied TOC's version becomes `<MMDD.HHMM> <git describe --tags --always --dirty>`, the module shows the time where it shows its version, and the session log shows both. No build counter (a counter numbers copies, not code, and lives in one clone). Releases take the tag through `@project-version@`. Every module's `scripts/deploy-deck` is the skeleton's one line, calling the kit's shared `tests/deploy-deck.sh`. Enforced by: conformance.
+- A working build starts its log through one hook, `ns.StartWorkingLog`, defined in the module's debug-only `Troubleshooting.lua` and called by the skeleton's `Core.lua` after `ns.InitSettings` (owner, 2026-11-26: "we need to be perfect considering we're sharing a grouping"). Enforced by: review.
 
 ## Versions
 

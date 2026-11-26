@@ -11,4 +11,6 @@ EventUtil.ContinueOnAddOnLoaded(addonName, function()
 	__ADDON__DB = __ADDON__DB or {}
 	ns.db = __ADDON__DB
 	ns.InitSettings()
+	-- Working builds only: the module's Troubleshooting.lua defines it inside its debug markers (docs/standards.md, "Working build").
+	if ns.StartWorkingLog then ns.StartWorkingLog() end
 end)

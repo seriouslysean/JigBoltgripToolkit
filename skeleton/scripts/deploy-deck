@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Copies this module's working build to the Steam Deck; the steps are the toolkit's shared copy.
+#   scripts/deploy-deck [ssh-host]
+set -euo pipefail
+exec Libs/JigBoltgripToolkit/tests/deploy-deck.sh "$@"
