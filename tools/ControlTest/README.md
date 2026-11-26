@@ -11,7 +11,6 @@ Every control prints one chat line, `ControlTest: <name> = <value>`. `ADDON_ACTI
 | Basic | Checkbox | `Settings.CreateCheckbox` |
 | Basic | Checkbox with an indented child | `SetParentInitializer(parent, predicate)` |
 | Basic | Slider with named stops (Off to Max) | `Settings.CreateSlider`, label formatter |
-| Dropdown | Dropdown of four words | `Settings.CreateDropdown` |
 | Grouped choices | 18 checkboxes in 3 groups of 6 | `Settings.CreateCheckbox` |
 | Other | Button row | `CreateSettingsButtonInitializer` |
 | Other | Checkbox and slider in one row | `CreateSettingsCheckboxSliderInitializer` |
@@ -37,7 +36,7 @@ Reload the game, then open Options, AddOns, Control Test.
 
 ## Steps
 
-Gamepad, for each control: reach it with the d-pad. Change it with left/right or A. For the dropdown, open it with A, pick an entry, then move up and down the list. Then go to another category and back.
+Gamepad, for each control: reach it with the d-pad. Change it with left/right or A. Then go to another category and back.
 
 Pass means all of: no "Interface action failed" and no `ADDON_ACTION_*` line, the cursor never sticks, other addons' pages still navigate.
 
@@ -56,7 +55,7 @@ Cases:
 | Checkbox | | | |
 | Checkbox with child | | | |
 | Slider with named stops | | | |
-| Dropdown | | | |
+| Dropdown (removed) | Fails: cycling works, A opens the menu, the cursor is trapped, the addon is blocked and navigation breaks for the session until /reload (2026-11-26) | | |
 | Grouped checkboxes | | | |
 | Button row | | | |
 | Checkbox and slider row | | | |

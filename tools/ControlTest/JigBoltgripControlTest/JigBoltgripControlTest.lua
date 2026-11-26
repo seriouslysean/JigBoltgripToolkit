@@ -65,15 +65,7 @@ local function Build()
 	sliderOptions:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, function(value) return stops[value] or tostring(value) end)
 	Settings.CreateSlider(category, Setting("stops", "Slider with named stops", Settings.VarType.Number, 3), sliderOptions, "Five stops with words.")
 
-	-- 2. Dropdown
-	Page("4 Dropdown")
-	local words = { "Thank", "Bow", "Cheer", "Wave" } -- the game's emote labels are command strings, so plain words
-	local function Options()
-		local container = Settings.CreateControlTextContainer()
-		for i, word in ipairs(words) do container:Add(i, word) end
-		return container:GetData()
-	end
-	Settings.CreateDropdown(category, Setting("dropdown", "Dropdown", Settings.VarType.Number, 1), Options, "A static list of four.")
+	-- A Blizzard dropdown opened by d-pad traps the cursor and breaks navigation for the session (Deck, 2026-11-26), so it has no page here.
 
 	-- 3. Grouped choices
 	Page("5 Grouped choices")
