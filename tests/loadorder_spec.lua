@@ -334,7 +334,7 @@ describe("load order", function()
 	-- Working builds. Fails if a second call makes a second listener, or timings mix between modules.
 	it("a working build shows Lua errors and listens once", function()
 		local cvars, frames = {}, 0
-		C_CVar = { SetCVar = function(name, value) cvars[name] = value end }
+		C_CVar = { GetCVar = function(name) return cvars[name] end, SetTempCVar = function(name, value) cvars[name] = value end }
 		local realCreateFrame = CreateFrame
 		CreateFrame = function()
 			frames = frames + 1
@@ -344,7 +344,7 @@ describe("load order", function()
 		toolkit:EnableWorkingBuild()
 		toolkit:EnableWorkingBuild()
 		CreateFrame = realCreateFrame
-		assert(cvars.scriptErrors == "1" and frames == 1, "a working build shows Lua errors and listens once")
+		assert(cvars.scriptErrors == "1" and cvars.taintLog == "2" and frames == 1, "a working build shows Lua errors and listens once")
 	end)
 	it("timings are kept per module", function()
 		local one, two = { addon = "One" }, { addon = "Two" }

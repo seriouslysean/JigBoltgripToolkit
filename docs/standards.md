@@ -222,7 +222,7 @@ No module needs a side panel yet. The first expected use is Recipe Vacuum's sour
 
 The library holds the working-build helpers, so every module gets the same ones and no release runs them (owner, 2026-11-25: "that debug functionality seems really nice while testing, we won't want to ship it, so it should also live in the shared kit"). The library file is identical in every build, so a module calls them only from its own `--@debug@` block:
 
-- `lib:EnableWorkingBuild()`: turns on the game's Lua error display and prints any action the client blocked (`ADDON_ACTION_BLOCKED`, `ADDON_ACTION_FORBIDDEN`). Safe to call from several modules.
+- `lib:EnableWorkingBuild()`: turns on the game's Lua error display and the taint log as temporary values (put back if another addon reverts them) and prints any action the client blocked (`ADDON_ACTION_BLOCKED`, `ADDON_ACTION_FORBIDDEN`). Safe to call from several modules.
 - `lib:Time(module, name, started)` and `lib:TimeMs(module, name, ms)`: record a timing; `lib:TimingLines(module)` returns them for the module's own log.
 - The working-build log, one per module, kept in the module's own saved table (`devLog`, `devLogRun`, `watch`), since the library has no saved variables (owner, 2026-11-25: "Debug mode should be in the shared kit so we can hook in and benefit also, and share calls"):
   - `lib:StartLog(module, saved, handlers)` once saved data is loaded; `handlers` are `{ [event] = function(...) }` that run while the watch is on.
