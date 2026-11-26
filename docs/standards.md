@@ -161,7 +161,10 @@ On WoW Forever with the Gamepad UI (Steam Deck), anything addon code adds into B
 - No `ShowUIPanel`, `HideUIPanel` or `OpenWorldMap` from addon code. Show a map pin with `C_Map.SetUserWaypoint` instead. Evidence: SkillUp Forever (cjber/skillup-forever CHANGELOG, #398, #454, #460), TrainerSpells PR #9 and Macro Assist PR #311. Enforced by: conformance.
 - Our own controls are real `Button`s, so the gamepad cursor can focus and click them (same sources). Enforced by: review.
 - A decoration on a Blizzard frame lives in our own weak table keyed by that frame, and nothing is written onto Blizzard's frames. Evidence: SkillUp Forever CHANGELOG, as above. Enforced by: review.
-- Under the Gamepad UI Forever shows one window at a time, so a window of ours is not opened beside Blizzard's. Evidence: SkillUp Forever CHANGELOG, as above. Enforced by: review.
+- Under the Gamepad UI Forever shows one window at a time: opening the character window from the gamepad radial closed Professions (seen on the Steam Deck, 2026-11-26). A panel of ours is a child of a Blizzard window, never a window of its own. Enforced by: review.
+- The options page opens through `lib:OpenOptions(module)`, never `Settings.OpenToCategory`: from addon code it runs `ShowUIPanel` tainted, so under the Gamepad UI the kit says where the page is instead, and leaves out its Open buttons (the gamepad interface is chosen before load). Enforced by: conformance.
+- A list of our own is a Blizzard `ScrollFrame` (`UIPanelScrollFrameTemplate`) with one real `Button` per row: the gamepad moves between rows that exist and scrolls the frame to reach one out of view, and a `ScrollBox` would hand our data to Blizzard's secure navigation. Evidence: Field Guide Forever's list; a pool of one screenful of relabelled rows left the d-pad stuck at the last row shown (Steam Deck, 2026-11-26). Enforced by: review.
+- Shared findings about the client are in [client-notes.md](client-notes.md).
 
 ## Voice
 
