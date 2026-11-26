@@ -21,7 +21,7 @@ The owner's rules; where they and anything below disagree, these win (owner, 202
 ## Game-facing principles
 
 1. Blizzard's design language, on Forever's own frames: its templates, atlases, fonts, colors, global strings, enums and APIs.
-2. Blizzard's own patterns, cited in a short comment: Blizzard's source, game data, or our own in-game tests. Other addons may be studied in research but are not named or credited in the repos (owner, 2026-11-26). Nothing custom without a real need.
+2. Blizzard's own patterns, cited in a short comment: Blizzard's source, game data, or our own in-game tests. Other addons may be studied in research but are not named or credited in the repos (owner, 2026-11-26). An outside data source that is not an addon (a database dump, a measurement someone published) stays cited where its numbers come from: in the data tool, the generated data's header and the docs, never in code comments (owner, 2026-11-26). Nothing custom without a real need.
 3. When standing out and matching the game pull in different directions, match the game.
 4. Simple and in one place. Data lives in tables, not in branches.
 5. Quiet: the addon says something only when it has done something for the player.
