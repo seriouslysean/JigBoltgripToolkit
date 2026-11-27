@@ -37,7 +37,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0024 | [No sharing safeguard for chests](0024-no-sharing-safeguard-for-chests.md) | Sparklescope 6000 | accepted |
 | 0056 | [Lures and Fishing food come from the client's data, by ID](0056-lures-and-fishing-food-come-from-the-client-s-data-by-id.md) | Tackletron | accepted |
 | 0061 | [Zone fishing facts are kept, never guessed into a level](0061-zone-fishing-facts-are-kept-never-guessed-into-a-level.md) | Tackletron | accepted |
-| 0063 | [Zone fishing levels ship built in, with Self Found or Friends](0063-zone-fishing-levels-ship-built-in-with-self-found-or-friends.md) | Tackletron | accepted in part |
+| 0063 | [Zone fishing levels are built in, as hidden logic](0063-zone-fishing-levels-are-built-in-hidden-logic.md) | Tackletron | accepted in part |
 
 ## Performance
 
