@@ -28,10 +28,12 @@ One "Herbs and Ore" checkbox; each kind shows only while the player knows its pr
 ## Versions
 
 - client 1.60.1 (71139)
+- Sparklescope6000 69099b8 (one checkbox, 2026-11-26); kit options standard at 55318d0 (labels name the thing)
 
 ## Tests
 
-- Spec: "shows on a picked herb for a herbalist" (`tests/learn_spec.lua`).
+- Spec: "shows on a picked herb for a herbalist" (Sparklescope6000 `tests/learn_spec.lua`).
+- In game: herbs and ore sparkled on the Deck under the one row, each with its profession (2026-11-27, ore on Jig, herbs on Geode).
 
 ## Reopen if
 

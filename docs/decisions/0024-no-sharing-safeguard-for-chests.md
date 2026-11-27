@@ -28,10 +28,11 @@ A shared chest is kept as sent, with no "seen twice" rule, cap or forget button.
 ## Versions
 
 - client 1.60.1 (71139)
+- Sparklescope6000 fd16a40 (sharing through the kit share, MINOR 49); unchanged since
 
 ## Tests
 
-- none yet
+- None: nothing was built; sharing between two players is not yet seen in game.
 
 ## Reopen if
 

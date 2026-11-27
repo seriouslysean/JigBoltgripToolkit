@@ -29,10 +29,12 @@ Each sparkle row's tooltip says it is needed with keyboard and mouse only.
 ## Versions
 
 - client 1.60.1 (71139)
+- Sparklescope6000 255efde (the note names keyboard and mouse only)
 
 ## Tests
 
-- none yet
+- In game: the controller picks objects with Enable Interact Key off (Deck, every 2026-11-27 session); the options page passed the Deck d-pad check (2026-11-27).
+- Keyboard and mouse with it off: not yet seen in game.
 
 ## Reopen if
 
