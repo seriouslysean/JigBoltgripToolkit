@@ -29,6 +29,7 @@ local function NewClient()
 	RAID_CLASS_COLORS = { MAGE = { r = 0, g = 0, b = 1 } }
 	FRIENDS = "Friends" -- Blizzard's global string, enUS
 	IsLoggedIn = function() return false end
+	EventUtil = { ContinueOnPlayerLogin = function(callback) callback() end, ContinueOnAddOnLoaded = function() end }
 	-- Blizzard's Settings page order (GameplaySettingsGroup.lua), enUS titles.
 	CUSTOM_GAMEPLAY_SETTINGS_ORDER = { ["Combat"] = 10, ["Keybindings"] = 14 }
 	CONTEXT_ACTION_LABEL_OPEN = "Open"
@@ -122,8 +123,8 @@ describe("load order", function()
 			assert(Count(buttons, "button", "Alpha title") == 1 and Count(buttons, "button", "Beta title") == 1,
 				order.name .. ": one Open row per addon")
 		end)
-		it(order.name .. ": one toolkit header", function()
-			assert(Count(buttons, "header", "AddOns") == 1, order.name .. ": one toolkit header")
+		it(order.name .. ": never two toolkit headers", function()
+			assert(Count(buttons, "header", "AddOns") <= 1, order.name .. ": never two toolkit headers")
 		end)
 	end
 

@@ -137,6 +137,15 @@ Blizzard has no text row under a setting. Everything a row says is in its toolti
 3. A setting that makes the character speak or emote to other players starts off (Buffulator's thanks, `Settings.lua:10-11`). Kit pick.
 4. The default is never in the text (Tooltips, rule 9).
 
+## Toolkit page
+
+The toolkit's own page (owner, 2026-11-27: "Working rows are slash text, Order of modules, Reload likely doesn't belong in there for anyone ... We may not need a heading in that section at all though since we already had toolkit as the first heading"):
+
+- No heading over the module rows: the page title already names the toolkit.
+- One row per module, labelled with its title, button "Open", sorted by title like the AddOns list.
+- Working builds add a "Working Build" heading with three rows that name the thing and put the verb on the button: Live Watch (Switch), Working Log (Show), Clear Working Log (Clear).
+- No Reload UI row: the game menu has one, and a reload sitting among other buttons is easy to press by mistake.
+
 ## Gamepad
 
 1. One page for every input. No gamepad-only branch.
