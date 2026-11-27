@@ -34,6 +34,13 @@ Not built. If built: group trainers by identical spell-ID lists, never title tex
 
 - n/a
 
+## Confirmed, still not built (2026-11-27)
+
+- Data: the owner's Ironforge run (Deck save 2026-11-27 11:23, Recipe Vacuum `4dcc30e`) read 16 trainers. Every same-profession pair seen teaches an identical spell list: Cooking 1699 and 5159 (8 of 8), Engineering 1702 and 11028 (11 of 11), First Aid 2326 and 5150 (11 of 11), Mining 5392 and 4254 (12 of 12).
+- Gain if built: about one 22 ms flip saved per extra trainer of a group, once per account (about 90 ms across that run), plus learned-row sources copied to the group's other trainers, which only alts read. No new trainers: a trainer's group is known only after a visit, and that visit's scan records what it shows.
+- Cost: matching each character's visible list against the group's full list, minus known recipes, with faction and odd trainers handled; a group table and a schema bump; about 100 to 150 lines plus specs in the trainer code proven on the Deck the same day.
+- Owner, given that: "Don't build, record the data".
+
 ## Reopen if
 
-Saved lists from several same-profession trainers turn out identical.
+A feature needs groups, such as listing trainers not yet visited (which would need shipped group data; see 0046), or trainer flips show up as a measured cost.
