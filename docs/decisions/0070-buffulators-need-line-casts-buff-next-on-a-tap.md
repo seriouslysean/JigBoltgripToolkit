@@ -16,7 +16,7 @@ The line is a secure button (`SecureActionButtonTemplate`, `type` = `click`, `cl
 ## Reasons
 
 - `SECURE_ACTIONS.click` clicks the delegate only when it has no access constraints, so the line casts Buff Next's own text and nothing else (`Blizzard_FrameXML/SecureTemplates.lua`, Gethe/wow-ui-source `forever`).
-- A secure mouse press acts on release whatever Action Button Use Key Down says (`SecureActionButton_OnClick`, same file), so registering only `AnyUp` gives one cast per tap.
+- The template's `OnClick` passes no mouse flag, so `SecureActionButton_OnClick` treats a tap as a key press and, with Action Button Use Key Down on (the default), acts only on the down (`Blizzard_FrameXML/SecureTemplates.xml` and `.lua`). The line registers only `AnyUp` and sets `useOnKeyDown` false, so it casts once, on release. The first build lacked `useOnKeyDown` and a tap did nothing (owner, 2026-11-27: "tapping the buff icon doesn't work yet either").
 - A protected frame cannot be shown, hidden or moved by addon code in combat; a state driver is Blizzard's way to hide one then.
 - Following Blizzard's own class color choice adds no Buffulator setting.
 
