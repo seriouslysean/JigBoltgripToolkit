@@ -27,6 +27,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 ## Quiet
 
 - [ ] It says something only when it did something the player wants to know: one line, and it can be turned off.
+- [ ] The first time it changes something the player did not set, one line says what changed and where to turn it off, once ever.
 - [ ] No window opens by itself.
 - [ ] Diagnostics go to a log, not to chat.
 - [ ] Development commands are stripped from releases and removed once their question is answered.

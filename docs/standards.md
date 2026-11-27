@@ -271,6 +271,7 @@ Every module's options page is built by the library from data: `lib:BuildOptions
 
 - A module changes a game setting only as a temporary value (`C_CVar.SetTempCVar`), never a saved one, so removing the addon leaves the player's settings as they were.
 - A temporary value has one holder in the game, shared with every addon: another addon's `RemoveTempCVar` clears ours. So a module only ever asks for a setting on (never forces one off, which would fight any addon that wants it on), puts its value back when it sees it reverted while it still needs it, and removes it only once it no longer does. There is no shared holder in the kit (owner, 2026-11-26: "Sounds good, handle them").
+- The first time a module changes something the player did not set (a game setting, the sound mix), one line in its voice says what changed and where to turn it off; a saved flag keeps it from ever saying it again (owner, 2026-11-26: "every addon should have that principle"). Tackletron's sound line is the example.
 
 ## Versions
 
