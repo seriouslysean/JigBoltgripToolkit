@@ -14,8 +14,8 @@ Every module embeds a copy of the kit, and LibStub runs the first-loaded copy of
 Each blocked action, "interface action failed" message and Lua error is written once, to one module's log, chosen from its stack:
 
 - the first frame in a module's own file (`AddOns/<Folder>/…`, not its `Libs/JigBoltgripToolkit` copy) owns it;
-- a stack through kit code only goes to the module whose copy ran it, tagged `[kit, via <Folder>'s copy]`;
-- with no addon file in the stack (a block raised from C), it goes to the module the game named, tagged `[game blames <addon>]`.
+- a stack through kit code only goes to the module whose copy ran it, tagged `[kit, via <Folder>'s copy]` (since 0067, logfmt: `owner=kit copy=<Folder>`);
+- with no addon file in the stack (a block raised from C), it goes to the module the game named, tagged `[game blames <addon>]` (since 0067: `owner=<addon> source=game`).
 
 The entry keeps the stack and, for blocks, the tainted gamepad fields (`lib:ScanTaint`, MINOR 77). The grey `[Debug]` chat line carries the same tag. Shared context (zone, device, pad moves) still goes to every log.
 

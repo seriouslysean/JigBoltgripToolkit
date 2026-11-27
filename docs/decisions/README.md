@@ -148,6 +148,12 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 |---|---|---|---|
 | 0055 | [One lure per escape, and Use Lures steps Always, Auto, Never](0055-one-lure-per-escape-and-use-lures-steps-always-auto-never.md) | Tackletron | accepted |
 
+## Working build
+
+| No. | Decision | Scope | Status |
+|---|---|---|---|
+| 0067 | [Working-build log lines are logfmt](0067-working-build-log-lines-are-logfmt.md) | all modules | accepted |
+
 ## Open, not decided
 
 - Sparklescope 6000: replacing the zoom formula and scene camera that match another addon Sparkles, which ships no licence. Owner: "I don't want their exact code, that's weird and has a smell, and they'd be able to tell"; "TBD". A Mac session with the mouse wheel decides.

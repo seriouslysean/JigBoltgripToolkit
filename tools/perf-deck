@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-# Every toolkit module's own CPU measurement from its working-build log on the Deck, one row per logged session:
-# the game's C_AddOnProfiler numbers the kit writes at logout (docs/standards.md, "Performance").
+# Every toolkit module's own CPU and memory from its working-build log on the Deck, one row per logged session:
+# the game's C_AddOnProfiler numbers and the AddOns list's memory figures the kit writes at logout
+# (docs/standards.md, "Performance"). Reads the logfmt lines ("cpu avg_ms=…", "memory own_kb=…") and the older
+# prose lines ("CPU game's measure: …") kept from earlier sessions.
 #   tools/perf-deck [host] [sessions per module]
 # Exit 1 when any listed session has a frame over 5 ms, the bar every module meets (docs/standards.md, "Performance").
 set -euo pipefail
@@ -11,24 +13,41 @@ saved='/home/deck/.local/share/Steam/steamapps/compatdata/4077668031/pfx/drive_c
 modules=(RecipeVacuum Tackletron Sparklescope6000 Buffulator AutoOmniadjustor)
 
 # shellcheck disable=SC2029 # the paths are meant to expand on this side
-report=$(ssh -o BatchMode=yes "$host" "cd '$saved' && for m in ${modules[*]}; do [ -f \"\$m.lua\" ] || continue; grep -o \"[0-9:]* CPU game.s measure[^\\\"]*\" \"\$m.lua\" | tail -n $keep | sed \"s/^/\$m /\"; done")
-memory=$(ssh -o BatchMode=yes "$host" "cd '$saved' && for m in ${modules[*]}; do [ -f \"\$m.lua\" ] || continue; grep -o \"MEMORY own [^\\\"]*\" \"\$m.lua\" | tail -n $keep | sed \"s/^/\$m /\"; done")
+report=$(ssh -o BatchMode=yes "$host" "cd '$saved' && for m in ${modules[*]}; do [ -f \"\$m.lua\" ] || continue; grep -o -E \"[0-9:]+ (cpu avg_ms=|CPU game.s measure)[^\\\"]*\" \"\$m.lua\" | tail -n $keep | sed \"s/^/\$m /\"; done")
+# shellcheck disable=SC2029
+memory=$(ssh -o BatchMode=yes "$host" "cd '$saved' && for m in ${modules[*]}; do [ -f \"\$m.lua\" ] || continue; grep -o -E \"(memory own_kb=|MEMORY own )[^\\\"]*\" \"\$m.lua\" | tail -n $keep | sed \"s/^/\$m /\"; done")
+
+# One key's value from a logfmt line.
+field() { sed -nE "s/.*[ ]$1=([^ ]+).*/\\1/p" <<<"$2"; }
 
 failed=0
 printf '%-18s %-9s %10s %10s %6s %6s %6s\n' module logout 'avg ms' 'peak ms' '>1ms' '>5ms' '>10ms'
 while read -r line; do
 	[ -n "$line" ] || continue
 	module=${line%% *}
-	read -r at average peak over1 over5 over10 < <(sed -E 's/^[^ ]+ ([0-9:]+) .*session average ([0-9.]+) ms.*peak ([0-9.]+) ms \| frames over 1 ms ([0-9]+), 5 ms ([0-9]+), 10 ms ([0-9]+).*/\1 \2 \3 \4 \5 \6/' <<<"$line")
+	if [[ $line == *"cpu avg_ms="* ]]; then
+		at=$(awk '{print $2}' <<<"$line")
+		average=$(field avg_ms "$line") peak=$(field peak_ms "$line")
+		over1=$(field over_1ms "$line") over5=$(field over_5ms "$line") over10=$(field over_10ms "$line")
+	else
+		read -r at average peak over1 over5 over10 < <(sed -E 's/^[^ ]+ ([0-9:]+) .*session average ([0-9.]+) ms.*peak ([0-9.]+) ms \| frames over 1 ms ([0-9]+), 5 ms ([0-9]+), 10 ms ([0-9]+).*/\1 \2 \3 \4 \5 \6/' <<<"$line")
+	fi
 	printf '%-18s %-9s %10s %10s %6s %6s %6s\n' "$module" "$at" "$average" "$peak" "$over1" "$over5" "$over10"
 	if [ "$over5" != 0 ]; then failed=1; fi
 done <<<"$report"
 if [ -n "$memory" ]; then
 	echo
-	printf '%-18s %s\n' module memory
+	printf '%-18s %10s %10s %10s %10s\n' module 'own KB' 'login KB' 'growth KB' 'all Lua MB'
 	while read -r line; do
 		[ -n "$line" ] || continue
-		printf '%-18s %s\n' "${line%% *}" "${line#* MEMORY own }"
+		module=${line%% *}
+		if [[ $line == *"own_kb="* ]]; then
+			printf '%-18s %10s %10s %10s %10s\n' "$module" "$(field own_kb "$line")" "$(field login_kb "$line")" \
+				"$(field growth_kb "$line")" "$(field all_lua_mb "$line")"
+		else
+			read -r own login growth all < <(sed -E 's/.*MEMORY own ([0-9]+) KB at logout \| ([0-9?]+)( KB)? at login.*growth ([^ ]+)( KB)? \| all Lua ([0-9.]+) MB.*/\1 \2 \4 \6/' <<<"$line")
+			printf '%-18s %10s %10s %10s %10s\n' "$module" "$own" "$login" "$growth" "$all"
+		fi
 	done <<<"$memory"
 fi
 exit "$failed"

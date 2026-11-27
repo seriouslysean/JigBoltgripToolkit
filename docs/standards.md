@@ -263,6 +263,22 @@ Every module's options page is built by the library from data: `lib:BuildOptions
 
 ## Working build
 
+- Log lines are logfmt (owner, 2026-11-27: "This still reads like AI slop, look up simple, clear debugging style notes", then "logfmt"; [Brandur, logfmt](https://brandur.org/logfmt), Better Stack's logfmt guide, Grafana's Loki logging best practices). A line is a short lowercase event name (one to three words), then `key=value` facts:
+  - keys are lowercase snake_case; a value with a space, a quote or `=` is quoted (`lib.LogValue`);
+  - IDs are keys (`id=171`, `npc=5392`); times are `ms=`, `frames=` or `_s` keys;
+  - no sentences, and no per-row lines: one summary line per build or pass;
+  - a development tool logs only when its button is pressed.
+
+  ```
+  profession open id=171 name=Alchemy list=waiting
+  known id=171 found=38 no_trainer=15
+  skillups id=171 can=7 above=9 skill=206
+  list shown id=171 rows=16 groups=2 ms=1.4 frames=1
+  pool ready rows=59 ms=2.1
+  trainer read npc=5392 used=2 saved=1 ms=23.5
+  blocked event=ADDON_ACTION_FORBIDDEN addon=Tackletron call=SetPreferredGamepadInteractTarget owner=Tackletron
+  ```
+
 - Once-ever lines and tips can be shown again for a test: `lib:SayOnce` lists each key it uses in the module's saved table, a module registers its own once-ever flags with `lib:RememberOnce(module, db, key)`, and the toolkit page's Working Build row "Once-Only Lines" (Reset) clears them for every module (owner, 2026-11-27: "a way to reset messages").
 
 - A working-build line in chat (blocked actions, errors from a watch handler, troubleshooting answers) goes through `lib:Debug`: Blizzard's grey, `GRAY_FONT_COLOR`, with a `[Debug]` tag, so it reads apart from a player's line in chat and in a screenshot (owner, 2026-11-27: "Grey with a [Debug] tag"). Releases print none.
