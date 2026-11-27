@@ -1,6 +1,6 @@
 -- Shared home for Jig Boltgrip's Toolkit modules. Each module embeds this file; LibStub keeps the newest.
 -- One Settings category for the toolkit, one subcategory per installed module.
-local MAJOR, MINOR = "JigBoltgripToolkit-1.0", 59
+local MAJOR, MINOR = "JigBoltgripToolkit-1.0", 60
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then
 	return
@@ -274,8 +274,8 @@ function lib:RegisterModule(addonName, class)
 	return module
 end
 
--- Opening the Settings window from addon code runs ShowUIPanel tainted, which the gamepad interface then
--- refuses (docs/standards.md, "Gamepad UI"); there the player is told where the page is instead.
+-- Selecting our category from addon code is blocked under the gamepad interface (docs/standards.md, "Gamepad UI");
+-- there the player is told where the page is instead.
 function lib:OpenOptions(module)
 	if GamepadUI() then
 		self:Print(L["Find it in Options, then %s, %s, %s."]:format(ADDONS, self.title, module.title))

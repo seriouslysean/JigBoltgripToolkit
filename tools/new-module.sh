@@ -28,7 +28,7 @@ ADDON=$1 TITLE=$2 COMMAND=$3 NOTES=$4 KIT_COMMIT=$(git -C "$kit" rev-parse HEAD)
 
 mkdir -p Libs/JigBoltgripToolkit/tests Libs/LibStub Libs/AceLocale-3.0 .githooks
 cp "$kit/JigBoltgripToolkit.lua" Libs/JigBoltgripToolkit/
-cp "$kit"/tests/{stubs.lua,conformance.lua,module-check.sh,deploy-deck.sh,agents-opening.md} Libs/JigBoltgripToolkit/tests/
+cp "$kit"/tests/{stubs.lua,conformance.lua,module-check.sh,deploy-deck.sh,agents-opening.md,deprecated.lua} Libs/JigBoltgripToolkit/tests/
 cp "$kit/tests/LibStub.lua" Libs/LibStub/
 cp "$kit/.githooks/pre-push" .githooks/
 ace=$(mktemp -d)
