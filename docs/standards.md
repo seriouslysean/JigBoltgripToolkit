@@ -262,6 +262,8 @@ Every module's options page is built by the library from data: `lib:BuildOptions
 
 ## Working build
 
+- A working-build line in chat (blocked actions, errors from a watch handler, troubleshooting answers) goes through `lib:Debug`: Blizzard's grey, `GRAY_FONT_COLOR`, with a `[Debug]` tag, so it reads apart from a player's line in chat and in a screenshot (owner, 2026-11-27: "Grey with a [Debug] tag"). Releases print none.
+
 - Code between `--@debug@` and `--@end-debug@` exists in a checkout and is stripped from released builds by the BigWigs packager. Development commands, captures and timing live there.
 - A file must still compile with the marked blocks removed; check it.
 - Commands for players reporting a problem ship in every build and are listed in the chat help only. Development commands are removed once their question is answered.
