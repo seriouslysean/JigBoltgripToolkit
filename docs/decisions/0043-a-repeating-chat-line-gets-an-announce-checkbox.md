@@ -15,7 +15,7 @@ A chat line that repeats gets one Announce checkbox, on by default; a once-ever 
 
 ## Reasons
 
-- Recipe Vacuum's Announce New Finds is the model.
+- Superseded label (2026-11-27): the checkbox is "Chat Alerts" in every module (owner: "\"Chat Alerts\" everywhere"); Recipe Vacuum's Announce New Finds was renamed. Recipe Vacuum's Announce New Finds was the model.
 
 ## Owner's words
 

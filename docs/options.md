@@ -130,7 +130,7 @@ Blizzard has no text row under a setting. Everything a row says is in its toolti
 5. Buttons come last, after the settings (Blizzard: Reset Chat Position, `Frame/Social.lua:274-283`).
 6. No row for a taste few will change ([quality-bar.md](quality-bar.md), "Does one job").
 
-7. A chat line that repeats (each lure, each fight, each find) gets one checkbox to quiet it, "Announce …", on by default, in the section of the feature that speaks; a once-ever line needs none (owner, 2026-11-27: "Yes, one checkbox"; Recipe Vacuum's Announce New Finds is the model).
+7. A chat line that repeats (each lure, each fight, each find) gets one checkbox to quiet it, labelled "Chat Alerts" in every module, on by default, in the section of the feature that speaks; a once-ever line needs none (owner, 2026-11-27: "Yes, one checkbox"; Tackletron's Chat Alerts is the model; owner, 2026-11-27: "\"Chat Alerts\" everywhere").
 8. A Blizzard heading may hold the module's own feature where the player would look for it: Tackletron's weapon swap stays under "Combat" (owner, 2026-11-27: "Keep 'Combat'").
 
 ## Defaults
