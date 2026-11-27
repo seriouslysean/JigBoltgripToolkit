@@ -1,6 +1,6 @@
 -- Shared home for Jig Boltgrip's Toolkit modules. Each module embeds this file; LibStub keeps the newest.
 -- One Settings category for the toolkit, one subcategory per installed module.
-local MAJOR, MINOR = "JigBoltgripToolkit-1.0", 61
+local MAJOR, MINOR = "JigBoltgripToolkit-1.0", 62
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then
 	return
@@ -47,10 +47,6 @@ function lib:GetCategory()
 		Settings.RegisterAddOnCategory(self.category)
 	end
 	return self.category, self.layout
-end
-
-local function ShowLink(title, url)
-	lib:ShowText(title, url)
 end
 
 -- Links from the standard TOC fields X-Website and X-Curse-Project-ID. LaunchURL and CopyToClipboard
@@ -136,11 +132,21 @@ function lib:PrintBlock(header, rows)
 	end
 end
 
--- The gamepad interface is chosen before load, so this is fixed for a session.
+-- Asked where the answer is used, never kept: the client switches interface style on INPUT_DEVICE_INTERFACE_TRANSITION
+-- without a reload (Blizzard_SharedXML/InputUtil.lua).
 local function GamepadUI()
 	return InputUtil ~= nil and InputUtil.IsGamepadUIEnabled ~= nil and InputUtil.IsGamepadUIEnabled() or false
 end
 lib.IsGamepadUI = GamepadUI
+
+-- A copy window is of no use without a keyboard, so under the gamepad interface the address goes to chat.
+local function ShowLink(title, url)
+	if GamepadUI() then
+		lib:Print(url)
+	else
+		lib:ShowText(title, url)
+	end
+end
 
 -- Values the client may hide from addons (issecretvalue). Readable is false for nil and for a hidden value;
 -- Describe is tostring that never touches one; GUID gives a GUID's kind and its numeric ID ("Creature",
@@ -264,13 +270,10 @@ function lib:RegisterModule(addonName, class)
 	module.title, module.notes, module.category, module.layout = title, notes, category, layout
 	module.class = class or module.class
 	table.insert(self.modules, module)
-	-- The gamepad interface is chosen before load (changing it reloads the UI); there the page's own list
-	-- already reaches each module, and an Open button would select a category from addon code.
-	if not GamepadUI() then
-		parentLayout:AddInitializer(CreateSettingsButtonInitializer(title, CONTEXT_ACTION_LABEL_OPEN, function()
-			lib:OpenOptions(module)
-		end, notes, false))
-	end
+	-- The button is always there; OpenOptions decides at the press whether the gamepad interface is on.
+	parentLayout:AddInitializer(CreateSettingsButtonInitializer(title, CONTEXT_ACTION_LABEL_OPEN, function()
+		lib:OpenOptions(module)
+	end, notes, false))
 	return module
 end
 
@@ -1032,8 +1035,7 @@ function lib:FinishModule(module)
 	end
 	module.finished = true
 	lib:AddWorkingSection(module)
-	-- A copy window is of no use without a keyboard; the row's tooltip still shows the address.
-	local links = not GamepadUI() and ModuleLinks(module.addon) or {}
+	local links = ModuleLinks(module.addon)
 	if #links > 0 then
 		module.layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(L["Links"]))
 		for _, link in ipairs(links) do
