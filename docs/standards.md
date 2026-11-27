@@ -6,33 +6,21 @@ The bar an addon is checked against before a release: [quality-bar.md](quality-b
 
 # Part 1. Ethos
 
-Above everything, in this order (owner, 2026-11-26: "I think being clear is important, consistency between addons is integral to me and these addons, and alignment at the kit level is crucial. Fitting wow standards in text, written word and function is also important to me, it's paramount."):
+The owner's rules. They outrank everything below, and the first three outrank the rest.
 
-1. Fit WoW's standards in text, written word and function. This is paramount.
-2. Consistency between addons, held by alignment at the kit level.
-3. Clarity throughout.
-
-The owner's rules; where they and anything below disagree, these win (owner, 2026-11-25: "the most important is simple, dry, kiss code. Working from data, documentation, and that the code looks like one person wrote it. All tests need to add value, no low value tests at all, for any reason unless there's a specific, known bug we're preventing").
-
-1. Simple, DRY, KISS. The smallest version that does the job; one place for each thing. Duplication is a DRY violation by default; performance is the one reason to accept it (a hot path that cannot afford the call), and only after asking the owner (owner, 2026-11-25: "I also want to be really careful with duplication, sometimes it's ok, but generally it's a dry violation"; "Performance IS important though, so performance take precedence when considering those things, but definitely ask me first"). Enforced by: review.
-2. Work from data and documentation. Behavior comes from tables and the game's own data, decisions from the docs; code follows them. Enforced by: review.
-3. One author. Every file reads as if one person wrote it: one way to write each thing, enforced by tooling where it can be. Enforced by: conformance, luacheck, review.
-4. Tests only where they prevent a specific, known bug. No test for coverage, completeness or habit. Each names the bug it guards. Enforced by: review.
-5. Vanilla-style quality of life. Each module does one job the game leaves undone, does it well and keeps it working, and looks and behaves like part of the game. Anything outside that job, or that doesn't fit it, is left out or becomes its own module. Enforced by: review, quality bar.
-6. Quiet. A module speaks only when it has done something the player wants to know. Enforced by: quality bar.
-7. Plain game words, the machine voice for the one voiced line (Part 3, "Voice"). Enforced by: conformance.
-8. Mouse and keyboard and gamepad are both first-class: every feature works fully either way, and reads clearly. No release until both are checked in game. Not breaking the controller is a release requirement; an extra beside a module's main feature may work by mouse and keyboard only, as long as it never gets in the controller's way; anything that gives the player information or an action they need is not an extra and must be reachable both ways (owner, 2026-11-26). No minimap icons. Enforced by: review and the quality bar.
-9. Documentation holds the reasons, decisions and history; code holds the reason only (Part 2, "Comments"). Enforced by: conformance.
-
-## Game-facing principles
-
-1. Blizzard's design language, on Forever's own frames: its templates, atlases, fonts, colors, global strings, enums and APIs.
-2. Blizzard's own patterns, cited in a short comment: Blizzard's source, game data, or our own in-game tests. Other addons may be studied in research but are not named or credited in the repos (owner, 2026-11-26). An outside data source that is not an addon (a database dump, a measurement someone published) stays cited where its numbers come from: in the data tool, the generated data's header and the docs, never in code comments (owner, 2026-11-26). Nothing custom without a real need.
-3. When standing out and matching the game pull in different directions, match the game.
-4. Simple and in one place. Data lives in tables, not in branches.
-5. Quiet: the addon says something only when it has done something for the player.
-6. Claims are backed by data from the game, not by reading the code.
-7. Self-found and friends first. A module enhances the game with what the player and their friends find; data from public sources (included tables, outside databases) is opt-in, never the default. The source choice defaults to Friends where the module shares, else Self Found. The suite reads as Jig Boltgrip building what he finds useful for himself and others (owner, 2026-11-26: "Opt in only for public data sources"). Enforced by: review.
+1. Fit WoW. Text, wording and behavior follow the game's own standards and design language: Blizzard's templates, atlases, fonts, colors, global strings, enums and APIs, on Forever's own frames. When standing out and matching the game pull apart, match the game. Enforced by: review, conformance.
+2. Stay consistent. Every addon matches the others; the kit holds the shared way and every module follows it. Enforced by: the kit, conformance, review.
+3. Be clear. Every label, line and doc says one thing plainly. Enforced by: conformance, review.
+4. Do one job. Each module does one job the game leaves undone, does it well and keeps it working. Anything outside that job, or that doesn't fit it, is left out or becomes its own module. Enforced by: review, quality bar.
+5. Keep it simple. The smallest version that does the job, one place for each thing, data in tables, not branches. Duplicate only for a measured hot path, and only with the owner's yes. Enforced by: review.
+6. Work from data. Behavior comes from tables and the game's own data, decisions from the docs. Back every claim with data from the game, not a reading of the code. Enforced by: review.
+7. Write as one author. One way to write each thing, enforced by tooling where it can be. Enforced by: conformance, luacheck, review.
+8. Follow the game's patterns. Cite Blizzard's source, game data or our own in-game tests in a short comment. Study other addons in research; never name or credit them in the repos. Cite an outside data source where its numbers are used (the data tool, the generated file's header, the docs), never in code comments. Nothing custom without a real need. Enforced by: review.
+9. Stay quiet. Speak only when the module has done something the player wants to know, in plain game words and the machine voice (Part 3, "Voice"). Enforced by: conformance, quality bar.
+10. Serve both inputs. Mouse and keyboard and gamepad are both first-class: every feature works and reads clearly either way. Never break the controller. Information or an action the player needs is reachable both ways; only an extra beside the main feature may be mouse and keyboard only, and it never gets in the controller's way. No minimap icons. No release until both are checked in game. Enforced by: review, quality bar.
+11. Self found and friends first. Show what the player and their friends come across; public data (included tables, outside databases) is opt-in, never the default. The source choice defaults to Friends where the module shares, else Self Found. The suite reads as Jig Boltgrip building what he finds useful for himself and others. Enforced by: review.
+12. Test only known bugs. Each test names the bug it guards; none for coverage, completeness or habit. Enforced by: review.
+13. Docs hold the why. Reasons, decisions and history live in the docs; code comments give the reason only (Part 2, "Comments"). Enforced by: conformance.
 
 ## Look before designing
 
