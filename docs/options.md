@@ -139,11 +139,11 @@ Blizzard has no text row under a setting. Everything a row says is in its toolti
 
 ## Toolkit page
 
-The toolkit's own page (owner, 2026-11-27: "Working rows are slash text, Order of modules, Reload likely doesn't belong in there for anyone ... We may not need a heading in that section at all though since we already had toolkit as the first heading"):
+The toolkit's own page is an About page, the shape addons commonly use (another addon-2.0 builds one from TOC fields). The owner, 2026-11-27, asked for a paragraph intro in Jig's voice ("Hey there! I like to keep simplicity in mind with the tools I create ...") and to "think about what's possible, and iterate".
 
-- No row per module (owner, 2026-11-27: "Why do we have those open buttons if they don't do anything?", then "Remove them"): the AddOns list shows each module's page under the toolkit, and under the gamepad interface a button can only say where the page is. The page opens with one intro line as a heading, in Jig's voice but plain: "One gadget, one job. Each has its own page below." (owner, 2026-11-27: "I kind of like the gnome voice, but plain enough ... It's an addon page so maybe ok to break and be human").
-- Working builds add a "Working Build" heading with one row that names the thing and puts the verb on the button: Working Log (Show). No watch switch: a working build always logs (owner, 2026-11-27: "We also shouldn't be able to turn off the logging on my debug build"). No clear row: logs drop their oldest lines on their own, and a one-press wipe lost test data (owner, 2026-11-27: "Remove it"); `/boltgrip log clear` stays in chat.
-- No Reload UI row: the game menu has one, and a reload sitting among other buttons is easy to press by mistake.
+- No settings row wraps a paragraph: a heading is one large line with no width (`SettingsListSectionHeaderTemplate`, Blizzard_SettingControls.xml:12). So this page alone uses Blizzard's canvas page (`Settings.RegisterCanvasLayoutCategory`), which is banned for modules. Unproven on the Deck until the canvas check passes: open the page, d-pad over it, press each button, leave, and a Blizzard page still navigates.
+- It holds, in Blizzard fonts: the title; the intro; each module's title and its TOC Notes, by title; the GitHub address with a Copy link button (a CurseForge link joins once the toolkit is listed); and in working builds, a Working Log button.
+- No module rows, no Reload UI row, no watch switch (owner, 2026-11-27: "Remove them", "Reload likely doesn't belong in there", "We also shouldn't be able to turn off the logging on my debug build").
 
 Every page (owner, 2026-11-27: "make sure to logically group controls and add notes if needed"):
 
