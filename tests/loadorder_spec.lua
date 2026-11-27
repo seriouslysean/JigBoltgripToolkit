@@ -36,7 +36,7 @@ local function NewClient()
 		if field == "Title" then return addon .. " title" end
 	end }
 	local function Category()
-		return { GetID = function() return 1 end }, { AddInitializer = function(_, row) table.insert(buttons, row) end }
+		return { GetID = function() return 1 end, SetExpanded = function() end }, { AddInitializer = function(_, row) table.insert(buttons, row) end }
 	end
 	Settings = {
 		RegisterVerticalLayoutCategory = Category,
