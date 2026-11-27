@@ -335,8 +335,10 @@ function RULES.plain(text)
 		if words > SENTENCE_WORDS then return ("has a sentence of %d words"):format(words) end
 	end
 end
--- A choice's description in the shape every module's source choices share, so they read alike across modules.
-local CHOICE_SHAPES = { "^Tracks only .+ you see for yourself%.$", "^Also tracks what your party, guild and friends find%.$",
+-- A choice's description in the shape every module's source choices share, so they read alike across modules. The Self
+-- Found verb may be the one the module's finds really come from ("the chests you open yourself").
+local CHOICE_SHAPES = { "^Tracks only .+ you see for yourself%.$", "^Tracks only .+ you %l+ yourself%.$",
+	"^Also tracks what your party, guild and friends find%.$",
 	"^Also tracks .+%.$" }
 function RULES.choice(text)
 	local body = text:gsub("^%a+ range%. ", "", 1)
