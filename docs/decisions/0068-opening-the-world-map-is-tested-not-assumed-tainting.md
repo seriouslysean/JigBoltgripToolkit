@@ -1,7 +1,7 @@
 # 0068 Opening the world map is tested, not assumed to taint
 
 - Date: 2026-11-27
-- Status: accepted (test pending)
+- Status: accepted; mouse and keyboard measured, Deck pending
 - Scope: all modules (first use: Recipe Vacuum's Map Pin)
 - Kind: gamepad and taint
 
@@ -34,3 +34,7 @@ Recipe Vacuum's Map Pin opened the world map until RecipeVacuum `d49f59d` (2026-
 
 - The test is clean on the Deck: Map Pin opens the map again in release (owner's call).
 - The test taints: the ban stands, now measured.
+
+## Result, mouse and keyboard (2026-11-27)
+
+The Mac test (`/recipevacuum mapopen`, 15:26:36) opened the map (`map open test map=1415 shown=true`) with no blocked action. Owner: "map opened, but it really needs to be automatic and I swear we used to do it" (it did, until RecipeVacuum d49f59d). Map Pin now opens the map with mouse and keyboard in release; under the Gamepad UI it waits for the Deck test. `OpenWorldMap` leaves conformance's banned list; standards "Gamepad UI" says the gamepad path is untested.
