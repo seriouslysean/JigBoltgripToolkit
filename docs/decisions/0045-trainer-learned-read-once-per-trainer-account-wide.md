@@ -43,7 +43,7 @@ The learned services are read after the visible scan, once a visit. A read that 
 ## Tests
 
 - Specs: "a read that finds no learned rows is done: a later visit reads nothing", "an unfinished read runs once a visit, and again on a later visit", "a done trainer is read again for a newly known recipe without a trainer source", "a trainer showing no services reads no learned services" (`tests/simulate_spec.lua`).
-- Deck: Learned Services [Read] at a trainer whose recipes the character knows; pending.
+- Deck: the automatic read at a trainer whose recipes the character knows passed 2026-11-27 10:59 (Yarr Hammerstone, npc 5392, Mining: 2 used rows, 1 saved, 23.5 ms, once; the next open skipped as done). The Engineering trainer retest after a save reset is pending.
 
 ## Reopen if
 
