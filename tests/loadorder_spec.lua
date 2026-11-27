@@ -481,6 +481,38 @@ describe("load order", function()
 		assert(#steps == 1 and steps[1] and characterDb.schema == 2, "the character table ran its own step 2")
 	end)
 
+	-- Fails if an unnumbered character table takes its number from the account's: a later character's table skipped its
+	-- steps once the first login had raised the account, and an old account made the table run steps it was never owed.
+	it("an unnumbered character table is current and runs no step, whatever the account's number is", function()
+		local steps = {}
+		local spec = { schema = 3, character = "CharFloorChar", migrations = {},
+			characterMigrations = { [2] = function() steps[#steps + 1] = 2 end, [3] = function() steps[#steps + 1] = 3 end } }
+		_G.CharFloorDB, _G.CharFloorChar = { schema = 1 }, {}
+		local _, characterDb = toolkit:LoadSaved({ title = "Floor" }, "CharFloorDB", spec)
+		assert(#steps == 0 and characterDb.schema == 3, "an old account does not give an unnumbered character table steps")
+		_G.CharFloorDB, _G.CharFloorChar = { schema = 3 }, {}
+		_, characterDb = toolkit:LoadSaved({ title = "Floor" }, "CharFloorDB", spec)
+		assert(#steps == 0 and characterDb.schema == 3, "a current account does not change that")
+	end)
+
+	-- Fails if a newer character save is rewritten while the account save is older (stamp, defaults and an account step
+	-- given a stand-in character table), or the reverse.
+	it("when either save is newer, neither is written in that load", function()
+		local steps = {}
+		local spec = { schema = 3, character = "BothChar", defaults = { shown = true }, characterDefaults = { mine = true },
+			migrations = { [3] = function(_, character) steps[#steps + 1] = character end } }
+		local account, character = { schema = 2 }, { schema = 9, kept = true }
+		_G.BothDB, _G.BothChar = account, character
+		local db, characterDb = toolkit:LoadSaved({ title = "Both" }, "BothDB", spec)
+		assert(_G.BothDB == account and account.schema == 2 and account.shown == nil and #steps == 0
+			and _G.BothChar == character and character.schema == 9 and character.mine == nil
+			and db ~= account and characterDb ~= character and db.shown and characterDb.mine, "a newer character save leaves both alone")
+		account, character = { schema = 9 }, { schema = 2 }
+		_G.BothDB, _G.BothChar = account, character
+		toolkit:LoadSaved({ title = "Both" }, "BothDB", spec)
+		assert(account.schema == 9 and character.schema == 2 and character.mine == nil, "a newer account save leaves both alone")
+	end)
+
 	-- Fails if a key added to a nested defaults table never reaches a save that already has the table, or if a
 	-- player's shorter list is topped up from the defaults.
 	it("nested defaults are filled key by key and lists are left as saved", function()
