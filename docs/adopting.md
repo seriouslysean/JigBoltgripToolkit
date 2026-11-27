@@ -60,7 +60,7 @@ EventUtil.ContinueOnAddOnLoaded(addonName, function()
 	})
 ```
 
-`migrations[step](db, characterDb)` run for each step above the saved number, in order, and the number is saved after each. `character = "GlobalName"` and `characterDefaults` load a second, per-character table (Tackletron) and pass it as the second argument. Delete the module's own loop. Two behaviors to know:
+`migrations[step](db, characterDb)` run for each step above the saved number, in order, and the number is saved after each. `character = "GlobalName"` and `characterDefaults` load a second, per-character table (Tackletron) and pass it as the second argument; steps that only touch the character table go in `characterMigrations[step](characterDb)`, which each character runs from its own saved number. Delete the module's own loop. Two behaviors to know:
 
 - A save from a newer build is left alone: the module runs on an empty copy, the saved variable keeps its schema number, and the player gets one line (the kit's, or `newer = "..."`). Tackletron and Buffulator rewrote the number downward in that case; this closes it.
 - The saved variable's name comes from the addon's name (`addonName .. "DB"`), because the conformance rule keeps the addon's name out of strings. Keep post-load cleanup (seed overlap, layers) in the module, after the call.

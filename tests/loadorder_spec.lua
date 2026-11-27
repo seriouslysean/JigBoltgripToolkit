@@ -463,6 +463,32 @@ describe("load order", function()
 		assert(_G.OlderDB.schema == 3 and #steps == 2, "an older save runs each later step in order")
 	end)
 
+	-- Fails if a saved variable that is not a table errors the load (Lua error on "string".schema), or is overwritten.
+	it("a saved variable that is not a table is left alone and the module runs on an empty copy", function()
+		_G.OddDB = "corrupt"
+		local db = toolkit:LoadSaved({ addon = "Odd", title = "Odd" }, "OddDB", { schema = 1, defaults = { shown = true } })
+		assert(_G.OddDB == "corrupt" and db.shown and db.schema == 1, "a non-table save is kept and an empty copy runs")
+	end)
+
+	-- Fails if a per-character table is migrated only when the account's own schema moves: the first character to log
+	-- in raised the account's number and every other character's table was read as current.
+	it("a character table runs the steps above its own schema number", function()
+		local steps = {}
+		_G.CharRunDB, _G.CharRunChar = { schema = 2 }, { schema = 1, keep = true }
+		local _, characterDb = toolkit:LoadSaved({ title = "Char" }, "CharRunDB", { schema = 2, character = "CharRunChar",
+			migrations = {}, characterMigrations = { [2] = function(character) steps[#steps + 1] = character.keep end } })
+		assert(#steps == 1 and steps[1] and characterDb.schema == 2, "the character table ran its own step 2")
+	end)
+
+	-- Fails if a key added to a nested defaults table never reaches a save that already has the table, or if a
+	-- player's shorter list is topped up from the defaults.
+	it("nested defaults are filled key by key and lists are left as saved", function()
+		_G.NestDB = { schema = 1, colors = { red = 1 }, list = { "a" } }
+		local db = toolkit:LoadSaved({ title = "Nest" }, "NestDB", { schema = 1,
+			defaults = { colors = { red = 0, blue = 2 }, list = { "a", "b" } } })
+		assert(db.colors.red == 1 and db.colors.blue == 2 and #db.list == 1, "nested keys fill and a list stays")
+	end)
+
 	-- Fails if a frame's event count rides on a hook a module's own SetScript("OnEvent") can drop (found in
 	-- Tackletron: WatchEvents before SetScript logged no EVENT lines).
 	it("an event frame counts its events in its own dispatcher", function()
