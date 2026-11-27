@@ -146,6 +146,12 @@ The toolkit's own page (owner, 2026-11-27: "Working rows are slash text, Order o
 - Working builds add a "Working Build" heading with three rows that name the thing and put the verb on the button: Live Watch (Switch), Working Log (Show), Clear Working Log (Clear).
 - No Reload UI row: the game menu has one, and a reload sitting among other buttons is easy to press by mistake.
 
+Every page (owner, 2026-11-27: "make sure to logically group controls and add notes if needed"):
+
+- Group rows by what they do, under a heading per group, as Blizzard's pages do.
+- A button row names the thing with the verb on the button ("Export Recipe Sources", "Export"), never a slash command.
+- Add a note when a row can't be understood from its label and tooltip alone (Notes, above).
+
 ## Gamepad
 
 1. One page for every input. No gamepad-only branch.
@@ -228,7 +234,7 @@ Found while writing this page. Each is the kit's, not a module's. Gap 1 is close
 3. A `choice` does not write its default into saved data until it is changed, so modules repeat the default where they read it (Sparklescope 6000 `Finds.lua:11`, Buffulator `Settings.lua:9-13`).
 4. The `keybinding` row and the kit's button rows have no clean Deck pass. Every module page ends in button rows, and two pages hold key binding rows.
 5. standards.md, "Options", says a choice's tooltip has one line "Label: description" for each option. The code shows the label on its own line over the sentence, because settings text takes no colons. Blizzard's own format is "Label: description" (`Settings/Blizzard_Settings.lua:458`).
-6. A Commands row is labelled with the slash command ("/recipevacuum export") and its button says "Run". Blizzard's button rows name the thing and put the verb on the button ("Reset Chat Position" and "Reset", `Frame/Social.lua:281`), and no Blizzard row shows a slash command. One command table driving chat help and the rows is the owner's decision, so this is an open question, not a violation.
+6. Resolved (owner, 2026-11-27): a command row names the thing with the verb on its button, as Blizzard's do. A command entry gives `label` and `button`; the slash text and "Run" are only the fallback for an entry that gives neither.
 7. Heading tooltips hold text on the kit's own Commands and Working Build headings. Whether the d-pad can show one is not measured.
 8. Conformance cannot see which rows are working-build only. It skips a section whose heading is not a key in `Locales/enUS.lua`, which is how Sparklescope 6000's Test Settings page (12 and 6 stops, no "Choose") passes. A module that put a release section's heading in place would escape the text rules.
 
