@@ -446,6 +446,44 @@ describe("load order", function()
 		assert(not text:find("%-%-@[%a%-]+@"), "the library holds no packager tokens")
 	end)
 
+	-- Fails if a save from a newer build is rewritten: lowering its schema number makes the next upgrade run
+	-- the migration steps again on migrated data (found in Tackletron and Buffulator).
+	it("a save from a newer build is left unchanged, and the module runs on an empty copy", function()
+		local newerSave = { schema = 9, kept = true }
+		_G.NewerDB = newerSave
+		local steps = {}
+		local db = toolkit:LoadSaved({ title = "Newer" }, "NewerDB", { schema = 3, defaults = { shown = true },
+			migrations = { [2] = function() steps[#steps + 1] = 2 end, [3] = function() steps[#steps + 1] = 3 end } })
+		assert(_G.NewerDB == newerSave and newerSave.schema == 9 and newerSave.kept and #steps == 0
+			and db ~= newerSave and db.shown and db.schema == 3,
+			"a save from a newer build is left unchanged, and the module runs on an empty copy")
+		_G.OlderDB = { schema = 1 }
+		toolkit:LoadSaved({ title = "Older" }, "OlderDB", { schema = 3, migrations = {
+			[2] = function() steps[#steps + 1] = 2 end, [3] = function() steps[#steps + 1] = 3 end } })
+		assert(_G.OlderDB.schema == 3 and #steps == 2, "an older save runs each later step in order")
+	end)
+
+	-- Fails if a frame's event count rides on a hook a module's own SetScript("OnEvent") can drop (found in
+	-- Tackletron: WatchEvents before SetScript logged no EVENT lines).
+	it("an event frame counts its events in its own dispatcher", function()
+		local realCreateFrame, realTimer = CreateFrame, C_Timer
+		local flush
+		C_Timer = { After = function(_, fn) flush = fn end }
+		CreateFrame = function()
+			local frame = { RegisterEvent = function() end }
+			frame.SetScript = function(self, _, fn) self.script = fn end
+			return frame
+		end
+		local got
+		local frame = toolkit:EventFrame(fresh, { PLAYER_LOGIN = function(arg) got = arg end })
+		CreateFrame = realCreateFrame
+		frame.script(frame, "PLAYER_LOGIN", 5)
+		C_Timer = realTimer
+		flush()
+		assert(got == 5 and freshSaved.devLog[#freshSaved.devLog]:find("EVENT PLAYER_LOGIN", 1, true),
+			"an event frame counts its events in its own dispatcher")
+	end)
+
 	-- Fails if a share made by an older copy keeps running that copy's code after a newer copy loads (a method
 	-- bound at creation instead of looked up at call time).
 	it("a share made by an older copy runs the newer copy's methods", function()

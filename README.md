@@ -12,6 +12,7 @@ Standards shared by every module (code, data, resilience, performance, voice): [
 - Slash commands: `/boltgrip <module> <command>` and `/<module> <command>`, with a `help` command built from the module's command table.
 - A Commands section and a Links section on each module's page, built from the same table and from the TOC's `X-Website` and `X-Curse-Project-ID` fields.
 - A window with selectable text, for copying text out of the game.
+- Moving a module to a newer kit: what changed, the call to use and what to delete ([docs/adopting.md](docs/adopting.md)).
 - Sharing between players of one module (party, raid, guild and friends): the transport, probes, requests, limits and logging, with the module supplying only its row shape ([docs/sharing.md](docs/sharing.md)).
 - A shared key binding header, `BINDING_HEADER_JIGBOLTGRIPTOOLKIT`.
 
@@ -29,7 +30,7 @@ Set `## Category: Jig Boltgrip's Toolkit` in the TOC. Then, once saved variables
 ```lua
 local toolkit = LibStub("JigBoltgripToolkit-1.0")
 -- The class (a RAID_CLASS_COLORS key) colors the module's name in chat.
-local module = toolkit:RegisterModule(addonName, "DRUID")
+local module = toolkit:RegisterModule(addonName) -- the record NewModule made at file load, so a file can name the module before settings
 -- The whole page is data: the kit builds every row, in one order, from Blizzard's controls.
 toolkit:BuildOptions(module, savedTable, {
 	{ heading = L["Thing Sources"], place = "sources", rows = {
@@ -41,8 +42,8 @@ toolkit:BuildOptions(module, savedTable, {
 		{ kind = "checkbox", key = "record", label = L["Record Things"], default = true, tooltip = L["Remembers the things you see."] },
 	} },
 })
-toolkit:RegisterCommands(module, "mymodule", {
-	{ action = "", description = L["Open the options"], run = function() end },
+toolkit:RegisterCommands(module, { -- the kit adds the "open the options" entry and help
+	{ action = "go", description = L["Do the thing"], run = function() end },
 })
 toolkit:FinishModule(module)
 ```

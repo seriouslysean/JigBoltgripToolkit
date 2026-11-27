@@ -37,7 +37,7 @@ The message kinds are `H` (hello), `A` (answer), `O` (offer), `G` (get) and `D` 
 ## What a module supplies
 
 ```lua
-ns.share = toolkit:NewShare(ns.device, {
+ns.share = toolkit:NewShare(ns.module, {
 	protocol = 2,                       -- in both prefixes
 	kinds = { trainer = true },         -- row kinds this version reads; every row has a kind in `k`
 	wire = function(entry, context) end, -- one found entry as a row of plain numbers, strings and booleans
