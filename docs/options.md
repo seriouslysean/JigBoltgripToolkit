@@ -139,11 +139,8 @@ Blizzard has no text row under a setting. Everything a row says is in its toolti
 
 ## Toolkit page
 
-The toolkit's own page is an About page, the shape addons commonly use (another addon-2.0 builds one from TOC fields). The owner, 2026-11-27, asked for a paragraph intro in Jig's voice ("Hey there! I like to keep simplicity in mind with the tools I create ...") and to "think about what's possible, and iterate".
-
-- No settings row wraps a paragraph: a heading is one large line with no width (`SettingsListSectionHeaderTemplate`, Blizzard_SettingControls.xml:12). So this page alone uses Blizzard's canvas page (`Settings.RegisterCanvasLayoutCategory`), which is banned for modules. Unproven on the Deck until the canvas check passes: open the page, d-pad over it, press each button, leave, and a Blizzard page still navigates.
-- It holds, in Blizzard fonts: the title; the intro; each module's title and its TOC Notes, by title; the GitHub address with a Copy link button (a CurseForge link joins once the toolkit is listed); and in working builds, a Working Log button.
-- No module rows, no Reload UI row, no watch switch (owner, 2026-11-27: "Remove them", "Reload likely doesn't belong in there", "We also shouldn't be able to turn off the logging on my debug build").
+- Built from Blizzard's list rows like every page. A canvas About page with the owner's intro paragraph (MINOR 72) came up empty on the Deck and broke the controller ("Interface action failed because of an AddOn", 2026-11-27), so `Settings.RegisterCanvasLayoutCategory` stays banned, now measured. A paragraph intro has no home on this page until another way is proven.
+- In working builds it holds one row, Working Log (Show). No module rows, no Reload UI row, no watch switch (owner, 2026-11-27: "Remove them", "Reload likely doesn't belong in there", "We also shouldn't be able to turn off the logging on my debug build").
 
 Every page (owner, 2026-11-27: "make sure to logically group controls and add notes if needed"):
 
