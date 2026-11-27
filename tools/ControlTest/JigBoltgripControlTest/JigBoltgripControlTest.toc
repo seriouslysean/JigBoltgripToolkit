@@ -1,8 +1,0 @@
-## Interface: 16001
-## Title: Jig Boltgrip Control Test
-## Notes: Throwaway page of Blizzard's own Settings controls, to test them under the Gamepad UI. Never released.
-## Author: Jig Boltgrip
-## Version: test
-## SavedVariables: JigBoltgripControlTestDB
-
-JigBoltgripControlTest.lua
