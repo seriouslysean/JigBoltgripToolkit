@@ -50,7 +50,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 ## Fast
 
 - [ ] Speed is measured in the game, not judged from the code. The working build logs its own timings.
-- [ ] Nothing of ours takes a frame, measured on the first open as well as later ones.
+- [ ] No frame of ours over 5 ms in normal play, first opens included: `tools/perf-deck` passes on a Deck session that used every feature.
 - [ ] Every cache has a named reason it refreshes. Work per row and per redraw is cached or done only for what is on screen.
 - [ ] Ordinary play costs next to nothing.
 

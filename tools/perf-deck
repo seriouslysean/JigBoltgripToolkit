@@ -2,7 +2,7 @@
 # Every toolkit module's own CPU measurement from its working-build log on the Deck, one row per logged session:
 # the game's C_AddOnProfiler numbers the kit writes at logout (docs/standards.md, "Performance").
 #   tools/perf-deck [host] [sessions per module]
-# Exit 1 when any listed session has a frame over 5 ms: the bar proposed to the owner (2026-11-26), pending.
+# Exit 1 when any listed session has a frame over 5 ms, the bar every module meets (docs/standards.md, "Performance").
 set -euo pipefail
 
 host=${1:-deck-host}

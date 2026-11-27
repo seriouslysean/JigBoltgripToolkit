@@ -139,7 +139,7 @@ Each kind of data has one home, and none is copied into another.
 ## Performance
 
 - Measure, then fix what the numbers name. The working build times its own work all session and writes the table to the saved log; a guess about the slow part was wrong once here and the table was right.
-- Budget: nothing of ours should take a frame (16 ms). Recipe Vacuum's steady state is about 5 ms for a list rebuild, under 0.01 ms per row, 0.01 ms for pane controls.
+- Budget: no frame of ours over 5 ms in normal play, the game's own cutoff (`C_AddOnProfiler` counts frames over 1, 5 and 10 ms, as Blizzard's addon list reads them), so nothing of ours shows as jank (owner, 2026-11-26). Work that cannot fit is split across frames. `tools/perf-deck` reads each module's numbers from its Deck log and fails on any frame over 5 ms.
 - Cache what is expensive, with a named event that clears it. Know for each cache what refreshes it.
 - Do first-open work lazily: only for rows on screen, as they are drawn, with one coalesced redraw when answers arrive.
 - What is fixed for a game build is read once per build and kept, not once per session.
