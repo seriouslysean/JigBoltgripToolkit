@@ -69,7 +69,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 - [ ] Tests run the addon's real code and each names the breakage it would catch.
 - [ ] Everything has been seen working in the game. What has not is reported as untested.
 - [ ] Every feature logs its decisions and times its per-row or per-event work in the working build, so the owner's play answers what went wrong.
-- [ ] Before any Deck copy: `scripts/check` and the layout diff pass, the last frame-time table has no frame of ours over 5 ms, and no new control type goes out without a clean Deck pass. A bug the owner reports twice gets a test at its cause before the next copy (decision 0069).
+- [ ] Before any Deck copy: `scripts/check` and the layout diff pass, the last frame-time table has no frame of ours over 5 ms, and no new control type goes out without a clean Deck pass. A bug the owner reports twice gets a test at its cause before the next copy (decision 0071).
 
 ## Kept in order
 

@@ -165,4 +165,4 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 
 ## Process
 
-- [0069](0069-rules-from-the-owners-corrections.md) Rules from the owner's corrections (all modules; accepted)
+- [0071](0071-rules-from-the-owners-corrections.md) Rules from the owner's corrections (all modules; accepted)

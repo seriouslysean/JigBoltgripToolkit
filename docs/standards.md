@@ -219,12 +219,12 @@ Settings labels and tooltips are not in this voice. They follow Blizzard's wordi
 
 A panel drawn to sit beside or match a Blizzard frame (Recipe Vacuum's panel beside the professions window is the first):
 
-- Measure Blizzard's live frame, then draw ours; a script diff of matching anchors, sizes and gaps passes before the owner looks (decision 0069).
+- Measure Blizzard's live frame, then draw ours; a script diff of matching anchors, sizes and gaps passes before the owner looks (decision 0071).
 - On a second correction of the same kind, stop, name the cause, and extend the diff to catch it.
 
 ## Working with the owner
 
-Rules from the owner's own corrections (decision 0069; reports/owner-friction-2026-11-27.md). Every module session follows them.
+Rules from the owner's own corrections (decision 0071; reports/owner-friction-2026-11-27.md). Every module session follows them.
 
 - Read our saved data and the game's data before stating a game fact or asking the owner for it.
 - When the owner says a point was missed, restate it in one line and wait for his yes before acting.
