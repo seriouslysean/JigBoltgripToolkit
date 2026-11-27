@@ -28,6 +28,7 @@ local function NewClient()
 	DEFAULT_CHAT_FRAME = { AddMessage = function(_, text, r, g, b) table.insert(chat, text); chat.color = { r, g, b } end }
 	RAID_CLASS_COLORS = { MAGE = { r = 0, g = 0, b = 1 } }
 	FRIENDS = "Friends" -- Blizzard's global string, enUS
+	IsLoggedIn = function() return false end
 	-- Blizzard's Settings page order (GameplaySettingsGroup.lua), enUS titles.
 	CUSTOM_GAMEPLAY_SETTINGS_ORDER = { ["Combat"] = 10, ["Keybindings"] = 14 }
 	CONTEXT_ACTION_LABEL_OPEN = "Open"

@@ -1,6 +1,6 @@
 -- Shared home for Jig Boltgrip's Toolkit modules. Each module embeds this file; LibStub keeps the newest.
 -- One Settings category for the toolkit, one subcategory per installed module.
-local MAJOR, MINOR = "JigBoltgripToolkit-1.0", 60
+local MAJOR, MINOR = "JigBoltgripToolkit-1.0", 61
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then
 	return
@@ -575,7 +575,10 @@ function lib:EventFrame(module, handlers, options)
 	local frame = CreateFrame("Frame")
 	for event in pairs(handlers) do
 		local unit = options.unit and options.unit[event]
-		if unit then
+		-- A game update that drops an event makes the module slower, not broken (Blizzard_Console.lua guards the same way).
+		if C_EventUtils and C_EventUtils.IsEventValid and not C_EventUtils.IsEventValid(event) then
+			lib:Trace(module, "EVENT %s is not a client event; not registered", event)
+		elseif unit then
 			frame:RegisterUnitEvent(event, unit)
 		elseif not (options.later and options.later[event]) then
 			frame:RegisterEvent(event)
@@ -1029,7 +1032,8 @@ function lib:FinishModule(module)
 	end
 	module.finished = true
 	lib:AddWorkingSection(module)
-	local links = ModuleLinks(module.addon)
+	-- A copy window is of no use without a keyboard; the row's tooltip still shows the address.
+	local links = not GamepadUI() and ModuleLinks(module.addon) or {}
 	if #links > 0 then
 		module.layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(L["Links"]))
 		for _, link in ipairs(links) do
@@ -1209,6 +1213,7 @@ local REQUEST_TIMEOUT = 30
 local REQUEST_RETRIES = 2 -- re-asks after a timeout
 local MAX_COLLECTION_ID_LENGTH = 32
 local COLLECTION_ID_RANGE = 1000000000 -- a collection ID is its creation time and a random number below this
+local MAX_CACHED_REPLIES = 4
 local REPLY_DELAY = 3 -- seconds a channel's probes are collected before one answer goes out
 local WHISPER_ERROR_WINDOW = 10 -- seconds after a send in which the game's "no such player" line counts
 local CLOCK_SKEW = 300 -- seconds a peer's clock may run ahead
@@ -1327,7 +1332,7 @@ function lib:NewShare(module, spec)
 	local share = setmetatable({
 		module = module, spec = spec, prefix = prefix, dataPrefix = prefix .. "D", testPrefix = prefix .. "T",
 		revisions = {}, friends = {}, waiting = {}, replied = {}, cachedReplies = {}, whispered = {}, unreachable = {},
-		replyTimers = {}, bnetPresence = {}, changedFriends = {},
+		replyTimers = {}, bnetPresence = {}, changedFriends = {}, inWorld = IsLoggedIn() == true,
 	}, { __index = self.shareMethods })
 	self.shares[module.addon] = share
 	table.insert(self.shareList, share)
@@ -1543,23 +1548,26 @@ end
 
 function Share:Broadcast(kind)
 	local message = self:Offer(kind)
-	if self.guild then self:Send(message, "GUILD") end
-	if self.home then self:Send(message, self.home) end
-	if self.instance then self:Send(message, "INSTANCE_CHAT") end
+	local sent = 0
+	if self.guild then self:Send(message, "GUILD") sent = sent + 1 end
+	if self.home then self:Send(message, self.home) sent = sent + 1 end
+	if self.instance then self:Send(message, "INSTANCE_CHAT") sent = sent + 1 end
 	for name in pairs(self.friends) do
 		if self.replied[name] and not IsGuildMemberByName(name) and not IsGroupMember(name) then
 			self:Send(message, "WHISPER", name)
+			sent = sent + 1
 		end
 	end
+	Trace(self, "%s sent to %d channels or friends", message, sent)
 end
 
 function Share:ScheduleOffer()
 	wipe(self.cachedReplies)
-	if not self.enabled or self.offerQueued then return end
-	-- A trainer or merchant visit can find dozens of entries; one offer covers them.
-	self.offerQueued = true
-	C_Timer.After(0, function()
-		self.offerQueued = nil
+	if not self.enabled then return end
+	-- A trainer or merchant visit finds entries over many frames; one offer goes out once they stop, as answers do (REPLY_DELAY).
+	if self.offerTimer then self.offerTimer:Cancel() end
+	self.offerTimer = C_Timer.NewTimer(REPLY_DELAY, function()
+		self.offerTimer = nil
 		if self:Ready() then self:Broadcast(KIND.OFFER) end
 	end)
 end
@@ -1569,6 +1577,7 @@ end
 function Share:Reply(after)
 	local cached = self.cachedReplies[after]
 	if cached then return cached end
+	local started = debugprofilestop()
 	local limit = MAX_ROWS
 	while true do
 		local rows, through = self:Since(after, limit)
@@ -1576,7 +1585,12 @@ function Share:Reply(after)
 		if not encoded then return nil end
 		if #encoded <= SEND_LIMIT or limit <= 1 then
 			local message = ("%s %s %d %d %s"):format(KIND.DATA, self.exchange.id, after, through, encoded)
+			-- A peer asking from every revision cannot grow the cache past a few replies.
+			local held = 0
+			for _ in pairs(self.cachedReplies) do held = held + 1 end
+			if held >= MAX_CACHED_REPLIES then wipe(self.cachedReplies) end
 			self.cachedReplies[after] = message
+			lib:Time(self.module, "share reply", started)
 			return message
 		end
 		limit = math.floor(limit / 2)
@@ -1706,6 +1720,12 @@ end
 
 function Share:OnData(message, channel, sender)
 	if not self:Ready() or issecretvalue(sender) or issecretvalue(message) then return end
+	local started = debugprofilestop()
+	self:HandleData(message, channel, sender)
+	lib:Time(self.module, "share data", started)
+end
+
+function Share:HandleData(message, channel, sender)
 	if channel ~= "WHISPER" then
 		Trace(self, "data from %s ignored: not a whisper (%s)", sender, tostring(channel))
 		return
