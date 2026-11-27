@@ -27,11 +27,13 @@ Corners on every usable item, circling lights on the selected one. Disenchant us
 
 ## Versions
 
+- AutoOmniadjustor `74e119e` (`Marks.lua`, `AutoCastOverlayTemplate`), `adc5296` (cached actions, two-item redraw)
 - client 1.60.1 (71139)
 
 ## Tests
 
 - none yet
+- Deck: pending; the module is off.
 
 ## Reopen if
 

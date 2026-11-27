@@ -27,11 +27,13 @@ Items in an equipment set are never acted on. No other gate (ignore list, qualit
 
 ## Versions
 
+- AutoOmniadjustor `74e119e` (`Actions.lua`, `C_Container.GetContainerItemEquipmentSetInfo`)
 - client 1.60.1 (71139)
 
 ## Tests
 
 - none yet
+- Deck: pending; the module is off.
 
 ## Reopen if
 

@@ -32,7 +32,8 @@ One line, once ever, per borrowed stick press.
 
 ## Tests
 
-- none yet
+- Offline: conformance passes both lines' voice checks (noise with no end mark, report beats ending "!") (`scripts/check` at `f43f5b1`).
+- Deck: pending; the module is off.
 
 ## Reopen if
 
