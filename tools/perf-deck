@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Every toolkit module's own CPU measurement from its working-build log on the Deck, one row per logged session:
+# the game's C_AddOnProfiler numbers the kit writes at logout (docs/standards.md, "Performance").
+#   tools/perf-deck [host] [sessions per module]
+# Exit 1 when any listed session has a frame over 5 ms: the bar proposed to the owner (2026-11-26), pending.
+set -euo pipefail
+
+host=${1:-deck-host}
+keep=${2:-4}
+saved='/home/deck/.local/share/Steam/steamapps/compatdata/4077668031/pfx/drive_c/Program Files (x86)/World of Warcraft/_forever_/WTF/Account/ACCOUNT/SavedVariables'
+modules=(RecipeVacuum Tackletron Sparklescope6000 Buffulator AutoOmniadjustor)
+
+# shellcheck disable=SC2029 # the paths are meant to expand on this side
+report=$(ssh -o BatchMode=yes "$host" "cd '$saved' && for m in ${modules[*]}; do [ -f \"\$m.lua\" ] || continue; grep -o \"[0-9:]* CPU game.s measure[^\\\"]*\" \"\$m.lua\" | tail -n $keep | sed \"s/^/\$m /\"; done")
+
+failed=0
+printf '%-18s %-9s %10s %10s %6s %6s %6s\n' module logout 'avg ms' 'peak ms' '>1ms' '>5ms' '>10ms'
+while read -r line; do
+	[ -n "$line" ] || continue
+	module=${line%% *}
+	read -r at average peak over1 over5 over10 < <(sed -E 's/^[^ ]+ ([0-9:]+) .*session average ([0-9.]+) ms.*peak ([0-9.]+) ms \| frames over 1 ms ([0-9]+), 5 ms ([0-9]+), 10 ms ([0-9]+).*/\1 \2 \3 \4 \5 \6/' <<<"$line")
+	printf '%-18s %-9s %10s %10s %6s %6s %6s\n' "$module" "$at" "$average" "$peak" "$over1" "$over5" "$over10"
+	if [ "$over5" != 0 ]; then failed=1; fi
+done <<<"$report"
+exit "$failed"
