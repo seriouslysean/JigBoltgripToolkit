@@ -158,6 +158,12 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 |---|---|---|---|
 | 0067 | [Working-build log lines are logfmt](0067-working-build-log-lines-are-logfmt.md) | all modules | accepted |
 
+## Layout
+
+| No. | Decision | Scope | Status |
+|---|---|---|---|
+| 0073 | [Recipe Vacuum keeps its details split over the overview's line](0073-recipe-vacuum-keeps-its-details-split-over-the-overviews-line.md) | Recipe Vacuum | not built |
+
 ## Open, not decided
 
 - Sparklescope 6000: replacing the zoom formula and scene camera that match another addon Sparkles, which ships no licence. Owner: "I don't want their exact code, that's weird and has a smell, and they'd be able to tell"; "TBD". A Mac session with the mouse wheel decides.
