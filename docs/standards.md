@@ -6,6 +6,12 @@ The bar an addon is checked against before a release: [quality-bar.md](quality-b
 
 # Part 1. Ethos
 
+Above everything, in this order (owner, 2026-11-26: "I think being clear is important, consistency between addons is integral to me and these addons, and alignment at the kit level is crucial. Fitting wow standards in text, written word and function is also important to me, it's paramount."):
+
+1. Fit WoW's standards in text, written word and function. This is paramount.
+2. Consistency between addons, held by alignment at the kit level.
+3. Clarity throughout.
+
 The owner's rules; where they and anything below disagree, these win (owner, 2026-11-25: "the most important is simple, dry, kiss code. Working from data, documentation, and that the code looks like one person wrote it. All tests need to add value, no low value tests at all, for any reason unless there's a specific, known bug we're preventing").
 
 1. Simple, DRY, KISS. The smallest version that does the job; one place for each thing. Duplication is a DRY violation by default; performance is the one reason to accept it (a hot path that cannot afford the call), and only after asking the owner (owner, 2026-11-25: "I also want to be really careful with duplication, sometimes it's ok, but generally it's a dry violation"; "Performance IS important though, so performance take precedence when considering those things, but definitely ask me first"). Enforced by: review.
