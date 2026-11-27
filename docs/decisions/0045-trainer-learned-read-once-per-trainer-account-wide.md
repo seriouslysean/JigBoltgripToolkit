@@ -1,0 +1,50 @@
+# 0045. Trainer learned read: once per trainer, account-wide
+
+- Date: 2026-11-27
+- Status: accepted
+- Scope: Recipe Vacuum
+- Kind: trainers
+
+## Context
+
+At a trainer, the default "used" filter hides services the character already learned.
+
+## Decision
+
+The learned services are read after the visible scan, once a visit. A read that finds no rows is done, and done is saved per trainer for the whole account. A trainer is read again only when the visiting character knows a recipe of that profession with no trainer source. No profession gate, no purchase hook.
+
+## Reasons
+
+- Each read flips Blizzard's "used" filter, and each flip rebuilds its list: 26 to 32 ms a pass on the Deck (log 2026-11-27 10:41, npc 1241).
+- Three passes over two visits found nothing, because the trainer taught Blacksmithing and the character had none.
+- Fable, Grok and Astra agreed: the 0 was correct, the same-visit retry and the pre-scan trigger were bugs, and a hook adds nothing because the scan records rows before a purchase.
+
+## Owner's words
+
+- "I still think we need it, any way to mitigate further?"
+- "Build all three"
+- "I don't think the gate is useful, it's only once anyway and is good for data gathering and if I want to switch professions by looking first"
+- "Does per character matter? I'd argue not"
+- "It's also more performant that way"
+
+## Rejected
+
+- Dropping the read (Astra).
+- A profession gate.
+- A `BuyTrainerService` hook.
+- Skipping when every known recipe has a source ("Not learning new recipes doesn't mean they'll never have them").
+
+## Versions
+
+- RecipeVacuum `4dcc30e` (schema 14)
+- `cairn:mq5g8`
+- client 1.60.1 (71139)
+
+## Tests
+
+- Specs: "a read that finds no learned rows is done: a later visit reads nothing", "an unfinished read runs once a visit, and again on a later visit", "a done trainer is read again for a newly known recipe without a trainer source", "a trainer showing no services reads no learned services" (`tests/simulate_spec.lua`).
+- Deck: Learned Services [Read] at a trainer whose recipes the character knows; pending.
+
+## Reopen if
+
+That Deck test finds 0 rows (the read itself is broken), or flips show up as a measured cost.

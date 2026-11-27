@@ -1,0 +1,39 @@
+# 0031. StaticPopup_Show is banned
+
+- Date: 2026-11-27
+- Status: accepted
+- Scope: all modules
+- Kind: gamepad and taint
+
+## Context
+
+Buffulator showed a Yes/No popup for its PvP prompt.
+
+## Decision
+
+Conformance refuses `StaticPopup_Show`; tell the player in chat instead.
+
+## Reasons
+
+- A popup shown from addon code activates the Gamepad UI's popup bindings tainted (`StaticPopupGamepad.lua`, through `InputBindingManager`), the path that blocks the gamepad interact target (Buffulator session).
+
+## Owner's words
+
+- "Plain text line"
+
+## Rejected
+
+- A Yes/No dialog (Buffulator `7efed80`).
+
+## Versions
+
+- JigBoltgripToolkit `b3d5d4c`
+- client 1.60.1 (71139)
+
+## Tests
+
+- Conformance check in `tests/conformance.lua`.
+
+## Reopen if
+
+A popup is proven untainted on the Deck.

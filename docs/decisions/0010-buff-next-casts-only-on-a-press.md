@@ -1,0 +1,38 @@
+# 0010. Buff Next casts only on a press
+
+- Date: 2026-11-26
+- Status: accepted
+- Scope: Buffulator
+- Kind: buffing
+
+## Context
+
+Buffing other players could be automated.
+
+## Decision
+
+Buff Next casts only when the player presses it. Group members, you and your target are cast on directly; anyone else through `/targetexact`, the cast, then `/cleartarget`.
+
+## Reasons
+
+- Casting needs a hardware press; the game refuses a cast on a timer or an event (Buffulator `docs/client-notes.md`).
+
+## Owner's words
+
+- "It isn't taking over anything, but should purely be additive and not get in the way."
+
+## Rejected
+
+- Casting on a timer or an event.
+
+## Versions
+
+- client 1.60.1 (71139)
+
+## Tests
+
+- Spec: "buffs a level 9 player outside the group at the rank they can take", "gives Thorns to a group member you target" (`tests/behavior_spec.lua`).
+
+## Reopen if
+
+n/a; the game rule decides it.

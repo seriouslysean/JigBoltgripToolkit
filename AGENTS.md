@@ -2,7 +2,7 @@
 
 One Lua file, `JigBoltgripToolkit.lua`, embedded by every toolkit addon through LibStub (`JigBoltgripToolkit-1.0`). Client: WoW Forever 1.60.1 (Interface 16001). Blizzard's UI source for this client: [Gethe/wow-ui-source, `forever` branch](https://github.com/Gethe/wow-ui-source/tree/forever).
 
-How every toolkit addon is written, this library included: [docs/standards.md](docs/standards.md). The checklist each addon meets before a release: [docs/quality-bar.md](docs/quality-bar.md). Every choice across the toolkit and its modules, why, and what would reopen it: [docs/decisions.md](docs/decisions.md); module sessions add theirs there.
+How every toolkit addon is written, this library included: [docs/standards.md](docs/standards.md). The checklist each addon meets before a release: [docs/quality-bar.md](docs/quality-bar.md). Every choice across the toolkit and its modules, one file each with dates, cited reasons, versions and tests: [docs/decisions/](docs/decisions/README.md); module sessions add theirs there.
 
 ## Rules
 
