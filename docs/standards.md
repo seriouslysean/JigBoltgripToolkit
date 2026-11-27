@@ -80,7 +80,7 @@ Suggested files: `Core.lua` (saved data, schema, migrations), `Voice.lua`, `Sett
 - `luacheck` lints `tests/` with busted's globals (`std = "+busted"`).
 - Tests run the addon's real code, against a real saved-variables file and, where the interface matters, against Blizzard's real UI code from the source mirror.
 - A test stand-in must not share a value with the code under test. A stand-in color defined equal to the constant it was compared with hid a bug here until it was seen in game.
-- A test exists only to prevent a specific, known bug, and names it (Part 1, rule 4). A test that guards nothing known is removed.
+- A test exists only to prevent a specific, known bug, and names it (Part 1, rule 12). A test that guards nothing known is removed.
 - Offline tests do not replace the game. Work not yet seen in the client is reported as untested in game.
 
 ## Conformance
