@@ -30,11 +30,14 @@ Each new buff restarts the wait, up to 10 s after the first. One player gets the
 
 ## Versions
 
+- Buffulator `4cf82e7` (one emote at nobody for several players)
+- Buffulator `8c17ddb` (each buff restarts the wait, at most 10 s)
 - client 1.60.1 (71139)
 
 ## Tests
 
-- none yet
+- No spec for the shared thanks.
+- Not yet seen in a busy hub; the 10 s limit is a guess to check there.
 
 ## Reopen if
 

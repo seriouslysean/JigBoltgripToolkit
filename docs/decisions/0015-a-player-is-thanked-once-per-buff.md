@@ -28,6 +28,8 @@ A player counts as thanked until the buff they gave runs out; your death clears 
 
 ## Versions
 
+- Buffulator `8c17ddb` (thanked until the buff runs out; death clears it)
+- Buffulator `8e8afdc` (thanked only once the emote went out)
 - client 1.60.1 (71139)
 
 ## Tests

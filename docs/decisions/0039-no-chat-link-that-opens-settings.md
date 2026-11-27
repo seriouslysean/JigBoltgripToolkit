@@ -27,11 +27,12 @@ No addon chat link opens Settings; the line names the setting in plain text.
 
 ## Versions
 
+- Buffulator `afaf8a7` (plain chat line, no link)
 - client 1.60.1 (71139)
 
 ## Tests
 
-- none yet
+- None in game: read in source (`ItemRefHandlersShared.lua:279`, `ItemRefHandlers.lua:247`). The panel taint it would cause was seen on the Deck (toolkit docs/client-notes.md).
 
 ## Reopen if
 

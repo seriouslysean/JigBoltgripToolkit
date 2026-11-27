@@ -28,6 +28,7 @@ Buffulator.
 
 ## Versions
 
+- Buffulator `9e21089`
 - client 1.60.1 (71139)
 
 ## Tests

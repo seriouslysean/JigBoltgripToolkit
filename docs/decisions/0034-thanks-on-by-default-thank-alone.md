@@ -33,7 +33,7 @@ Thank Players Who Buff You starts on with only `/thank` checked. Party and raid 
 
 ## Tests
 
-- none yet
+- The Thanks specs run on the default since `bcabf00`, with no switch turned on by the spec: "thanks a player once when their buff lands, after the delay" (`tests/behavior_spec.lua`).
 
 ## Reopen if
 
