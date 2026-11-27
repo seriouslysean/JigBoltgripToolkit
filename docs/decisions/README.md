@@ -24,6 +24,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0031 | [StaticPopup_Show is banned](0031-staticpopup-show-is-banned.md) | all modules | accepted |
 | 0039 | [No chat link that opens Settings](0039-no-chat-link-that-opens-settings.md) | all modules | accepted |
 | 0044 | [The copy window opens unfocused on the gamepad](0044-the-copy-window-opens-unfocused-on-the-gamepad.md) | all modules | accepted |
+| 0065 | [Errors and blocks are logged once, blamed from the stack](0065-errors-and-blocks-are-logged-once-blamed-from-the-stack.md) | all modules | accepted |
 
 ## Data
 
