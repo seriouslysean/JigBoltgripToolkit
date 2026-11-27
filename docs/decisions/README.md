@@ -161,3 +161,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 - Sparklescope 6000: replacing the zoom formula and scene camera that match another addon Sparkles, which ships no licence. Owner: "I don't want their exact code, that's weird and has a smell, and they'd be able to tell"; "TBD". A Mac session with the mouse wheel decides.
 - Buffulator: skip a player after a failed cast, rebuff early, a voiced macro line, the macro on mouse and keyboard, full character macros, a fail-closed stranger macro.
 - AutoOmniadjustor: the Deck taint (`SetPreferredGamepadInteractTarget` blocked, `MainActionBarFrame.lua:373`). With the module off, the menu and radial check passed on 2026-11-27, so the cause is in the module's own code.
+
+## Process
+
+- [0069](0069-rules-from-the-owners-corrections.md) Rules from the owner's corrections (all modules; accepted)

@@ -217,7 +217,20 @@ Settings labels and tooltips are not in this voice. They follow Blizzard's wordi
 
 ## Side panels
 
-No module needs a side panel yet. The first expected use is Recipe Vacuum's sources when there are more than its recipe pane shows: one row per source, each with its own map button (owner, 2026-11-25). If one is needed, the candidate is the Dressing Room's custom set details panel, which the owner picked on 2026-11-25: it sits beside its main frame and lists rows with icons. Blizzard draws it as a black background, a class background and the `dressingroom-sideframe` atlas on top (`Blizzard_UIPanels_Game/Mainline/DressUpFrames.xml`, `CustomSetDetailsPanel`). Not yet checked: whether the atlas exists on Forever and how it stretches.
+A panel drawn to sit beside or match a Blizzard frame (Recipe Vacuum's panel beside the professions window is the first):
+
+- Measure Blizzard's live frame, then draw ours; a script diff of matching anchors, sizes and gaps passes before the owner looks (decision 0069).
+- On a second correction of the same kind, stop, name the cause, and extend the diff to catch it.
+
+## Working with the owner
+
+Rules from the owner's own corrections (decision 0069; reports/owner-friction-2026-11-27.md). Every module session follows them.
+
+- Read our saved data and the game's data before stating a game fact or asking the owner for it.
+- When the owner says a point was missed, restate it in one line and wait for his yes before acting.
+- When he asks why or what something means, give the effect he sees in game and one example.
+- Test steps: one module at a time, one named action per step, buttons and menu actions only, never a typed command. Never "press every …"; leave Reload UI and anything that changes settings out unless it is the test.
+- Write the rule the first time a correction costs him, not the second.
 
 ## Working build helpers
 
