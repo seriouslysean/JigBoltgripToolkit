@@ -263,6 +263,8 @@ Every module's options page is built by the library from data: `lib:BuildOptions
 
 ## Working build
 
+- Once-ever lines and tips can be shown again for a test: `lib:SayOnce` lists each key it uses in the module's saved table, a module registers its own once-ever flags with `lib:RememberOnce(module, db, key)`, and the toolkit page's Working Build row "Once-Only Lines" (Reset) clears them for every module (owner, 2026-11-27: "a way to reset messages").
+
 - A working-build line in chat (blocked actions, errors from a watch handler, troubleshooting answers) goes through `lib:Debug`: Blizzard's grey, `GRAY_FONT_COLOR`, with a `[Debug]` tag, so it reads apart from a player's line in chat and in a screenshot (owner, 2026-11-27: "Grey with a [Debug] tag"). Releases print none.
 
 - Code between `--@debug@` and `--@end-debug@` exists in a checkout and is stripped from released builds by the BigWigs packager. Development commands, captures and timing live there.
