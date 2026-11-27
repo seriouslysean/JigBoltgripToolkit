@@ -66,7 +66,7 @@ A banned control comes back only after a clean Deck pass, and this table is upda
 
 1. Title Case, with small words in lower case. Blizzard: 317 of 330. "Open Loot Window at Mouse" (`Frame/Controls.lua:59`), "Lock Cursor to Window" (`:105`), "Loss of Control Alerts" (`Frame/Combat.lua:38`).
 2. Five words at most, two to four where it fits. Blizzard: 306 of 330 have four or fewer, the median is three.
-3. A label names the thing, or starts with a plain verb. "Chat Bubbles", "Auto Loot", "Sticky Targeting" name it (`Frame/Interface.lua:100`, `Frame/Controls.lua:62`, `:45`). "Show Move Pad", "Invert Mouse", "Block Trades" start with the verb (`Frame/Accessibility.lua:44`, `Frame/Controls.lua:109`, `Frame/Social.lua:98`). Never a sentence, never a question.
+3. A label names the thing; add a verb only when the thing alone would be unclear (owner, 2026-11-27: "Simple, dry, kiss, adding a verb does nothing but add cognitive load here"). Existing verb labels stay; nothing is renamed to add a verb. Blizzard's own labels name the thing or start with a plain verb. "Chat Bubbles", "Auto Loot", "Sticky Targeting" name it (`Frame/Interface.lua:100`, `Frame/Controls.lua:62`, `:45`). "Show Move Pad", "Invert Mouse", "Block Trades" start with the verb (`Frame/Accessibility.lua:44`, `Frame/Controls.lua:109`, `Frame/Social.lua:98`). Never a sentence, never a question.
 4. No colon and no end punctuation. Blizzard: 0 of 330 have a colon.
 5. Say what is on, not what is off. Blizzard turns a negative setting into a positive label: "Sticky Targeting" is the game's `deselectOnClick` flipped (`Frame/Controls.lua:45-46`). A "Do Not" label is rare ("Do Not Flash Screen at Low Health", `Frame/Combat.lua:34`).
 6. Use the game's own words, and Blizzard's global string where one exists (standards.md, "Plain text"). A box is "checked", never "ticked" ("Check this to make quest text appear instantly.", `Frame/Camelot/InterfaceOverrides.lua:70`).
@@ -129,6 +129,9 @@ Blizzard has no text row under a setting. Everything a row says is in its toolti
 4. A key binding sits under Blizzard's Keybindings heading. A module with a press-to-act action offers it two ways, the same in every module: a key binding row, and a Commands row "<Action> Macro" (Make) that makes a one-line `/click` macro for action bars and radials (owner, 2026-11-27: "Both, the same way"). Unproven on the Deck until a `/click` macro runs from a gamepad bar slot without taint.
 5. Buttons come last, after the settings (Blizzard: Reset Chat Position, `Frame/Social.lua:274-283`).
 6. No row for a taste few will change ([quality-bar.md](quality-bar.md), "Does one job").
+
+7. A chat line that repeats (each lure, each fight, each find) gets one checkbox to quiet it, "Announce …", on by default, in the section of the feature that speaks; a once-ever line needs none (owner, 2026-11-27: "Yes, one checkbox"; Recipe Vacuum's Announce New Finds is the model).
+8. A Blizzard heading may hold the module's own feature where the player would look for it: Tackletron's weapon swap stays under "Combat" (owner, 2026-11-27: "Keep 'Combat'").
 
 ## Defaults
 
