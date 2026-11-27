@@ -112,6 +112,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0032 | [Buff Next is a secure button, a key binding and a /click macro](0032-buff-next-is-a-secure-button-a-key-binding-and-a-click-macro.md) | Buffulator | accepted |
 | 0033 | [PvP-flagged strangers are buffed by default, told once](0033-pvp-flagged-strangers-are-buffed-by-default-told-once.md) | Buffulator | accepted |
 | 0070 | [Buffulator's need line casts Buff Next on a tap](0070-buffulators-need-line-casts-buff-next-on-a-tap.md) | Buffulator | accepted, check in game pending |
+| 0076 | [Buffulator's buffs go to everyone, each with a switch](0076-buffulator-buffs-go-to-everyone-each-with-a-switch.md) | Buffulator | accepted |
 
 ## Thanks
 
