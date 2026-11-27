@@ -109,6 +109,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0011 | [Buff Next picks the best rank the target can take](0011-buff-next-picks-the-best-rank-the-target-can-take.md) | Buffulator | accepted |
 | 0032 | [Buff Next is a secure button, a key binding and a /click macro](0032-buff-next-is-a-secure-button-a-key-binding-and-a-click-macro.md) | Buffulator | accepted |
 | 0033 | [PvP-flagged strangers are buffed by default, told once](0033-pvp-flagged-strangers-are-buffed-by-default-told-once.md) | Buffulator | accepted |
+| 0070 | [Buffulator's need line casts Buff Next on a tap](0070-buffulators-need-line-casts-buff-next-on-a-tap.md) | Buffulator | accepted, check in game pending |
 
 ## Thanks
 
