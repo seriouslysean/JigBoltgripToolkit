@@ -122,6 +122,15 @@ local function Build()
 		if arg == "open" then OpenHere() else Say("/controltest open") end
 	end
 
+	Page("11 Dropdown (last)")
+	local words = { "Thank", "Bow", "Cheer", "Wave" }
+	local function Options()
+		local container = Settings.CreateControlTextContainer()
+		for i, word in ipairs(words) do container:Add(i, word) end
+		return container:GetData()
+	end
+	Settings.CreateDropdown(category, Setting("dropdown", "Dropdown", Settings.VarType.Number, 1), Options, "Opening it with the gamepad broke navigation until /reload with other addons on.")
+
 	Settings.RegisterAddOnCategory(main)
 end
 
