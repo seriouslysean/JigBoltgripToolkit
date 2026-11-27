@@ -445,4 +445,22 @@ describe("load order", function()
 		file:close()
 		assert(not text:find("%-%-@[%a%-]+@"), "the library holds no packager tokens")
 	end)
+
+	-- Fails if a share made by an older copy keeps running that copy's code after a newer copy loads (a method
+	-- bound at creation instead of looked up at call time).
+	it("a share made by an older copy runs the newer copy's methods", function()
+		NewClient()
+		local realCreateFrame = CreateFrame
+		CreateFrame = function() return { RegisterEvent = function() end, SetScript = function() end, HookScript = function() end } end
+		Load(CURRENT)
+		local older = LibStub("JigBoltgripToolkit-1.0")
+		local nothing = function() end
+		local share = older:NewShare({ addon = "Alpha" }, { protocol = 1, kinds = {}, wire = nothing, validate = nothing,
+			merge = nothing, sending = nothing, receiving = nothing })
+		local before = share.Merge
+		Load(CURRENT + 1)
+		CreateFrame = realCreateFrame
+		assert(LibStub("JigBoltgripToolkit-1.0").shares.Alpha == share and share.Merge ~= before,
+			"a share made by an older copy runs the newer copy's methods")
+	end)
 end)

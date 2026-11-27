@@ -12,6 +12,7 @@ Standards shared by every module (code, data, resilience, performance, voice): [
 - Slash commands: `/boltgrip <module> <command>` and `/<module> <command>`, with a `help` command built from the module's command table.
 - A Commands section and a Links section on each module's page, built from the same table and from the TOC's `X-Website` and `X-Curse-Project-ID` fields.
 - A window with selectable text, for copying text out of the game.
+- Sharing between players of one module (party, raid, guild and friends): the transport, probes, requests, limits and logging, with the module supplying only its row shape ([docs/sharing.md](docs/sharing.md)).
 - A shared key binding header, `BINDING_HEADER_JIGBOLTGRIPTOOLKIT`.
 
 ## Using it in a module
