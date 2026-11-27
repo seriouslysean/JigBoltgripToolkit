@@ -91,6 +91,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 |---|---|---|---|
 | 0025 | [The sparkle is fireflies](0025-the-sparkle-is-fireflies.md) | Sparklescope 6000 | accepted |
 | 0054 | [A needed lure is a steady highlight, and the button stays Fishing's icon](0054-a-needed-lure-is-a-steady-highlight-and-the-button-stays-fis.md) | Tackletron | accepted |
+| 0069 | [Buffulator's need frame is one line under the portrait](0069-buffulators-need-frame-is-one-line-under-the-portrait.md) | Buffulator | accepted, check in game pending |
 
 ## Game settings
 
