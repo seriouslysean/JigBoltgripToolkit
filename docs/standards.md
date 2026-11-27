@@ -263,6 +263,7 @@ Every module's options page is built by the library from data: `lib:BuildOptions
 
 ## Working build
 
+- Log lines are built by the kit, never by a module (owner, 2026-11-27: "Rememebr, all logs pipe through the kit so we use one standard"; "This is a core standard, and what you did was a dry and kiss violation"). A module calls `lib:Trace(module, "event name", "key", value, ...)`: the event is a literal of one to three lowercase words, the facts are ordered key, value pairs, and the kit writes the line (`lib.LogLine`): snake_case keys, `-` for nil, `true`/`false`, integers as integers, a float or any `ms` key to one decimal (two under 0.1), quotes around a value with a space, quote or `=`. It costs nothing while not logging. Conformance fails a Trace, Log or LogAll call whose event is anything else (a format string, a built line). `LogAll` takes the same shape for shared context.
 - Log lines are logfmt (owner, 2026-11-27: "This still reads like AI slop, look up simple, clear debugging style notes", then "logfmt"; [Brandur, logfmt](https://brandur.org/logfmt), Better Stack's logfmt guide, Grafana's Loki logging best practices). A line is a short lowercase event name (one to three words), then `key=value` facts:
   - keys are lowercase snake_case; a value with a space, a quote or `=` is quoted (`lib.LogValue`);
   - IDs are keys (`id=171`, `npc=5392`); times are `ms=`, `frames=` or `_s` keys;

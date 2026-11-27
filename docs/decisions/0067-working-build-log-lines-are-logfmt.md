@@ -13,6 +13,10 @@ The working-build log is how the owner's play becomes data, and the owner reads 
 
 Every log line is logfmt: a short lowercase event name, then `key=value` facts. Keys are lowercase snake_case; a value with a space, a quote or `=` is quoted (`lib.LogValue`); IDs are keys; times are `ms=`/`frames=`. No sentences and no per-row lines: one summary line per build or pass. A development tool logs only when its button is pressed. Rule and examples: `docs/standards.md`, "Working build".
 
+## Amended 2026-11-27: the kit builds the line (MINOR 83)
+
+Modules first hand-formatted their lines (Recipe Vacuum `67b62b4`, Tackletron, Buffulator, Sparklescope). Owner: "Rememebr, all logs pipe through the kit so we use one standard"; "This is a core standard, and what you did was a dry and kiss violation". Now a module passes `lib:Trace(module, "event", "key", value, ...)` and the kit writes the line (`lib.LogLine`); conformance fails any other form. Spec: "the kit writes logfmt lines" (`tests/loadorder_spec.lua`); conformance check "log lines go through the kit's event and pairs".
+
 ## Reasons
 
 - logfmt is the common practice for logs both people and tools read: [Brandur, logfmt](https://brandur.org/logfmt) (Heroku's internal standard, recommended by Splunk), Better Stack's logfmt guide, and Grafana's Loki logging best practices (a readable event plus key-value context).
