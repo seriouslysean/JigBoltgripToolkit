@@ -38,6 +38,10 @@ The icon stays on the box, not in the scroll: a scroll frame clips its content, 
 - Spec: "the details' header scrolls with the reagents, and a new recipe opens at the top" (Recipe Vacuum `tests/simulate_spec.lua`). It fails with the name back on the box, and with no reset to the top.
 - Deck: pending. Pick a recipe with many reagents, scroll down, pick another recipe, then d-pad up to the made item.
 
+## Icon stays fixed (2026-11-27)
+
+The made-item icon stays outside the scroll, since its ring hangs over the box edge and a scroll frame clips it. Owner, asked: "Keep the icon fixed".
+
 ## Reopen if
 
 The Deck shows the scrolled header hard to read beside the fixed icon, or the made item's focus jump fights the d-pad.
