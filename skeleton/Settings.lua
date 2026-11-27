@@ -12,7 +12,6 @@ function ns.InitSettings()
 	local toolkit = ns.toolkit
 	local module = toolkit:RegisterModule(addonName, ns.device.class)
 	ns.module = module
-	module.build = ns.build
 	toolkit:BuildOptions(module, ns.db, {
 		{ heading = GENERAL, place = "features", rows = {
 			{ kind = "checkbox", key = "enabled", label = L["Enable __TITLE__"], default = true,
