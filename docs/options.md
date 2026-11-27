@@ -9,7 +9,7 @@ The ethos outranks this page ([standards.md](standards.md), Part 1: fit WoW, sta
 - Blizzard's code: [Gethe/wow-ui-source](https://github.com/Gethe/wow-ui-source/tree/forever), `forever` branch, commit `c01a87b` (1.60.1.71091). `Frame/` is `Interface/AddOns/Blizzard_SettingsDefinitions_Frame/`, `Shared/` is `Blizzard_SettingsDefinitions_Shared/`, `Settings/` is `Blizzard_Settings_Shared/`.
 - Blizzard's words: [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources/tree/forever), `forever` branch, `Resources/GlobalStrings/enUS.lua` at commit `e230342`.
 - Counts are over every page in `Frame/` and `Shared/`: 330 label strings, 293 tooltip strings, 189 dropdown option names, 36 section headers. A few of those files do not load on Forever (`Mounts.lua`, `AdvancedOptions.lua`); the examples below are from files that do.
-- Deck: measured on the Steam Deck with the Gamepad UI, other addons off, 2026-11-26. "Unproven" means the Control Test has not passed clean for that shape (Recipe Vacuum, `docs/development.md`, "Control Test").
+- Deck: measured on the Steam Deck with the Gamepad UI, other addons off, 2026-11-26. "Unproven" means no clean Deck pass is recorded for that shape. The Control Test that measured them was removed once this standard existed (owner, 2026-11-27); an unproven shape gets its own Deck pass on the first page that uses it.
 
 Three kinds of rule are kept apart. "Blizzard" is what the source shows. "Deck" is what was measured. "Kit pick" is a choice between forms Blizzard itself mixes, made so every page reads as one author.
 
@@ -38,7 +38,7 @@ Every row is built by `lib:BuildOptions` from one of these. Nothing else goes on
 | `checkbox` | One thing that is on or off | Passed (3 plain, 18 under headers) |
 | `checkbox` with `under` | An on or off that only matters while its parent checkbox is on | Passed (a parent and 4 children) |
 | `choice` | One of 2 to 5 named values | Passed (sliders with named stops) |
-| `keybinding` | A key for an action in `Bindings.xml` | Unproven. The Control Test leaves this shape out |
+| `keybinding` | A key for an action in `Bindings.xml` | Unproven: no Deck pass yet |
 | Kit buttons (Commands, Links, Working Build) | An action with no saved value | Unproven. A page with button rows blocked once and passed once |
 
 1. A value that is on or off is a `checkbox`. A value with two named modes, neither of them "off", is a `choice` (Blizzard: Chat Style, `Frame/Social.lua:165-170`).
@@ -55,12 +55,12 @@ Every row is built by `lib:BuildOptions` from one of these. Nothing else goes on
 | Checkbox with a dropdown (`CreateSettingsCheckboxDropdownInitializer`) | Holds the same dropdown. Not measured by itself |
 | A row hidden by state (`AddShownPredicate`) | Deck: it blocks the page switch |
 | A row added through `Settings.RegisterInitializer`, or built with `Settings.CreateElementInitializer` | Deck: the d-pad cannot reach it and it renders differently |
-| Checkbox with a slider (`CreateSettingsCheckboxSliderInitializer`) | Deck: blocked once, passed once. Not allowed until the Control Test passes clean |
+| Checkbox with a slider (`CreateSettingsCheckboxSliderInitializer`) | Deck: blocked once, passed once. Not allowed until a clean Deck pass |
 | A canvas page (`Settings.RegisterCanvasLayoutCategory`, `...Subcategory`) | The d-pad cannot enter it (Recipe Vacuum, `reports/Controller friendly addon settings.md`) |
 | Color swatch, expandable section, checkbox with a button | Not measured, and no module needs one |
 | Opening a page from module code (`Settings.OpenToCategory`) | standards.md, "Gamepad UI". Use `lib:OpenOptions` |
 
-A banned control comes back only after its Control Test page passes clean on the Deck, and this table is updated in the same change.
+A banned control comes back only after a clean Deck pass, and this table is updated in the same change.
 
 ## Labels
 
@@ -261,4 +261,4 @@ Read from each module's `Settings.lua` and `Locales/enUS.lua`. Written 2026-11-2
 ### Auto Omniadjustor (`9feff06`)
 
 1. Notes 5: both key binding rows carry a note that is never shown (`Settings.lua:22-25`).
-2. Gamepad 6: the page is key binding rows only, the one shape the Control Test leaves out, so the page has no Deck evidence.
+2. Gamepad 6: the page is key binding rows only, which has no Deck pass yet.
