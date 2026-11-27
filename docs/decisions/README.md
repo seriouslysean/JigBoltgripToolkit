@@ -175,3 +175,4 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | No. | Decision | Scope | Status |
 |---|---|---|---|
 | 0071 | [Rules from the owner's corrections](0071-rules-from-the-owners-corrections.md) | all modules | accepted |
+| 0074 | [No tutorial tips; modules log only through Trace](0074-no-tutorial-tips-and-modules-log-only-through-trace.md) | all modules | accepted |
