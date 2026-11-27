@@ -77,6 +77,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | No. | Decision | Scope | Status |
 |---|---|---|---|
 | 0005 | [Skill-up arrows, not numbers, on Recipe Vacuum rows](0005-skill-up-arrows-not-numbers-on-recipe-vacuum-rows.md) | Recipe Vacuum | accepted |
+| 0066 | [Recipe Vacuum's details scroll as one, header included](0066-recipe-vacuum-details-scroll-as-one-header-included.md) | Recipe Vacuum | accepted |
 | 0048 | [The key's button is one secure macro button, also the visible one](0048-the-key-s-button-is-one-secure-macro-button-also-the-visible.md) | Tackletron | accepted |
 | 0052 | [The leave arrow puts the weapons back, and the addon remembers them](0052-the-leave-arrow-puts-the-weapons-back-and-the-addon-remember.md) | Tackletron | accepted |
 | 0053 | [A square for the best lure and one for the best Fishing food](0053-a-square-for-the-best-lure-and-one-for-the-best-fishing-food.md) | Tackletron | accepted |
