@@ -100,6 +100,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0026 | [No outlines](0026-no-outlines.md) | Sparklescope 6000 | accepted |
 | 0050 | [The hook waits for the soft-targeted bobber, on temporary CVars](0050-the-hook-waits-for-the-soft-targeted-bobber-on-temporary-cva.md) | Tackletron | accepted |
 | 0059 | [Music, ambience and dialog are lowered while a pole is on](0059-music-ambience-and-dialog-are-lowered-while-a-pole-is-on.md) | Tackletron | accepted |
+| 0072 | [Sparklescope never turns on the Interact Key](0072-sparklescope-never-turns-on-the-interact-key.md) | Sparklescope 6000 | accepted |
 
 ## Buffing
 
