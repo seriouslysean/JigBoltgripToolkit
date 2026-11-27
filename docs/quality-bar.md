@@ -7,6 +7,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 - [ ] Every frame, control, icon, font, color and label is Blizzard's own, or is on a list of what is custom and why.
 - [ ] It looks and behaves like part of the game's own window. Nothing native is replaced or restyled.
 - [ ] Wording and capitalization follow Blizzard's. Labels use the game's own strings where one exists.
+- [ ] The options page uses only the allowed controls, and its labels, headings, tooltips and notes follow [options.md](options.md).
 - [ ] Its chat lines never use one of the game's own chat colors (whisper, emote, system), and it changes nothing in normal chat or play outside its feature.
 - [ ] Each pattern names the Blizzard code or established addon it follows.
 - [ ] Where standing out and matching the game pull apart, it matches the game.
@@ -15,6 +16,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 
 - [ ] Every feature works with mouse and keyboard, and with a gamepad, both as first-class ways to play: nothing is reachable only one way, and neither feels like an afterthought.
 - [ ] Both were checked in game before the release: mouse and keyboard on a desktop, and a gamepad (the Steam Deck).
+- [ ] The options page passed options.md, "Validating a page": the d-pad stops on every row, every tooltip shows, and the working log of that pass has no blocked action.
 
 ## Does one job
 

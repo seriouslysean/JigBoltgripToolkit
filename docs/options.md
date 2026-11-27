@@ -152,7 +152,7 @@ Do all four for every page before a release, and after any change to its rows.
 
 Text (offline):
 
-- [ ] `scripts/check` passes: conformance runs the label, heading, tooltip, note and row-kind rules.
+- [ ] `scripts/check` passes: conformance runs the rules under "Checks".
 - [ ] Each label, tooltip and note was read against the rules above that conformance cannot check: the verb form, shared stop shapes, a note that repeats its tooltip, a label that reads by itself.
 - [ ] Every Blizzard term on the page was looked up in the global strings, not recalled.
 
@@ -181,9 +181,9 @@ Working log (after the Deck pass):
 - [ ] No Lua error.
 - [ ] The log is kept with the release as the record of the pass.
 
-## Checks to add
+## Checks
 
-Rules conformance can check mechanically. None is built yet.
+`tests/conformance.lua` runs these on every module's options page, one line per rule naming the rule and each row that breaks it. A section whose heading is not in the locale file is a working-build test page (text written in place inside `--@debug@`) and the text rules skip it.
 
 | Check | Rule |
 |---|---|
@@ -205,26 +205,27 @@ Rules conformance can check mechanically. None is built yet.
 | A `keybinding` row has no `note` or `tooltip` | Notes 5 |
 | A row with `under` follows its parent or another child of it, in the same section | Dependent settings 2 |
 | Every `checkbox` and `choice` has a `default` | Defaults 1 |
-| The row kind `button` fails: `BuildOptions` builds nothing for it, and conformance lets it pass | Allowed controls |
+| The row kind `button` fails: `BuildOptions` builds nothing for it | Allowed controls |
 | Banned calls in a module's files, added to the list: `AddShownPredicate`, `Settings.RegisterInitializer`, `Settings.RegisterCanvasLayoutCategory`, `Settings.RegisterCanvasLayoutSubcategory`, `CreateSettingsCheckboxSliderInitializer`, `CreateSettingsCheckboxDropdownInitializer`, `CreateSettingsExpandableSectionInitializer`, `CreateSettingsButtonInitializer`, `CreateKeybindingEntryInitializer`, `SetParentInitializer` | Banned controls |
 
 Left to review, because a pattern cannot judge them: the "-s" verb form, stops from least to most, shared stop shapes, a note that repeats its tooltip, a label that reads by itself.
 
 ## Kit gaps
 
-Found while writing this page. Each is the kit's, not a module's, and none is fixed here.
+Found while writing this page. Each is the kit's, not a module's. Gap 1 is closed in conformance, not in the library.
 
-1. `BuildOptions` drops a `note` on a `keybinding` row without a word, while conformance checks that note's style (`JigBoltgripToolkit.lua`, the `keybinding` branch of `BuildOptions`).
+1. Closed: `BuildOptions` still drops a `note` on a `keybinding` row without a word, but conformance now fails a note or tooltip there (Notes 5). The row kind `button` is likewise rejected, since `BuildOptions` never built it.
 2. `under` works only on a `checkbox`. A `choice` cannot be a child, so Buffulator's Thank Delay stays live while its parent is off. A slider under a parent is Blizzard's own shape (`Shared/Audio.lua:333`) and is not measured on the Deck.
 3. A `choice` does not write its default into saved data until it is changed, so modules repeat the default where they read it (Sparklescope 6000 `Finds.lua:11`, Buffulator `Settings.lua:9-13`).
 4. The `keybinding` row and the kit's button rows have no clean Deck pass. Every module page ends in button rows, and two pages hold key binding rows.
 5. standards.md, "Options", says a choice's tooltip has one line "Label: description" for each option. The code shows the label on its own line over the sentence, because settings text takes no colons. Blizzard's own format is "Label: description" (`Settings/Blizzard_Settings.lua:458`).
 6. A Commands row is labelled with the slash command ("/recipevacuum export") and its button says "Run". Blizzard's button rows name the thing and put the verb on the button ("Reset Chat Position" and "Reset", `Frame/Social.lua:281`), and no Blizzard row shows a slash command. One command table driving chat help and the rows is the owner's decision, so this is an open question, not a violation.
 7. Heading tooltips hold text on the kit's own Commands and Working Build headings. Whether the d-pad can show one is not measured.
+8. Conformance cannot see which rows are working-build only. It skips a section whose heading is not a key in `Locales/enUS.lua`, which is how Sparklescope 6000's Test Settings page (12 and 6 stops, no "Choose") passes. A module that put a release section's heading in place would escape the text rules.
 
 ## Each module's page against this standard
 
-Read from each module's `Settings.lua` and `Locales/enUS.lua`. Every page passes conformance as it stands; these are against the rules above.
+Read from each module's `Settings.lua` and `Locales/enUS.lua`. Written 2026-11-26 from each module's files at the commit named; some have been fixed since. Conformance ("Checks") run on the modules' pages 2026-11-27 fails only Recipe Vacuum (Labels 8: "Recipe Sources"; Notes 3: the Share My Finds note). The rest of this list is review-only.
 
 ### Recipe Vacuum (`7914b15`)
 
@@ -261,43 +262,3 @@ Read from each module's `Settings.lua` and `Locales/enUS.lua`. Every page passes
 
 1. Notes 5: both key binding rows carry a note that is never shown (`Settings.lua:22-25`).
 2. Gamepad 6: the page is key binding rows only, the one shape the Control Test leaves out, so the page has no Deck evidence.
-
-## To merge
-
-Exact text for the two docs this page does not edit.
-
-### To merge into standards.md, "Options"
-
-Replace the four bullets that start "Section headings use Blizzard's own words", "Labels in Title Case", "A tooltip is one sentence" and "A choice is a `choice` row" with:
-
-```markdown
-- The controls, the wording of labels, headings, tooltips and notes, dependent settings, order, defaults and how a page is validated are in [options.md](options.md). It follows Blizzard's own Settings pages. Enforced by: conformance for the rules options.md lists under "Checks to add" once built, review for the rest.
-- A choice is a `choice` row: Blizzard's slider with a name at each stop, never a dropdown ("Gamepad UI"). Its tooltip is the row's tooltip, then each stop's name over its description. Enforced by: conformance (row kinds).
-- A note is the tooltip's second sentence: a cost, a limit or need, or another place to set the same thing. The kit adds it as the tooltip's last line. A command's note goes into its Run button's tooltip, after its description. A key binding row shows no tooltip, so it takes no note. Enforced by: conformance.
-```
-
-### To merge into standards.md, "Gamepad UI"
-
-Add after the bullet that starts "No addon-owned dropdowns or menus":
-
-```markdown
-- No row hidden by state (`AddShownPredicate`), no row added through `Settings.RegisterInitializer`, and no checkbox with a slider or a dropdown in one row. Evidence, Steam Deck, 2026-11-26, other addons off: a shown predicate blocked the page switch; registrar rows could not be reached and rendered differently; a page with checkbox and slider rows blocked once and passed once. The full list of allowed and banned controls is in [options.md](options.md). Enforced by: conformance.
-```
-
-### To merge into standards.md, "Conformance"
-
-In the bullet "the addon's own files", add to the list of calls that taint the Gamepad UI: `AddShownPredicate`, `Settings.RegisterInitializer`, `Settings.RegisterCanvasLayoutCategory`, `Settings.RegisterCanvasLayoutSubcategory`. In the same bullet, change "a row kind other than checkbox, choice, button or keybinding" to "a row kind other than checkbox, choice or keybinding".
-
-### To merge into quality-bar.md
-
-Under "Fits the game", after "Wording and capitalization follow Blizzard's...":
-
-```markdown
-- [ ] The options page uses only the allowed controls, and its labels, headings, tooltips and notes follow [options.md](options.md).
-```
-
-Under "Every way to play", after "Both were checked in game before the release...":
-
-```markdown
-- [ ] The options page passed options.md, "Validating a page": the d-pad stops on every row, every tooltip shows, and the working log of that pass has no blocked action.
-```
