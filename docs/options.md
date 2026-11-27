@@ -143,7 +143,7 @@ The toolkit's own page (owner, 2026-11-27: "Working rows are slash text, Order o
 
 - No heading over the module rows: the page title already names the toolkit.
 - One row per module, labelled with its title, button "Open", sorted by title like the AddOns list.
-- Working builds add a "Working Build" heading with two rows that name the thing and put the verb on the button: Live Watch (Switch), Working Log (Show). No clear row: logs drop their oldest lines on their own, and a one-press wipe lost test data (owner, 2026-11-27: "Remove it"); `/boltgrip log clear` stays in chat.
+- Working builds add a "Working Build" heading with one row that names the thing and puts the verb on the button: Working Log (Show). No watch switch: a working build always logs (owner, 2026-11-27: "We also shouldn't be able to turn off the logging on my debug build"). No clear row: logs drop their oldest lines on their own, and a one-press wipe lost test data (owner, 2026-11-27: "Remove it"); `/boltgrip log clear` stays in chat.
 - No Reload UI row: the game menu has one, and a reload sitting among other buttons is easy to press by mistake.
 
 Every page (owner, 2026-11-27: "make sure to logically group controls and add notes if needed"):
