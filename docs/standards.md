@@ -171,6 +171,8 @@ Never use Blizzard's shared HelpTip (`HelpTip:Show`): it writes onto pooled Bliz
 
 ## Voice
 
+- An item named in a chat line is its link, as the game names items in chat, through `lib.ItemText(itemID)`: the link, or the name until the item is cached (owner, 2026-11-27: "Can we also make them an item link?").
+
 - No tutorial tips (`HelpTip`, `HelpTipTemplate`): the Gamepad UI never shows them. First-use guidance is a once-only voiced chat line through `lib:SayOnce`, the same on every device (owner, 2026-11-27: "should we move that to chat also? I want consistency", "That belongs in the kit"; decision 0074). Conformance fails a tip.
 
 The toolkit's chat lines show a gnomish machine at work: the noise it makes, then its own report, the way the game's robots speak. "Boltgrip's Recipe Vacuum whirs and rattles. Intake complete! 2 recipes from Corporal Bluth!" (owner, 2026-11-25, of this line: "I like the 1 options above, can we apply that to all lines in both addons?").
