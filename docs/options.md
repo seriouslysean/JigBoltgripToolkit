@@ -123,10 +123,10 @@ Blizzard has no text row under a setting. Everything a row says is in its toolti
 
 ## Order and grouping
 
-1. Sections go in the kit's one order: sources, the module's features, sections Blizzard names, then the kit's Commands and Links (standards.md, "Options").
+1. Sections go in the kit's one order: sources, the module's features, sections Blizzard names (game settings such as Combat and Audio, in Blizzard's page order), Keybindings, then the kit's Commands, Links and Working Build (owner, 2026-11-27: "Adopt it"). No written addon convention exists; Blizzard puts an addon's key bindings on its own Keybindings page near the bottom. The kit sorts: a Blizzard section headed `SETTINGS_KEYBINDINGS_LABEL` goes after the other Blizzard sections.
 2. In a section the switch for the feature is first, then its children, then its choices. Blizzard: "Enable Sound" opens Audio (`Shared/Audio.lua:496`); "Enable Interact Key", then its key, then its sound (`Frame/Controls.lua:72-98`).
 3. Most used first. Rows on one subject sit together.
-4. A key binding sits right after the checkbox that turns its feature on, or under Blizzard's Keybindings heading.
+4. A key binding sits under Blizzard's Keybindings heading. A module with a press-to-act action offers it two ways, the same in every module: a key binding row, and a Commands row "<Action> Macro" (Make) that makes a one-line `/click` macro for action bars and radials (owner, 2026-11-27: "Both, the same way"). Unproven on the Deck until a `/click` macro runs from a gamepad bar slot without taint.
 5. Buttons come last, after the settings (Blizzard: Reset Chat Position, `Frame/Social.lua:274-283`).
 6. No row for a taste few will change ([quality-bar.md](quality-bar.md), "Does one job").
 
