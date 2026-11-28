@@ -31,13 +31,13 @@ step() {
 syntax() { git ls-files -z '*.lua' | xargs -0 "$luac" -p; }
 # Docs and comments in one voice (docs/standards.md, Ethos 7).
 voice() { git ls-files -z '*.md' '*.lua' | xargs -0 "$lua" tests/conformance.lua --voice; }
-shell() { shellcheck scripts/check tests/module-check.sh tools/new-module.sh tools/setup-lua.sh && shfmt -d scripts/check tests/module-check.sh tools/new-module.sh tools/setup-lua.sh; }
+shell() { shellcheck scripts/check tests/module-check.sh tools/new-module.sh tools/setup-lua.sh tools/review-collect.sh && shfmt -d scripts/check tests/module-check.sh tools/new-module.sh tools/setup-lua.sh tools/review-collect.sh; }
 
 step "syntax (Lua 5.1)" syntax
 step "shell (ShellCheck, shfmt)" shell
 step "luacheck" luacheck . -q
 step "comments" "$lua" tests/conformance.lua --comments JigBoltgripToolkit.lua
 step "voice" voice
-step "specs" busted
+step "specs" busted --lua="$lua"
 
 exit $failed
