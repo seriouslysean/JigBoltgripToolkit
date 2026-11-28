@@ -15,7 +15,7 @@ A shared chest is kept as sent, with no "seen twice" rule, cap or forget button.
 
 ## Reasons
 
-- Only friends running the addon can send one (review finding 11).
+- Only friends, guild members and group members running the addon can send one (the kit's `Share:IsTrusted`; review finding 11).
 
 ## Rejected
 
