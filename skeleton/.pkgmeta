@@ -7,4 +7,5 @@ ignore:
   - docs
   - scripts
   - tests
+  - tools
   - Libs/JigBoltgripToolkit/tests

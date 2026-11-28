@@ -27,7 +27,7 @@ Run every check on PUC Lua 5.1, the client's Lua and CI's: syntax through Lua 5.
 ## Versions
 
 - Kit `scripts/check`, `tests/module-check.sh`, `tests/stubs.lua` (`IsInInstance`, zone texts), `tools/setup-lua.sh`; every module takes the new `tests/module-check.sh` and `tests/stubs.lua`.
-- Not changed: `.github/workflows/module-ci.yml` still installs LuaJIT, which no check uses now; drop it at the next workflow change, run with act first.
+- `.github/workflows/module-ci.yml` no longer installs LuaJIT, which no check used (2026-11-28).
 
 ## Tests
 

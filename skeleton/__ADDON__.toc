@@ -6,6 +6,7 @@
 ## Version: @project-version@
 ## X-License: GPL-3.0
 ## SavedVariables: __ADDON__DB
+## IconTexture: Interface\Icons\INV_Misc_Gear_01
 
 Libs\LibStub\LibStub.lua
 Libs\AceLocale-3.0\AceLocale-3.0.lua

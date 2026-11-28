@@ -25,9 +25,10 @@ These rules outrank everything below, and the first three outrank the rest.
 ## Look before designing
 
 - For anything the player sees, look at what the game does first: Blizzard's UI source ([Gethe/wow-ui-source, `forever`](https://github.com/Gethe/wow-ui-source/tree/forever)), Forever's own strings ([Ketho/BlizzardInterfaceResources, `forever`](https://github.com/Ketho/BlizzardInterfaceResources/tree/forever), `Resources/GlobalStrings/enUS.lua`), and the game itself.
-- Then look at the addons installed next to ours for how the community does it.
+- Then see how installed addons handle it, to learn what to test. Whatever is kept is re-derived from Blizzard's source or our own test, and nothing is copied (decision 0086).
 - A copied Blizzard value (a size, an anchor, a texture path) is named at the top of the file and marked with the file it came from.
 - Never imitate the game's own message formats ("says:", "whispers:", bracketed names). Fit in beside them.
+- Color is never the only signal. Where a color carries meaning, show a second signal, at least while the `colorblindMode` CVar is on, as Blizzard does: a letter on a debuff (`Blizzard_FrameXMLUtil/AuraUtil.lua:617`), symbols on money (`Blizzard_SharedXML/FormattingUtil.lua:78`). Enforced by: review, quality bar.
 
 # Part 2. Lua
 
@@ -43,7 +44,7 @@ Rules for every module's tests, from the community's practice for WoW addons and
 
 1. Test only to prevent a specific, known bug, and name it in the test.
 2. Run tests under Lua 5.1 semantics, as the client does.
-3. Use the community's test runner (busted), not a home-made one.
+3. Use the community's test runner (busted), not a home-made one. It finds the specs through a `.busted` file in the repository root ([busted docs](https://lunarmodules.github.io/busted/): "You can create a .busted file in the root").
 4. Stand in for only the game calls the code makes, and check the stand-ins against the client's own API documentation so they cannot drift.
 5. Run the addon's real files; never re-implement them in a test.
 6. Assert what a player or a saved file would see, never which internal calls were made.
@@ -68,15 +69,15 @@ Enforced by: review, the check script (rules 2, 7, 8), conformance (stand-ins, o
 | Events | A frame that listens for events comes from `lib:EventFrame(module, handlers)`; a module never creates one itself or sets `OnEvent` (Working build helpers) |
 | Chat lines | All in one `Voice.lua`; code never holds a line inline |
 | Comments | A line or two of why. Explanations, measurements and history go in `docs/`, and the comment points there |
-| Lua | 5.1, as the client runs; `luacheck` with reads of WoW globals allowed and writes reported |
+| Lua | 5.1, as the client runs; `luacheck` with reads of WoW globals allowed and writes reported. Embedded libraries are left out with `exclude_files`, and `tests/` gets busted's globals through a `files[...]` entry ([luacheck config](https://luacheck.readthedocs.io/en/stable/config.html)) |
 
 Suggested files: `Core.lua` (saved data, schema, migrations), `Voice.lua`, `Settings.lua`, `Troubleshooting.lua`, feature files, `Data/` for shipped data, `tools/` for generators, `tests/`, `docs/`.
 
 ## Checks
 
 - One command, `scripts/check`, runs every check; the pre-push hook (`.githooks/pre-push`, copied byte for byte from splitleafhq/.github) runs it before every push, and CI runs it on every pull request and push to `main`. Turn the hook on once per clone with `git config core.hooksPath .githooks`; never skip it. A clone symlinked into the game's `AddOns` folder also sets `git config core.fileMode false`, and a new script gets its execute bit with `git update-index --chmod=+x` ([client-notes.md](client-notes.md), "Repository and CI").
-- A module's `scripts/check` exports what its specs read and runs the kit's shared steps, `Libs/JigBoltgripToolkit/tests/module-check.sh`: Lua 5.1 syntax, ShellCheck and shfmt on `scripts/check`, luacheck, conformance, the release build with debug blocks removed, and the specs on the source and on that release build. Each step prints one `ok` or `FAIL` line with its seconds; a failure shows its output and fails the run. Inputs a spec needs (Blizzard's UI source at a pinned commit, a saved file) are provisioned by `scripts/check` or kept as made-up fixtures in `tests/fixtures`, so no spec ever skips.
-- A module's `.github/workflows/ci.yml`, named `CI`, has one job, `test`, which calls the kit's `.github/workflows/module-ci.yml` at a pinned commit; that workflow installs the pinned tools (Lua 5.1, LuaJIT, luacheck 1.2.0, busted 2.3.0, ShellCheck 0.11.0, shfmt 3.14.1) and runs `scripts/check`. Every check runs on PUC Lua 5.1, at home as in CI; `tools/setup-lua.sh` builds it (decision 0082). A change to a workflow is run with act on the local Podman before it is pushed.
+- A module's `scripts/check` exports what its specs read and runs the kit's shared steps, `Libs/JigBoltgripToolkit/tests/module-check.sh`: Lua 5.1 syntax, ShellCheck and shfmt on `scripts/check`, `xmllint` on the module's own XML when it has any (the client reads `Bindings.xml` by name, so nothing else parses it), file modes (a tracked file with the execute bit must start with `#!`), luacheck, conformance, the release build with debug blocks removed, and the specs on the source and on that release build. Each step prints one `ok` or `FAIL` line with its seconds; a failure shows its output and fails the run. Inputs a spec needs (Blizzard's UI source at a pinned commit, a saved file) are provisioned by `scripts/check` or kept as made-up fixtures in `tests/fixtures`, so no spec ever skips.
+- A module's `.github/workflows/ci.yml`, named `CI`, has one job, `test`, which calls the kit's `.github/workflows/module-ci.yml` at a pinned commit; that workflow installs the pinned tools (Lua 5.1, luacheck 1.2.0, busted 2.3.0, ShellCheck 0.11.0, shfmt 3.14.1, and `xmllint` from the runner's `libxml2-utils`) and runs `scripts/check`. Every module pins the same kit commit, the one that last changed the workflow; conformance fails a `ci.yml` without a full commit hash. Every check runs on PUC Lua 5.1, at home as in CI; `tools/setup-lua.sh` builds it (decision 0082). A change to a workflow is run with act on the local Podman before it is pushed.
 - A new module starts from `tools/new-module.sh` in the kit, which copies `skeleton/` (the smallest module that passes every check), embeds the kit, LibStub and AceLocale, turns the hook on and runs the check.
 - Specs are `tests/*_spec.lua`, found by the `.busted` file in the repository root. Inputs the specs need (a UI source checkout, a saved file) come in as environment variables, not fixed paths. The client's globals are set on the real global table (busted gives each spec function its own environment, which the loaded addon files cannot see), so a spec wraps its `it` and `setup` functions to run there.
 - `luacheck` lints `tests/` with busted's globals (`std = "+busted"`).
@@ -93,6 +94,8 @@ One checker, `tests/conformance.lua` (not a busted spec: it runs on each addon's
 - the embedded kit: no XML, and the same files as the toolkit checkout beside the addon when there is one;
 - `AGENTS.md`: its first `##` section is the kit's `tests/agents-opening.md`, word for word, so every module's agents read the same rules first;
 - translations: every key in a `Locales/<locale>.lua` is an English key, with the same format arguments;
+- the repository ("Repository" below): every root file is there; `LICENSE` is GPL-3.0; an embedded Ace3 library comes with `Libs/Ace3-LICENSE.txt`; the TOC sets `Title`, `Notes`, `Author`, `Category: Jig Boltgrip's Toolkit`, `Version: @project-version@`, `X-License: GPL-3.0` and `IconTexture`; `ci.yml` calls the kit's workflow at a full commit hash; `.pkgmeta` leaves out the repository-only folders; `README.md` has the one shape; the embedded tests folder holds only the shared files;
+- other addons' names: no tracked file holds one, code included. The names are kept as SHA-256 hashes, so the checker names none (decision 0086);
 - docs and comments: no line of a tracked `.md` file or Lua comment names who decided (an `owner` with a date or a quote, an assistant named as a source, a quoted-words section); the kit's own checks run the same pattern list with `--voice`;
 - the addon loaded on the stand-ins: headings, labels, tooltips, command descriptions, source choices and voiced lines against the rules marked "Enforced by: conformance".
 
@@ -122,7 +125,7 @@ Each kind of data has one home, and none is copied into another.
 | Cache of game facts | Saved variables, stamped with the game build | Rebuilt when the build changes |
 | Development captures | Saved variables, working build only | Never read by released code |
 
-- Saved data has a schema number and ordered migrations, one function per step, run by `lib:LoadSaved(module, globalName, { schema, migrations, defaults, legacy, character, characterDefaults })` once the saved variable has loaded. A save from a newer build is never rewritten: the module runs on an empty copy and the saved variable keeps its newer data and schema number, because lowering the number would run the steps again on migrated data after the next upgrade. Defaults are copied in for keys that are nil, and key by key inside a keyed table of defaults (a list is one value and is never topped up). A saved variable that is not a table is treated like a newer save. When either the account or the character saved variable is newer (or not a table), neither is written in that load, no stamp, no defaults, no step, and the module runs on empty copies of both. A character table has its own `schema` and runs `characterMigrations[step](characterDb)` from its own number; an unnumbered one is taken as current (stamped with this build's number, no step runs for it), whatever the account's own number is. A migration step is written to be safe to run twice, because one that errors has already changed the table and runs again on the next load. Enforced by: the kit.
+- Saved data has a schema number and ordered migrations, one function per step (Blizzard steps its own saved data by version number: `Blizzard_Console/Blizzard_Console.lua:101-109`, and one reader per data version in `Blizzard_CooldownViewer/CooldownViewerSettingsDataStoreSerialization.lua:123-265,336-342`), run by `lib:LoadSaved(module, globalName, { schema, migrations, defaults, legacy, character, characterDefaults })` once the saved variable has loaded. A save from a newer build is never rewritten: the module runs on an empty copy and the saved variable keeps its newer data and schema number, because lowering the number would run the steps again on migrated data after the next upgrade. Defaults are copied in for keys that are nil, and key by key inside a keyed table of defaults (a list is one value and is never topped up). A saved variable that is not a table is treated like a newer save. When either the account or the character saved variable is newer (or not a table), neither is written in that load, no stamp, no defaults, no step, and the module runs on empty copies of both. A character table has its own `schema` and runs `characterMigrations[step](characterDb)` from its own number; an unnumbered one is taken as current (stamped with this build's number, no step runs for it), whatever the account's own number is. A migration step is written to be safe to run twice, because one that errors has already changed the table and runs again on the next load. Enforced by: the kit.
 - Seed data never enters saved data. Save only what the seed lacks, and drop it at load once the seed covers it.
 - A generator refuses to remove or change existing entries without an explicit flag, so a capture cut short cannot ship.
 - Received data is validated field by field and never executed.
@@ -216,7 +219,7 @@ The library prints every chat line, and an addon keeps no chat formatting of its
 - Devices: Recipe Vacuum Druid, Tackletron Shaman, the sparkle tool Paladin, the buff tool Warlock. Mage is not used: it is too close to the line color.
 - A failure is a voiced line followed by the error's text on a plain line, so the text stays exact.
 
-Known limits: chat-copy features strip inline textures, so the gear is missing from copied text and "Boltgrip's" carries the family there; lines printed this way get no Blizzard timestamp; they cannot be redirected to another chat frame.
+Known limits: text copied out of chat may lose the gear (not tested), and "Boltgrip's" carries the family either way; lines printed this way get no Blizzard timestamp; they cannot be redirected to another chat frame.
 
 Help lists commands in Blizzard's own shape (`CHAT_HELP_TEXT_LINE*`): "/command <arguments> - What it does", one short line each, help itself not listed. Rows sit under the header's text, after a blank the gear's size (Blizzard's `Interface\\Common\\spacer`), as a tooltip's lines sit under its heading. Commands are in the device's color; the description stays in the line color. Help must be clear above all: each description says exactly what happens, in plain words, and says what each argument does; no shorthand a new player would have to guess at. An entry's `usage` field holds its arguments ("on|off", "[all|clear]").
 
@@ -308,12 +311,21 @@ Every module's options page is built by the library from data: `lib:BuildOptions
 
 - A working-build line in chat (blocked actions, errors from a watch handler, troubleshooting answers) goes through `lib:Debug`: Blizzard's grey, `GRAY_FONT_COLOR`, with a `[Debug]` tag, so it reads apart from a player's line in chat and in a screenshot. Releases print none.
 
-- Code between `--@debug@` and `--@end-debug@` exists in a checkout and is stripped from released builds by the BigWigs packager. Development commands, captures and timing live there.
+- Code between `--@debug@` and `--@end-debug@` exists in a checkout and is stripped from released builds by the BigWigs packager (its README, on `debug` blocks: "never. Code will only run when using an unpackaged source."). Development commands, captures and timing live there.
+- The release copy the checks build is our own: `tests/module-check.sh` drops the marked blocks from Lua files with one `awk` line. The packager has not yet run on any module, so its output is unverified; the first release builds the tested copy with the packager itself (`-d` skips uploading, `-z` skips the zip).
 - A file must still compile with the marked blocks removed; check it.
 - Commands for players reporting a problem ship in every build and are listed in the chat help only. Development commands are removed once their question is answered.
 - A development command prints one or two lines to chat and puts the detail in the log.
 - Logging is part of every change, not a follow-up: the working build is how play becomes data, so logging is added as we work. Each feature writes a trace line where it decides something the player would notice (counted or skipped, shown or hidden, spoken or silent) with the reason, and times work that runs per row or per event. A change is not done until its log lines exist. Enforced by: review and the quality bar.
 - A test copy to a device is labeled by its commit and copy second: the copied TOC's version becomes `<short>[+]@SS <full hash> <UTC time>`, for example `a81c4ef@08 a81c4ef... 2026-11-26T14:03:08Z`; `+` marks uncommitted work, which `deploy-deck` keeps as a snapshot commit under `refs/deck/` so the hash always resolves to the code that ran, and a second copy in the same second takes tenths. The module shows the first word where it shows its version, and the session log shows all of it. No build counter (a counter numbers copies, not code, and lives in one clone). Releases take the tag through `@project-version@`. Every module's `scripts/deploy-deck` is the skeleton's one line, calling the kit's shared `tests/deploy-deck.sh`. Enforced by: conformance.
+- The test device is named outside every repository, so no machine name, home path or account folder is committed. `tests/deploy-deck.sh` and `tools/perf-deck` read three variables from the environment, or from the file `JBT_DECK_CONFIG` names (default `~/.config/jig-boltgrip-toolkit/deck.env`, a shell file of `NAME=value` lines), and stop with a message when one is missing. Enforced by: the scripts.
+
+  | Variable | What it holds | Read by |
+  |---|---|---|
+  | `JBT_DECK_HOST` | The device's ssh host | both; a first argument overrides it |
+  | `JBT_DECK_ADDONS` | The game's `Interface/AddOns` folder on the device | `deploy-deck.sh` |
+  | `JBT_DECK_SAVED` | The account's `WTF/Account/<account>/SavedVariables` folder on the device | `perf-deck` |
+
 - Every test step is a button or a menu action, never a typed command: the toolkit's own options page holds only the kit's: its "Working Build" section has Reload UI, the shared watch switch and the log viewer as buttons; a module's own development commands are buttons in a "Working Build" section on that module's page, since only kit-level controls belong on the toolkit's page. Enforced by: the kit.
 - A working build names itself in the top-left corner: `jbg<MINOR> / <short>.<token> / <short>.<token>`, for example `jbg57 / rv.a81c4ef@08 / sc.7bd31fa+@42`: the short name is `module.short`, else the capitals of the title, and the token is the first word of the TOC Version that `deploy-deck` writes (short commit, `+` if dirty, `@` and the seconds), so every screenshot shows which builds it caught. Releases never show it. Enforced by: the kit.
 - A working build starts its log through one hook, `ns.StartWorkingLog`, defined in the module's debug-only `Troubleshooting.lua` and called by the skeleton's `Core.lua` after `ns.InitSettings`, the same in every module, since they share one grouping. Enforced by: review.
@@ -330,8 +342,11 @@ The kit follows LibStub's versioning, as Ace3 does: the major is in the name (`J
 
 ## Repository
 
-- `README.md`, `AGENTS.md` (the kit's opening, then rules, file layout, a table of the docs), a one-line `CLAUDE.md`, `LICENSE` (GPL-3.0), `.pkgmeta`, `.luacheckrc`, `.busted`, `scripts/check`, `.githooks/pre-push` and `.github/workflows/ci.yml` at the root; every other document in lowercase `docs/`.
-- Typical docs: `data.md`, `client-notes.md` (what the client does, as measured), `voice.md`, `development.md`.
+- `README.md`, `AGENTS.md` (the kit's opening, then rules, file layout, a table of the docs), a one-line `CLAUDE.md`, `LICENSE` (GPL-3.0), `.pkgmeta`, `.luacheckrc`, `.busted`, `.gitignore`, `.editorconfig`, `scripts/check`, `scripts/deploy-deck`, `.githooks/pre-push` and `.github/workflows/ci.yml` at the root; every other document in lowercase `docs/`. Enforced by: conformance.
+- `README.md` is short and has one shape: the title; one line saying what the addon is, as "A WoW Forever addon for ..."; the line "Part of Jig Boltgrip's Toolkit", linking the kit as the main repository; `## Install`; and last, the kit's License section (`tests/readme-license.md`), word for word. How to use the addon goes in `docs/using.md`. Enforced by: conformance.
+- The TOC sets `IconTexture` to one of Blizzard's own icons, and `X-License: GPL-3.0`. `Category` is the family's own name where the wiki recommends Blizzard's standard category names: a named exception, so the AddOns list groups the modules together. Enforced by: conformance.
+- The execute bit is for scripts. A clone symlinked into the game's `AddOns` folder has its modes changed from outside, so it sets `core.fileMode false`, and only such a clone does; `tests/module-check.sh` fails a tracked file with the bit and no `#!` line.
+- Typical docs: `using.md` (what a player does with it), `data.md`, `client-notes.md` (what the client does, as measured), `voice.md`, `development.md`.
 - Working notes and decision logs are never committed. Keep them out through `.git/info/exclude`, and list the tracked files before a first push.
 - `.pkgmeta` excludes everything that is not the addon: `AGENTS.md`, `CLAUDE.md`, `docs`, `scripts`, `tests`, `tools`, `Libs/JigBoltgripToolkit/tests`.
 - The toolkit library is embedded unchanged in every module. Any change raises its `MINOR`, and every module takes the identical file.

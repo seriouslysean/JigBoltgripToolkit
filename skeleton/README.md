@@ -1,14 +1,10 @@
 # __TITLE__
 
-__NOTES__ A module of [Jig Boltgrip's Toolkit](https://github.com/seriouslysean/JigBoltgripToolkit).
+A WoW Forever addon. __NOTES__
 
-## Get started
+Part of [Jig Boltgrip's Toolkit](https://github.com/seriouslysean/JigBoltgripToolkit), the main repository: the shared library, the standards and the list of addons.
 
-```sh
-git config core.hooksPath .githooks
-scripts/check
-```
+## Install
 
-## License
+No release yet. A copy of this repository in the game's `Interface/AddOns` folder, named `__ADDON__`, runs as a working build: it logs and shows Lua errors.
 
-GPL-3.0.

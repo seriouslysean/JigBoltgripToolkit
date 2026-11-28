@@ -30,11 +30,25 @@ step() {
 
 syntax() { git ls-files -z '*.lua' | xargs -0 "$luac" -p; }
 # Docs and comments, shell comments included, in one voice, citing no other addon (docs/standards.md, Ethos 7 and 8).
-voice() { git ls-files -z '*.md' '*.lua' .luacheckrc '*.sh' 'scripts/*' 'skeleton/scripts/*' '.githooks/*' 'tools/*' | xargs -0 "$lua" tests/conformance.lua --voice; }
-shell() { shellcheck scripts/check tests/module-check.sh tools/new-module.sh tools/setup-lua.sh tools/review-collect.sh tools/client-audit.sh && shfmt -d scripts/check tests/module-check.sh tools/new-module.sh tools/setup-lua.sh tools/review-collect.sh tools/client-audit.sh; }
+voice() { git ls-files -z '*.md' '*.lua' '*.toc' '*.yml' .luacheckrc .pkgmeta 'skeleton/.pkgmeta' '*.sh' 'scripts/*' 'skeleton/scripts/*' '.githooks/*' 'tools/*' | xargs -0 "$lua" tests/conformance.lua --voice; }
+shells=(scripts/check tests/module-check.sh tests/deploy-deck.sh tools/new-module.sh tools/setup-lua.sh tools/review-collect.sh tools/client-audit.sh tools/perf-deck skeleton/scripts/check skeleton/scripts/deploy-deck)
+shell() { shellcheck "${shells[@]}" && shfmt -d "${shells[@]}"; }
+# The execute bit is for scripts only. A clone whose file modes are rewritten from outside (the launcher does it through
+# the AddOns symlink) once committed 66 plain files as executable.
+modes() {
+	local mode path bad=0
+	while read -r mode _ _ path; do
+		[[ $mode == 100755 ]] || continue
+		[[ $(head -c 2 "$path") == '#!' ]] && continue
+		echo "$path is executable and not a script: git update-index --chmod=-x $path"
+		bad=1
+	done < <(git ls-files -s)
+	return "$bad"
+}
 
 step "syntax (Lua 5.1)" syntax
 step "shell (ShellCheck, shfmt)" shell
+step "file modes" modes
 step "luacheck" luacheck . -q
 step "comments" "$lua" tests/conformance.lua --comments JigBoltgripToolkit.lua
 step "voice" voice

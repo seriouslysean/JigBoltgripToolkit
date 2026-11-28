@@ -9,6 +9,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 - [ ] Wording and capitalization follow Blizzard's. Labels use the game's own strings where one exists.
 - [ ] The options page uses only the allowed controls, and its labels, headings, tooltips and notes follow [options.md](options.md).
 - [ ] Its chat lines never use one of the game's own chat colors (whisper, emote, system), and it changes nothing in normal chat or play outside its feature.
+- [ ] Color is never the only signal: where a color carries meaning, a second signal shows too, at least while Blizzard's colorblind mode is on.
 - [ ] Each pattern names the Blizzard file it follows; nothing names another addon as a source.
 - [ ] Where standing out and matching the game pull apart, it matches the game.
 

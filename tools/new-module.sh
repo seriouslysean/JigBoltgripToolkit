@@ -22,23 +22,28 @@ cd "$target"
 mv __ADDON__.toc "$1.toc"
 cat AGENTS.md.head "$kit/tests/agents-opening.md" >AGENTS.md
 rm AGENTS.md.head
+cat "$kit/tests/readme-license.md" >>README.md
 ADDON=$1 TITLE=$2 COMMAND=$3 NOTES=$4 KIT_COMMIT=$(git -C "$kit" rev-parse HEAD) \
 	find . -type f -exec perl -pi -e 's/__ADDON__/$ENV{ADDON}/g; s/__TITLE__/$ENV{TITLE}/g;
 		s/__COMMAND__/$ENV{COMMAND}/g; s/__NOTES__/$ENV{NOTES}/g; s/__KIT_COMMIT__/$ENV{KIT_COMMIT}/g' {} +
 
 mkdir -p Libs/JigBoltgripToolkit/tests Libs/LibStub Libs/AceLocale-3.0 .githooks
 cp "$kit/JigBoltgripToolkit.lua" Libs/JigBoltgripToolkit/
-cp "$kit"/tests/{stubs.lua,conformance.lua,module-check.sh,deploy-deck.sh,agents-opening.md,deprecated.lua,globalstrings.lua} Libs/JigBoltgripToolkit/tests/
+cp "$kit"/tests/{stubs.lua,conformance.lua,module-check.sh,deploy-deck.sh,agents-opening.md,readme-license.md,deprecated.lua,globalstrings.lua} Libs/JigBoltgripToolkit/tests/
 cp "$kit/tests/LibStub.lua" Libs/LibStub/
 cp "$kit/.githooks/pre-push" .githooks/
 ace=$(mktemp -d)
 git -C "$ace" init -q
 git -C "$ace" fetch -q --depth 1 https://github.com/WoWUIDev/Ace3.git "$ACE3_COMMIT"
 git -C "$ace" show FETCH_HEAD:AceLocale-3.0/AceLocale-3.0.lua >Libs/AceLocale-3.0/AceLocale-3.0.lua
+git -C "$ace" show FETCH_HEAD:LICENSE.txt >Libs/Ace3-LICENSE.txt
 rm -rf "$ace"
 
 git init -q
 git config core.hooksPath .githooks
 git add -A
+# The index holds the execute bit for the scripts and nothing else, whatever the folder's modes become.
+git update-index --chmod=+x scripts/check scripts/deploy-deck .githooks/pre-push Libs/JigBoltgripToolkit/tests/module-check.sh Libs/JigBoltgripToolkit/tests/deploy-deck.sh
 scripts/check
 echo "new-module: $target is ready; commit it, then add the GitHub repository when the owner says so."
+echo "new-module: once it is symlinked into the game's AddOns folder, and only then: git -C $target config core.fileMode false"
