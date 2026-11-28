@@ -22,11 +22,11 @@ Tackletron keeps facts per zone (`uiMapID`) and per subzone (area ID, read by po
 
 ## Rejected
 
-- Estimating a level from the zone's level range (`5453dc8`, dropped in `d6c0889`).
+- Estimating a level from the zone's level range (`83714a8`, dropped in `086219b`).
 
 ## Versions
 
-- Tackletron `fda93cc`, `87f8386`, `22138d9`, `e9e6b01`, `5453dc8`, `d6c0889`
+- Tackletron `2a3ee8f`, `a470f2d`, `70cc219`, `8ff6bd5`, `83714a8`, `086219b`
 
 ## Tests
 

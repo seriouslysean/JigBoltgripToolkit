@@ -24,7 +24,7 @@ The first time a pole is in hand, one Blizzard-style tutorial tip on the button 
 
 ## Versions
 
-- Tackletron `9177968`, `b90a15e`, `856eb90`, `2eed1d5`, `4405683`
+- Tackletron `9177968`, `4f6e3c6`, `2f63f9b`, `1900a78`, `4405683`
 
 ## Tests
 

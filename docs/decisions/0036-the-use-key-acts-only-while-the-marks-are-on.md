@@ -24,7 +24,7 @@ With the marks off, the use key does nothing and the working log says "marks off
 
 ## Versions
 
-- AutoOmniadjustor `d1c266d`
+- AutoOmniadjustor `53d634c`
 - client 1.60.1 (71139)
 
 ## Tests

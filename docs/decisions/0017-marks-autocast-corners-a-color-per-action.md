@@ -23,7 +23,7 @@ Corners on every usable item, circling lights on the selected one. Disenchant us
 
 ## Versions
 
-- AutoOmniadjustor `105a481` (`Marks.lua`, `AutoCastOverlayTemplate`), `5c53c74` (cached actions, two-item redraw)
+- AutoOmniadjustor `0a2883d` (`Marks.lua`, `AutoCastOverlayTemplate`), `14ec7fa` (cached actions, two-item redraw)
 - client 1.60.1 (71139)
 
 ## Tests

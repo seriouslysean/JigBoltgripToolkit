@@ -20,11 +20,11 @@ The Fishing food table is built from Blizzard's data tables for build 1.60.1.710
 
 ## Rejected
 
-- Finding food from its use text (`9b258e8`).
+- Finding food from its use text (`e3a4372`).
 
 ## Versions
 
-- Tackletron `33c82ff`, `b8d804f`, `e23c20d`, `82b30a6`
+- Tackletron `df4c385`, `2793c8a`, `0ba2f72`, `4d6cef9`
 
 ## Tests
 

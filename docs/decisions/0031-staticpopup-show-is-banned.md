@@ -19,11 +19,11 @@ Conformance refuses `StaticPopup_Show`; tell the player in chat instead.
 
 ## Rejected
 
-- A Yes/No dialog (Buffulator `586eeb5`).
+- A Yes/No dialog (Buffulator `9bb71fb`).
 
 ## Versions
 
-- JigBoltgripToolkit `5e3f615`
+- JigBoltgripToolkit `55c58ba`
 - client 1.60.1 (71139)
 
 ## Tests

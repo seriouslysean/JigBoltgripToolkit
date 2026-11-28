@@ -23,12 +23,12 @@ One line, once ever, per borrowed stick press.
 
 ## Versions
 
-- AutoOmniadjustor `5c53c74`, `448dd39`
+- AutoOmniadjustor `14ec7fa`, `5cb4161`
 - client 1.60.1 (71139)
 
 ## Tests
 
-- Offline: conformance passes both lines' voice checks (noise with no end mark, report beats ending "!") (`scripts/check` at `448dd39`).
+- Offline: conformance passes both lines' voice checks (noise with no end mark, report beats ending "!") (`scripts/check` at `5cb4161`).
 - Deck: pending; the module is off.
 
 ## Reopen if

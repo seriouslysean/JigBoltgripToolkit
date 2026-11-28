@@ -25,7 +25,7 @@ Small action buttons sit left of the fishing button, the lure nearest, each with
 
 ## Versions
 
-- Tackletron `cc87b81`, `9b258e8`, `33c82ff`, `c34725e`, `0925049`, `ef7bd01`
+- Tackletron `eda4fa1`, `e3a4372`, `df4c385`, `bd4d638`, `0925049`, `790d581`
 
 ## Tests
 

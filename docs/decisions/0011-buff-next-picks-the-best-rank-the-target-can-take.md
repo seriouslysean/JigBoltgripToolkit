@@ -23,7 +23,7 @@ The highest rank you know whose learn level is no more than 10 above theirs. A p
 
 ## Versions
 
-- Buffulator `c8eab9b`
+- Buffulator `668a819`
 - client 1.60.1 (71139)
 
 ## Tests

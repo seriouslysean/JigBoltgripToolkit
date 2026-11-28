@@ -26,7 +26,7 @@ The page holds, in working builds, one row: Working Log (Show). No Open rows, no
 
 ## Versions
 
-- JigBoltgripToolkit `befb214` (MINOR 66), `695a7cb` (68), `1d39467` (69), `8ecc7e0` (70), `1615149` (73)
+- JigBoltgripToolkit `f0989d3` (MINOR 66), `35d6e00` (68), `689498c` (69), `df940e0` (70), `1615149` (73)
 - client 1.60.1 (71139)
 
 ## Tests

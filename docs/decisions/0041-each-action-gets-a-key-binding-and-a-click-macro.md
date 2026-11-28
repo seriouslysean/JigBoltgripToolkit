@@ -24,8 +24,8 @@ Each press-to-act action gets a key binding row plus an "<Action> Macro" [Make] 
 
 ## Versions
 
-- JigBoltgripToolkit `df63d17`
-- Buffulator `6a8f2f7`
+- JigBoltgripToolkit `cd0cac6`
+- Buffulator `7c830f5`
 - client 1.60.1 (71139)
 
 ## Tests

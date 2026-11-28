@@ -23,7 +23,7 @@ The container places the bar only while it shows (`ManagedFrameSystem.lua`, `Add
 
 ## Versions
 
-- Tackletron `8f16d0f`, `6ce928e`, `dac5a5b`, `eb485d8`
+- Tackletron `94f98f1`, `5435841`, `93e09f3`, `2926ee4`
 
 ## Tests
 

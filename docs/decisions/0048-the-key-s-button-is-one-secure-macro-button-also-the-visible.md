@@ -15,7 +15,7 @@ One `SecureActionButtonTemplate` button that is also an `ActionButtonTemplate` c
 
 ## Reasons
 
-- Templates apply in order, and `ActionButtonTemplate`'s flyout template sets its own `OnClick`, which would replace the secure click and leave a button that does nothing (Blizzard `Flyout.xml`; fixed in `9c92c97`).
+- Templates apply in order, and `ActionButtonTemplate`'s flyout template sets its own `OnClick`, which would replace the secure click and leave a button that does nothing (Blizzard `Flyout.xml`; fixed in `56d2608`).
 - Blizzard names the pair "barebones combo of ActionButtonTemplate + SecureActionButtonTemplate" (`ActionButton.lua:1668`).
 - `AnyDown` and `AnyUp` follow `ActionButtonUseKeyDown` (`SecureTemplates.lua`).
 
@@ -25,8 +25,8 @@ One `SecureActionButtonTemplate` button that is also an `ActionButtonTemplate` c
 
 ## Versions
 
-- Tackletron `6289e92` (first build), `9c92c97` (secure template last), `a1123af` (macro emptied after each press)
-- Tackletron `2d931c5` (comment moved here)
+- Tackletron `4a59981` (first build), `56d2608` (secure template last), `dc3f17b` (macro emptied after each press)
+- Tackletron `da1fad7` (comment moved here)
 
 ## Tests
 

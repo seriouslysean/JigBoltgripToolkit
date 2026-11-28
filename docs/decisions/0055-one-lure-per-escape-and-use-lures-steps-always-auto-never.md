@@ -23,7 +23,7 @@ The zones where a fish got away since the last lure went on are kept for the ses
 
 ## Versions
 
-- Tackletron `0342354`, `cd88f2a`, `ac6ac0c`, `c415939`, `31a1172`, `b8090fc`, `c5896aa`
+- Tackletron `0342354`, `41e253c`, `e20fb41`, `9291b54`, `4edc028`, `1940efa`, `d68d155`
 
 ## Tests
 

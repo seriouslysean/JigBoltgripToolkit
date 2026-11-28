@@ -20,12 +20,12 @@ Tackletron has one key setting, its own binding in Keybindings, shown as Blizzar
 
 ## Rejected
 
-- Key checkboxes, Interact Key borrowing and key capture of our own (`35172e9`).
+- Key checkboxes, Interact Key borrowing and key capture of our own (`03b03db`).
 - F with its usual job while a pole is in hand.
 
 ## Versions
 
-- Tackletron `35172e9`, `2278c0a`, `0bc6c71`, `87aca4a`
+- Tackletron `03b03db`, `c6fcbc8`, `b50a288`, `b260c15`
 - kit MINOR 8 (library shared with Recipe Vacuum)
 
 ## Tests

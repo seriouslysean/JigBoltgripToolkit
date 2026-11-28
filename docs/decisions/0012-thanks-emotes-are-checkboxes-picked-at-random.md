@@ -26,15 +26,15 @@ Eight game emotes, each a checkbox labeled with the game's own slash command. Ea
 
 ## Versions
 
-- Buffulator `f41a214` (checkboxes, random pick, never twice in a row)
-- Buffulator `75f8589` (in the Thanks section, under its switch)
-- Buffulator `de5f99e` (`/thank` first, then the game's chat-menu order)
+- Buffulator `d1d7393` (checkboxes, random pick, never twice in a row)
+- Buffulator `2900636` (in the Thanks section, under its switch)
+- Buffulator `3ce3b37` (`/thank` first, then the game's chat-menu order)
 - client 1.60.1 (71139)
 
 ## Tests
 
 - No spec for the random pick.
-- Seen in game: `/thank` from the timer (Buffulator `ab4877c`).
+- Seen in game: `/thank` from the timer (Buffulator `339bbbf`).
 - Deck: emote order check pending.
 
 ## Reopen if

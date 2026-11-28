@@ -24,7 +24,7 @@ Combat has three states. `armed` is a fight with a pole equipped, whether it sta
 
 ## Versions
 
-- Tackletron `1192256`, `5fe0807`, `ae4a4f3`, `cc1c3aa`, `63d68c5`, `89ebe82`, `6ee3683`, `2d931c5`
+- Tackletron `1192256`, `ec73028`, `8d87ef5`, `a647d9f`, `f07199c`, `4dc1001`, `09d8a60`, `da1fad7`
 
 ## Tests
 

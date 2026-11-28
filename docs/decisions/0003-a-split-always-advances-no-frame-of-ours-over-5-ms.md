@@ -23,7 +23,7 @@ Work spread across frames moves forward at least one item a frame, sized to the 
 
 ## Versions
 
-- JigBoltgripToolkit `0ea72a6`, `24c9edd`
+- JigBoltgripToolkit `ea37c01`, `bb723ef`
 - client 1.60.1 (71139)
 
 ## Tests

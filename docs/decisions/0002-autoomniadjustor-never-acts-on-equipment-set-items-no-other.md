@@ -23,7 +23,7 @@ Items in an equipment set are never acted on. No other gate (ignore list, qualit
 
 ## Versions
 
-- AutoOmniadjustor `105a481` (`Actions.lua`, `C_Container.GetContainerItemEquipmentSetInfo`)
+- AutoOmniadjustor `0a2883d` (`Actions.lua`, `C_Container.GetContainerItemEquipmentSetInfo`)
 - client 1.60.1 (71139)
 
 ## Tests

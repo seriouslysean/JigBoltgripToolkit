@@ -20,12 +20,12 @@ Blizzard's red leave arrow (the vehicle and taxi button, same size, textures and
 
 ## Rejected
 
-- An X on the fishing button (`3f904dd`).
+- An X on the fishing button (`b5378c7`).
 - Lining up the bottoms, which left the smaller arrow sitting low.
 
 ## Versions
 
-- Tackletron `3f904dd`, `049e8b6`, `bec5fbc`, `b533cff`, `9823b69`, `ec3cff5`
+- Tackletron `b5378c7`, `678fa0d`, `0d15db7`, `06f397a`, `31a196d`, `0e7ec95`
 
 ## Tests
 

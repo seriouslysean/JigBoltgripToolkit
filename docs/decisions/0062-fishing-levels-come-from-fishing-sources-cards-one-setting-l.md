@@ -25,7 +25,7 @@ One setting, the Fishing Sources cards from the toolkit (`lib.SOURCE_LEVEL`, `li
 
 ## Versions
 
-- Tackletron `28d0279`, `d6c0889`, `9eb31b9`, `c258870`, `c987271`, `630dafe`
+- Tackletron `5b6945d`, `086219b`, `58bdf76`, `0b07888`, `3b172df`, `e1f2bf4`
 - kit MINOR 24, 26, 43
 
 ## Tests

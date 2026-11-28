@@ -15,7 +15,7 @@ Every log line is logfmt: a short lowercase event name, then `key=value` facts. 
 
 ## Amended 2026-11-27: the kit builds the line (MINOR 83)
 
-Modules first hand-formatted their lines (Recipe Vacuum `3d66c4c`, Tackletron, Buffulator, Sparklescope). All logs pipe through the kit so there is one standard; a line built in a module breaks DRY and KISS. Now a module passes `lib:Trace(module, "event", "key", value, ...)` and the kit writes the line (`lib.LogLine`); conformance fails any other form. Spec: "the kit writes logfmt lines" (`tests/loadorder_spec.lua`); conformance check "log lines go through the kit's event and pairs".
+Modules first hand-formatted their lines (Recipe Vacuum `fa0723d`, Tackletron, Buffulator, Sparklescope). All logs pipe through the kit so there is one standard; a line built in a module breaks DRY and KISS. Now a module passes `lib:Trace(module, "event", "key", value, ...)` and the kit writes the line (`lib.LogLine`); conformance fails any other form. Spec: "the kit writes logfmt lines" (`tests/loadorder_spec.lua`); conformance check "log lines go through the kit's event and pairs".
 
 ## Reasons
 

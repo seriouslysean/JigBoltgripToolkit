@@ -19,12 +19,12 @@ The button holds the macro text, set out of combat. A Keybindings row presses it
 
 ## Rejected
 
-- The rewritten character macro (`758843f`).
-- A raised controller key (`776e9b7`; "This isn't the same as fishing").
+- The rewritten character macro (`eaeab70`).
+- A raised controller key (`a9985eb`; "This isn't the same as fishing").
 
 ## Versions
 
-- Buffulator `6a8f2f7`
+- Buffulator `7c830f5`
 - client 1.60.1 (71139)
 
 ## Tests

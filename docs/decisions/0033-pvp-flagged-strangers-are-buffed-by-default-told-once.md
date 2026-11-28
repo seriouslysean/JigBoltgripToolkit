@@ -21,12 +21,12 @@ Buff PvP-Flagged Players is on by default. The first time the next player would 
 ## Rejected
 
 - Skipping flagged strangers by default.
-- A one-time Yes/No dialog (`586eeb5`).
+- A one-time Yes/No dialog (`9bb71fb`).
 - A chat link that opens the options.
 
 ## Versions
 
-- Buffulator `6ea9e3d`
+- Buffulator `d033a63`
 - `cairn:5rkag`
 - client 1.60.1 (71139)
 
