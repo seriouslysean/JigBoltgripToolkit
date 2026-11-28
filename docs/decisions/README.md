@@ -142,6 +142,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 |---|---|---|---|
 | 0038 | [A borrowed stick press is told once, with no Announce checkbox](0038-a-borrowed-stick-press-is-told-once-with-no-announce-checkbo.md) | AutoOmniadjustor | accepted |
 | 0057 | [Chat lines are a noise and a report, once where they repeat](0057-chat-lines-are-a-noise-and-a-report-once-where-they-repeat.md) | Tackletron | accepted |
+| 0079 | [Sparklescope says a line when it learns an unknown chest](0079-sparklescope-says-a-line-when-it-learns-an-unknown-chest.md) | Sparklescope 6000 | accepted |
 
 ## Name
 
