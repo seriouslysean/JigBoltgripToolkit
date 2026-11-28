@@ -27,7 +27,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0065 | [Errors and blocks are logged once, blamed from the stack](0065-errors-and-blocks-are-logged-once-blamed-from-the-stack.md) | all modules | accepted |
 | 0068 | [Opening the world map is tested, not assumed to taint](0068-opening-the-world-map-is-tested-not-assumed-tainting.md) | all modules | accepted, test pending |
 | 0075 | [Key binding rows carry no search tag of ours](0075-keybinding-rows-carry-no-search-tag-of-ours.md) | all modules | accepted; not the cause |
-| 0077 | [Map Pin closes the profession window before the map opens](0077-map-pin-closes-the-profession-window-before-the-map-opens.md) | Recipe Vacuum | accepted, test pending |
+| 0077 | [The panel steps aside while the map holds the profession window's slot](0077-the-panel-steps-aside-while-the-map-holds-the-profession-window-slot.md) | Recipe Vacuum | accepted, test pending |
 
 ## Data
 
