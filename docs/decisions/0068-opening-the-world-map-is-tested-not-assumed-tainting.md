@@ -50,3 +50,7 @@ RecipeVacuum d80b89d (working build only): Map Pin is a `SecureActionButtonTempl
 ## Result, moving the open map to the pin's zone (2026-11-27)
 
 RecipeVacuum 863cc7f (working build only) added `WorldMapFrame:SetMapID(pin's map)` one frame after the secure open (`secure map zone map=1436 now=1436`). Four seconds later a gamepad press in the map failed: `Blizzard_WorldMap.lua:634` SetGamepadFocus, `MapCanvas_ScrollContainerMixin.lua:901`, `SmartNavigation.lua:361` SuspendCursor, "Interface action failed because of an AddOn"; then 40 tainted gamepad binding fields and the same forbidden game calls as the first test until a reload. Setting the map's zone from addon code taints it under the Gamepad UI; the secure open alone stays, on the player's zone.
+
+## Result, /run macro from the secure button (2026-11-27)
+
+RecipeVacuum 44f0fa7 (working build only): the secure Map Pin ran the macro `/run OpenWorldMap(1436)` (`SecureTemplates.lua:450`, `C_Macro.RunMacroText`). The map opened on Westfall (`secure map open down=true shown=true map=1436`), and 3 s later SetPreferredGamepadInteractTarget was forbidden with the taint named `*** ForceTaint_Strong ***`, then `SmartNavigation.lua:277` ActivateBinding failed with "Interface action failed because of an AddOn". Script lines in a macro run tainted even from a secure button, as warcraft.wiki.gg "Secure Execution and Tainting" says of macro code. Next: the game's own `/mappin` command in the macro, whose handler opens the map in Blizzard's code (`WaypointLocationDataProvider.lua:213-229`).
