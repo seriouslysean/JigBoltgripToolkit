@@ -23,14 +23,14 @@ Buffulator offered a buff only once it was gone. A threshold to rebuff before it
 - Each extra reminder per encounter cut acceptance by 30%, and repeats cut it further (Ancker et al. 2017, doi 10.1186/s12911-017-0430-8). Early top-ups are low-value prompts, so the window is short.
 - Prompts at a natural breakpoint caused 43 to 56% less annoyance (Adamczyk and Bailey, CHI 2004) and 33 to 46% less load (Okoshi et al. 2015). The line shows only out of combat, which is that breakpoint.
 - A share of the duration fits poorly: 10% gives Thorns 1 minute and the 60 min buffs 6. The window should track the spacing of breaks, not buff length.
-- Addon defaults, read in source, fall between 1 and 5 minutes for buffs a person must act on: another addon `Core/State.lua:977-996` (25%, 1 to 5 min on Forever), another addon `Config.lua:227` (5 min), another addon `SharedSettings.lua:172-176` (up to 3 min), another addon `Core.lua:459` (3 min). 2 minutes is inside that range. Only cast-for-you tools go to 20 to 30 s.
+- The 2 minutes is our own choice, not yet measured: long enough that a buff offered at a break outlasts the next fight, short enough that the 10 min buffs prompt once a run of fights, not every break. The working log's `shown_s` checks it (Reopen if).
 - Batching follows the per-encounter effect above and Nielsen Norman Group's advice to send fewer notifications. It is an inference, not a tested result.
 
 ## Rejected
 
 - 10% of the duration, capped at 5 minutes.
-- another addon' rule (25%, 1 to 5 min).
-- another addon-style tiers capped at 3 minutes.
+- 25% of the duration, held between 1 and 5 minutes.
+- Tiers by buff length, capped at 3 minutes.
 - A flat 5 minutes.
 - Topping up strangers in the window.
 

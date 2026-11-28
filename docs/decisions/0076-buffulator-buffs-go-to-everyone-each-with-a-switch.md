@@ -17,7 +17,7 @@ Every buff goes to anyone missing it. Thorns goes to you, your group's tanks and
 
 - Forever's own stat tooltips say Intellect raises weapon skill gain for warriors and rogues (`WARRIOR_INTELLECT_TOOLTIP`, `ROGUE_INTELLECT_TOOLTIP`) and Spirit raises health and mana regeneration for everyone (`SPIRIT_TOOLTIP`), so no buff is wasted on a class.
 - Thorns adds threat, which healers and damage dealers do not want (vanilla wiki, "Druid tactics", read through a search summary; unverified in game).
-- One checkbox per buff is the shape a Forever druid buff addon uses, and checkboxes are the gamepad-safe control (kit `docs/options.md`). A per-class grid, as another addon has, is too many d-pad stops.
+- One checkbox per buff is one d-pad stop per buff, and checkboxes are the gamepad-safe control (kit `docs/options.md`). A per-class grid is too many d-pad stops.
 
 ## Rejected
 

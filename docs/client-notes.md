@@ -37,7 +37,8 @@ What WoW Forever's client does that any toolkit module can run into, as measured
 
 ## Repository and CI
 
-- A clone with `core.fileMode false` commits scripts without their execute bit, and CI cannot run them (exit 126). Keep `core.fileMode` on.
+- The Battle.net Agent sets every file under `/Applications/World of Warcraft` to mode 777 and follows the `AddOns` symlinks into the module clones (2026-11-28; its log reads "Build marked non-playable for wowf: Permissions check failure (2113)", then "Start Update of wowf", in the second the modes change). So every clone symlinked into `AddOns` sets `git config core.fileMode false`, or git shows each file as changed to 100755.
+- With `core.fileMode false` a new script is committed without its execute bit, and CI cannot run it (exit 126). Give it the bit in the index: `git update-index --chmod=+x <file>`.
 - Run a module's CI with act before its first push, not only the kit's.
 
 ## Audited source

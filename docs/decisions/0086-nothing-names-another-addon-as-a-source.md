@@ -39,8 +39,8 @@ Allowed, because none is a source for our design:
 
 ## Tests
 
-- `tests/conformance.lua`, "docs and comments name no other addon as a source" (and `--voice`, a step of the kit's `scripts/check`): fails a tracked doc line or Lua comment that holds a listed addon name as a whole word, or a phrase that cites one. The names and phrases are listed in that file. `Libs/`, license files, `THIRD-PARTY-NOTICES.md` and `tests/globalstrings.lua` are exempt, and "BigWigs packager" never matches.
-- A planted doc line with a citing phrase failed the kit's check, and a planted Lua comment with a listed name failed a module's; both pass with the lines removed.
+- `tests/conformance.lua`, "docs and comments name no other addon as a source" (and `--voice`, a step of the kit's `scripts/check`): fails a tracked doc line or a comment that holds a phrase that cites another addon. The phrases are listed in that file; it lists no names, since a list of names would itself name them, so a bare name is left to review. `Libs/`, license files, `THIRD-PARTY-NOTICES.md` and `tests/globalstrings.lua` are exempt.
+- A planted doc line with a citing phrase failed the kit's check, and a planted Lua comment with one failed a module's; both pass with the lines removed. Compatibility wording ("another addon clears the value") passes.
 
 ## Reopen if
 
