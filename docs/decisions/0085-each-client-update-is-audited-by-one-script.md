@@ -36,7 +36,7 @@ The script only collects; the `client-audit` skill (`.claude/skills/client-audit
 
 ## Versions
 
-- Kit `tools/client-audit.sh`, `tools/client-audit.lua`, `tools/api-docs.lua`, `tools/deprecated.lua`, `tools/global-strings.lua` (takes a commit and an output path; one output on PUC Lua and LuaJIT), `tests/deprecated.lua` (regenerated, adds `UnitAura`), `scripts/check`, `docs/client-notes.md`, `docs/standards.md`.
+- Kit `tools/client-audit.sh`, `tools/client-audit.lua`, `tools/api-docs.lua`, `tools/deprecated.lua`, `tools/global-strings.lua` (takes a commit and an output path; one output on PUC Lua and LuaJIT), `tests/deprecated.lua` (regenerated, adds `UnitAura`; every module takes the new file, since conformance compares the embedded copy with the kit checkout beside it), `scripts/check`, `docs/client-notes.md`, `docs/standards.md`.
 - Run on `9465cb2` (1.60.1.70291) to `d9c22e3` (1.60.1.71139) in about 3 s.
 
 ## Tests
