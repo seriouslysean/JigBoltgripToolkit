@@ -17,15 +17,16 @@ The learned services are read after the visible scan, once a visit. A read that 
 
 - Each read flips Blizzard's "used" filter, and each flip rebuilds its list: 26 to 32 ms a pass on the Deck (log 2026-11-27 10:41, npc 1241).
 - Three passes over two visits found nothing, because the trainer taught Blacksmithing and the character had none.
+- The read is still needed, so its cost is cut instead of the read: once a visit, saved per trainer, no retry.
 - A gate adds nothing: the read happens once, gathers data, and lets a player look before switching professions. Account-wide needs no per-character copy and costs less.
 - Review agreed: the 0 was correct, the same-visit retry and the pre-scan trigger were bugs, and a hook adds nothing because the scan records rows before a purchase.
 
 ## Rejected
 
-- Dropping the read.
+- Dropping the read: the learned rows are still wanted.
 - A profession gate.
 - A `BuyTrainerService` hook.
-- Skipping when every known recipe has a source ("Not learning new recipes doesn't mean they'll never have them").
+- Skipping when every known recipe has a source: a character that learns no new recipes now can still learn them later.
 
 ## Versions
 

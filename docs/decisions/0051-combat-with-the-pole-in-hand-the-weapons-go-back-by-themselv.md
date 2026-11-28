@@ -17,6 +17,7 @@ Combat has three states. `armed` is a fight with a pole equipped, whether it sta
 
 - The game lets an addon equip weapons until combat lockdown begins, "Combat lockdown begins after the PLAYER_REGEN_DISABLED event fires" (warcraft.wiki.gg, `API_InCombatLockdown`).
 - The `item:ID` form worked in game, 2026-11-26.
+- A state driver is how restricted code follows combat: `RegisterStateDriver` (`Blizzard_RestrictedAddOnEnvironment/SecureStateDriver.lua:26`).
 
 ## Rejected
 

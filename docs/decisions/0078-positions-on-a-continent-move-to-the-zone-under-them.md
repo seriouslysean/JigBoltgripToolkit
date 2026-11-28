@@ -11,7 +11,7 @@ Odd Child's only saved position is on map 1415, Eastern Kingdoms, at 0.411, 0.79
 
 ## Decision
 
-A position on a continent or larger map (`Enum.UIMapType.Continent` or less) moves to the zone under it: `C_Map.GetMapInfoAtPosition` finds the zone, `C_Map.GetMapRectOnMap` converts the coordinates (`ns.ZonePosition`, `Sources.lua`). It runs when a position is saved and when a source's position is read, which repairs positions already saved without a migration. With no zone under the point the continent stays.
+A position on a continent or larger map (`Enum.UIMapType.Continent` or less) moves to the zone under it: `C_Map.GetMapInfoAtPosition` finds the zone, `C_Map.GetMapRectOnMap` converts the coordinates (`ns.ZonePosition`, `Sources.lua`). It runs when a position is saved, and once at login over every saved position (`RepairSaved`, RecipeVacuum `99b17b5`), so a read converts nothing. With no zone under the point the continent stays.
 
 ## Reasons
 
@@ -28,7 +28,7 @@ A position on a continent or larger map (`Enum.UIMapType.Continent` or less) mov
 
 ## Tests
 
-- Mac: Map Pin on a recipe Odd Child teaches; the chat line names the zone, the map opens on it, the log has `zone position from=1415`. Pending.
+- Mac: after login the log has `positions repaired moved=<n>`, with n at least 1 the first time. Then Map Pin on a recipe Odd Child teaches: the chat line names the zone, the map opens on it, and the log has no `zone position` line. Pending.
 
 ## Reopen if
 

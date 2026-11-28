@@ -1,7 +1,7 @@
 # 0068 Opening the world map is tested, not assumed to taint
 
 - Date: 2026-11-27
-- Status: accepted; mouse and keyboard measured, Deck pending
+- Status: accepted; measured on the Mac and the Deck (2026-11-27)
 - Scope: all modules (first use: Recipe Vacuum's Map Pin)
 - Kind: gamepad and taint
 

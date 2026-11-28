@@ -29,8 +29,8 @@ Buffulator offered a buff only once it was gone. A threshold to rebuff before it
 ## Rejected
 
 - 10% of the duration, capped at 5 minutes.
-- 25% of the duration, held between 1 and 5 minutes.
-- Tiers by buff length, capped at 3 minutes.
+- A quarter of the duration, held between 1 and 5 minutes: it still tracks buff length, not the spacing of breaks.
+- Tiers by buff length, capped at 3 minutes: the same fault, in steps.
 - A flat 5 minutes.
 - Topping up strangers in the window.
 

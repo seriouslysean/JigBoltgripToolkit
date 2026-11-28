@@ -17,7 +17,7 @@ Tackletron keeps facts per zone (`uiMapID`) and per subzone (area ID, read by po
 
 - On Classic-era rules as rebuilt by the emulators, a catch at effective skill s means the minimum is at most s, an escape means the no-escape level is above s, and the catch chance is skill minus base plus 5 percent (vmangos `GameObject.cpp`, `GAMEOBJECT_TYPE_FISHINGNODE`).
 - The server looks up a subzone's own level first, then the zone's (same code).
-- WCLBox's Forever fishing page lists "From 51 / 126 / 201 / 326", which fits every refusal and landed cast seen 2026-11-25; unverified at the edge.
+- Our own casts on 2026-11-25: every refusal was below base minus 4 and every landed cast at or above it, the Wetlands cast at 53 against base 55 among them. The tiers then start at 51, 126, 201 and 326. Not yet cast at the edge itself (base minus 5 against base minus 4), so the 4 is unverified there.
 - "Skill not high enough" (`SPELL_FAILED_LOW_CASTLEVEL`, no number) was seen at Theramore Isle at skill 28+25.
 
 ## Rejected

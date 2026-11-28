@@ -16,6 +16,7 @@ While the line is out, the key hooks only when the bobber is soft-targeted and i
 ## Reasons
 
 - Blizzard's gamepad code sets and removes temporary CVars the same way (`Blizzard_Gamepad/Core.lua`), so a crash or disconnect leaves nothing changed and players need not touch a setting.
+- Blizzard binds a key to a button's click the same way (`SetOverrideBindingClick`, `Blizzard_GamepadSharedUtility/InputBindingStack/InputButtonBinding.lua:27-28`) and sets `SoftTargetInteract` as a temporary CVar (`Blizzard_GamepadTargeting/TargetLogic.lua:104`).
 - Soft interact is the Interact Key, which the controller already turns on whatever Enable Interact Key says (`docs/client-notes.md`).
 
 ## Rejected

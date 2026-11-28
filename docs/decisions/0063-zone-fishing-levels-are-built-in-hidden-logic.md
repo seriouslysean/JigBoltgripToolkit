@@ -7,7 +7,7 @@
 
 ## Context
 
-A zone's fishing level is hidden from the client. The community's levels are wanted on for everyone without an opt-in, with the player's own play correcting them. Forever's new zones (Riverglades, Zephras Isle) have no data and must be learned from play.
+A zone's fishing level is hidden from the client. The community's levels are on for everyone, with no opt-in, and the player's own play corrects them. Forever's new zones (Riverglades, Zephras Isle) have no data and must be learned from play.
 
 ## Decision
 
@@ -37,7 +37,7 @@ Open: the line's wording, modeled on the game's own gnome machines (Homing Robot
 - Public as a source.
 - Sharing every zone (only zones with no built-in level need it).
 - A percent, a fraction or a rating number in the line (three states are enough).
-- The alert on first cast (the alert prints when a pole goes on in a new zone).
+- The alert on first cast: the Tackletron is a device, so it senses the zone as soon as the pole is on, without waiting for a cast.
 
 ## Versions
 

@@ -17,7 +17,7 @@ One setting, the Fishing Sources cards from the toolkit (`lib.SOURCE_LEVEL`, `li
 
 - Same cards, same wording and same order as Recipe Vacuum (`ns.levelText`).
 - The page order is 0040.
-- Self Found and Friends is the default; Public stays for players who gather data.
+- The default is meant to be Self Found and Friends; until a Friends card exists it is Self Found. Public is never the default: a player turns it on by choice, as when gathering data.
 
 ## Rejected
 
