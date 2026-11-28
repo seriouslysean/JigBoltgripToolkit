@@ -23,7 +23,7 @@ The marks are our own frames, positioned over the buttons and drawn just above t
 
 ## Versions
 
-- AutoOmniadjustor `14ec7fa`
+- AutoOmniadjustor `798ccdd`
 - client 1.60.1 (71139)
 
 ## Tests

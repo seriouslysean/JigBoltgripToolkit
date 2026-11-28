@@ -23,7 +23,7 @@ No addon chat link opens Settings; the line names the setting in plain text.
 
 ## Versions
 
-- Buffulator `d033a63` (plain chat line, no link)
+- Buffulator `49e73b9` (plain chat line, no link)
 - client 1.60.1 (71139)
 
 ## Tests

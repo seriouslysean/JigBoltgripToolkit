@@ -24,7 +24,7 @@ Rows show Blizzard's skill-up arrows from `GetRecipeInfo().relativeDifficulty` a
 
 ## Versions
 
-- RecipeVacuum `c987ee7`, `5a2c186`
+- RecipeVacuum `1b3c689`, `fc55aad`
 - client 1.60.1 (71139)
 
 ## Tests

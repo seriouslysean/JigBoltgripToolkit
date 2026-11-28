@@ -23,7 +23,7 @@ Every line is the library's `Say` with a noise that has no end mark, then a repo
 
 ## Versions
 
-- Tackletron `90ca2b0`, `0b3bff5`, `b73200f`, `a5e8628`, `100e40b`, `1940efa`, `ec73028`, `fccc898`
+- Tackletron `90ca2b0`, `0b3bff5`, `b73200f`, `a5e8628`, `100e40b`, `1940efa`, `ec73028`, `8baaaa1`
 - kit MINOR 9, 18
 
 ## Tests

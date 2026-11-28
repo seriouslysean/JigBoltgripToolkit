@@ -23,7 +23,7 @@ Buffulator.
 
 ## Versions
 
-- Buffulator `535bd1d`
+- Buffulator `466595b`
 - client 1.60.1 (71139)
 
 ## Tests

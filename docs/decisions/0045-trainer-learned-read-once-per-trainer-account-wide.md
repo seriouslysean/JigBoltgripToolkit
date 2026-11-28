@@ -30,7 +30,7 @@ The learned services are read after the visible scan, once a visit. A read that 
 
 ## Versions
 
-- RecipeVacuum `cac62e6` (schema 14)
+- RecipeVacuum `4e101c3` (schema 14)
 - `cairn:mq5g8`
 - client 1.60.1 (71139)
 

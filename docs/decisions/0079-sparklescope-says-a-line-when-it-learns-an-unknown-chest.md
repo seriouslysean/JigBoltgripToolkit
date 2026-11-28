@@ -25,7 +25,7 @@ When an opened chest was on no list, found or shared, Sparklescope says "chirps.
 
 ## Versions
 
-- Sparklescope6000 4db1bfa (chest line), 4a768d2 (first sparkle)
+- Sparklescope6000 ef60324 (chest line), a918492 (first sparkle)
 
 ## Tests
 

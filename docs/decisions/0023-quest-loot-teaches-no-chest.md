@@ -23,7 +23,7 @@ Loot that is only quest items teaches nothing, and a quest object learned before
 
 ## Versions
 
-- Sparklescope6000 `af06945`
+- Sparklescope6000 `b6bf02c`
 - client 1.60.1 (71139)
 
 ## Tests

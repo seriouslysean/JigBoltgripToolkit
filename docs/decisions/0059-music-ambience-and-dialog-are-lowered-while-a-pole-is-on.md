@@ -24,7 +24,7 @@ While a pole is equipped, music, ambience and dialog play lower, so the splash s
 
 ## Versions
 
-- Tackletron `3224969`, `f85b43c`, `93e09f3`, `43f7ef0`, `92b0dc1`, `4734864`
+- Tackletron `3224969`, `f85b43c`, `93e09f3`, `d5d11cd`, `9ab60e2`, `4734864`
 
 ## Tests
 

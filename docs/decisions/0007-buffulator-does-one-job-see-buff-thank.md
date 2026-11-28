@@ -24,13 +24,13 @@ A line naming who needs a buff of yours, one press that buffs them at the rank t
 ## Versions
 
 - Buffulator `4054758` (first build: the who-needs line, the buff key with rank picking, the thanks emote)
-- Buffulator `535bd1d` (renamed)
+- Buffulator `466595b` (renamed)
 - client 1.60.1 (71139)
 
 ## Tests
 
 - Specs, one per job: "names on the line the player the macro buffs", "buffs a level 9 player outside the group at the rank they can take", "thanks a player once when their buff lands, after the delay" (`tests/behavior_spec.lua`).
-- Seen in game: the thanks emote from the timer (Buffulator `339bbbf`, docs/client-notes.md).
+- Seen in game: the thanks emote from the timer (Buffulator `f4d598a`, docs/client-notes.md).
 
 ## Reopen if
 

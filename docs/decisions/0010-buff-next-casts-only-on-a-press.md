@@ -25,7 +25,7 @@ Buff Next casts only when the player presses it. Group members, you and your tar
 ## Versions
 
 - Buffulator `eaeab70` (one character macro, rewritten out of combat)
-- Buffulator `7c830f5` (the secure button, key binding and `/click` macro)
+- Buffulator `8b51628` (the secure button, key binding and `/click` macro)
 - client 1.60.1 (71139)
 
 ## Tests

@@ -11,7 +11,7 @@ Odd Child's only saved position is on map 1415, Eastern Kingdoms, at 0.411, 0.79
 
 ## Decision
 
-A position on a continent or larger map (`Enum.UIMapType.Continent` or less) moves to the zone under it: `C_Map.GetMapInfoAtPosition` finds the zone, `C_Map.GetMapRectOnMap` converts the coordinates (`ns.ZonePosition`, `Sources.lua`). It runs when a position is saved, and once at login over every saved position (`RepairSaved`, RecipeVacuum `99b17b5`), so a read converts nothing. With no zone under the point the continent stays.
+A position on a continent or larger map (`Enum.UIMapType.Continent` or less) moves to the zone under it: `C_Map.GetMapInfoAtPosition` finds the zone, `C_Map.GetMapRectOnMap` converts the coordinates (`ns.ZonePosition`, `Sources.lua`). It runs when a position is saved, and once at login over every saved position (`RepairSaved`, RecipeVacuum `f26af3d`), so a read converts nothing. With no zone under the point the continent stays.
 
 ## Reasons
 

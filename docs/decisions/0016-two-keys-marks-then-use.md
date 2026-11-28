@@ -24,12 +24,12 @@ The marks key shows every item the use key can act on, and the use key acts on t
 
 ## Versions
 
-- AutoOmniadjustor `0a2883d` (keys and stick defaults), `14ec7fa` (stick keys dropped in combat by a secure state owner)
+- AutoOmniadjustor `0a2883d` (keys and stick defaults), `798ccdd` (stick keys dropped in combat by a secure state owner)
 - client 1.60.1 (71139)
 
 ## Tests
 
-- Offline: conformance "a keybinding row has no note or tooltip" passes (`scripts/check` at `1d2f24d`).
+- Offline: conformance "a keybinding row has no note or tooltip" passes (`scripts/check` at `fe01115`).
 - Deck: pending; the module is off until its taint fix lands.
 
 ## Reopen if

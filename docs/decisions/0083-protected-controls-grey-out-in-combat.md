@@ -32,11 +32,11 @@ A control that needs a protected frame has one behaviour, and in combat it is of
 
 ## Versions
 
-- RecipeVacuum 067f7d8 (Map Pin and the place list).
+- RecipeVacuum 5e9105c (Map Pin and the place list).
 
 ## Tests
 
-- Steam Deck, RecipeVacuum c391262: Map Pin greyed out in combat, the line came once, no blocked action; after combat the map opened on Westfall again (decision 0068).
+- Steam Deck, RecipeVacuum 3cefaa4: Map Pin greyed out in combat, the line came once, no blocked action; after combat the map opened on Westfall again (decision 0068).
 
 ## Reopen if
 

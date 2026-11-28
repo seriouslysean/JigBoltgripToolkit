@@ -23,7 +23,7 @@ Shipped data shows only at the Public level. A module may ship data on for every
 
 ## Versions
 
-- JigBoltgripToolkit `8e36d3d`, `0b11708`
+- JigBoltgripToolkit `88c78a5`, `549f75d`
 
 ## Tests
 

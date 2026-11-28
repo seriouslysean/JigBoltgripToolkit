@@ -28,7 +28,7 @@ The module acts on bag items with Disenchant (13262), Pick Lock (1804) or a key 
 
 ## Tests
 
-- Offline: conformance loads the addon on the toolkit stand-ins without errors (`scripts/check` at `1d2f24d`).
+- Offline: conformance loads the addon on the toolkit stand-ins without errors (`scripts/check` at `fe01115`).
 - Deck: pending; the module is off until its taint fix lands.
 
 ## Reopen if

@@ -24,7 +24,7 @@ The button holds the macro text, set out of combat. A Keybindings row presses it
 
 ## Versions
 
-- Buffulator `7c830f5`
+- Buffulator `8b51628`
 - client 1.60.1 (71139)
 
 ## Tests

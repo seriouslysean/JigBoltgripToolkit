@@ -23,7 +23,7 @@ The probe lists what the client reports for the player's fishing food and lures.
 
 ## Versions
 
-- Tackletron `4d6cef9`, `ee68a4b`, `df4c385`
+- Tackletron `4d6cef9`, `7294206`, `df4c385`
 - kit MINOR 51, 54
 
 ## Tests

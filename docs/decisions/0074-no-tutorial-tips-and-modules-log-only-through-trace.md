@@ -25,7 +25,7 @@ Two kit gaps found the same afternoon. Tutorial tips (HelpTipTemplate frames, He
 
 ## Versions
 
-- Kit conformance and standards: this commit. Tackletron removed its two tips and moved to Trace (060483f and after).
+- Kit conformance and standards: this commit. Tackletron removed its two tips and moved to Trace (5ea081d and after).
 
 ## Tests
 

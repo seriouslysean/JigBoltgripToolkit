@@ -24,7 +24,7 @@ A shared chest is kept as sent, with no "seen twice" rule, cap or forget button.
 ## Versions
 
 - client 1.60.1 (71139)
-- Sparklescope6000 78fd57a (sharing through the kit share, MINOR 49); unchanged since
+- Sparklescope6000 f532861 (sharing through the kit share, MINOR 49); unchanged since
 
 ## Tests
 

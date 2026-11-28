@@ -24,8 +24,8 @@ Each new buff restarts the wait, up to 10 s after the first. One player gets the
 
 ## Versions
 
-- Buffulator `b36e5c8` (one emote at nobody for several players)
-- Buffulator `dbdb681` (each buff restarts the wait, at most 10 s)
+- Buffulator `2beb4b5` (one emote at nobody for several players)
+- Buffulator `bf094dd` (each buff restarts the wait, at most 10 s)
 - client 1.60.1 (71139)
 
 ## Tests

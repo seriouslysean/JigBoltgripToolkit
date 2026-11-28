@@ -23,7 +23,7 @@ A thanks is dropped while you are AFK or stealthed. Combat still thanks.
 
 ## Versions
 
-- Buffulator `60a5ba3`
+- Buffulator `5831682`
 - client 1.60.1 (71139)
 
 ## Tests

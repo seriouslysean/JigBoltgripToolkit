@@ -23,7 +23,7 @@ A recipe the account knows counts as discovered, with nothing shared. Shipped da
 
 ## Versions
 
-- RecipeVacuum `6df8d32`
+- RecipeVacuum `2bcf067`
 - client 1.60.1 (71139)
 
 ## Tests

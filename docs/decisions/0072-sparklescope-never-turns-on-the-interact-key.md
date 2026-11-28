@@ -26,7 +26,7 @@ Sparklescope never sets it. The options page says sparkles need it on with keybo
 ## Versions
 
 - client 1.60.1
-- Sparklescope6000 9f360fe
+- Sparklescope6000 d2d7ea7
 
 ## Tests
 
