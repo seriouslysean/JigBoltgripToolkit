@@ -14,4 +14,4 @@ How every toolkit addon is written, this library included: [docs/standards.md](d
 
 ## Checks
 
-Run before every commit; see `README.md`, "Checks". `luacheck` comes from LuaRocks, `luajit` from Homebrew; both match the client's Lua 5.1.
+Run before every commit; see `README.md`, "Checks". The checks run on PUC Lua 5.1, the client's and CI's; `tools/setup-lua.sh` builds it with CI's busted and luacheck.

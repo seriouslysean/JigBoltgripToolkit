@@ -183,3 +183,4 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0071 | [Rules from repeated corrections](0071-rules-from-the-owners-corrections.md) | all modules | accepted |
 | 0074 | [No tutorial tips; modules log only through Trace](0074-no-tutorial-tips-and-modules-log-only-through-trace.md) | all modules | accepted |
 | 0081 | [Write in one imperative voice](0081-write-in-one-imperative-voice.md) | all modules | accepted |
+| 0082 | [Checks run on PUC Lua 5.1](0082-checks-run-on-puc-lua-5-1.md) | all modules | accepted |
