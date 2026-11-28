@@ -58,3 +58,7 @@ RecipeVacuum 44f0fa7 (working build only): the secure Map Pin ran the macro `/ru
 ## Result, /mappin from the secure button (2026-11-27)
 
 RecipeVacuum 75df552 (working build only): the secure Map Pin ran the macro `/mappin 1436 <x> <y>` (`SLASH_MAPPIN1`), whose handler sets the waypoint and calls `OpenMapToUserWaypoint` (`WaypointLocationDataProvider.lua:213-229`, `Blizzard_WorldMap.lua:1482`). The map opened on Westfall (`secure map open down=true shown=true map=1436`), and the session to logout (38 gamepad moves through the map, bags and game menu) logged no blocked action and no tainted field. A slash command's handler is Blizzard's function, so the macro carries only data; a `/run` line is a script chunk and runs tainted (above). This is the path for Map Pin under the Gamepad UI; still to measure: the protected button in combat.
+
+## Result, the shipped Map Pin (2026-11-27)
+
+RecipeVacuum f8a497a, release path: a secure button over Map Pin runs `/mappin`, our control then super-tracks the pin and says so; in combat Map Pin is greyed out and the Vacuum says once a session that it refuses to triangulate. On the Deck the map opened on Westfall before and after a fight (`map opened down=true shown=true map=1436`, 23:15 and 23:18), and 75 gamepad moves logged no blocked action and no tainted field. `OpenWorldMap` is no longer called by any module; ban it again in conformance.
