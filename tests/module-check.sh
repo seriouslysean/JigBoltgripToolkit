@@ -42,7 +42,7 @@ syntax() { ours | tr '\n' '\0' | xargs -0 "$luac" -p; }
 # The release build: the addon as packaged, with --@debug@ blocks dropped, so every shipped file must
 # still compile and the specs run against it. The TOC and its XML come as they are, since specs load the
 # addon through the TOC; the specs themselves never ship, so they are copied unchanged.
-stripped=$(mktemp -d)
+stripped=$(mktemp -d) || exit 1
 trap 'rm -rf "$stripped"' EXIT
 release_build() {
 	local file

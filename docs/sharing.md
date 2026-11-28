@@ -26,7 +26,7 @@ Not established: how many prefixes a client may register (`MaxPrefixes` exists; 
 
 ## What the library does
 
-1. Probes, on joining a guild, group or instance, on reconnecting and when a friend comes online. A probe carries the collection ID and the revision (`0-0` and 0 when the player does not send).
+1. Probes, on joining a guild, group or instance, on reconnecting, when a friend comes online and when a sharing setting changes with receiving on. A probe carries the collection ID and the revision (`0-0` and 0 when the player does not send).
 2. A peer that is behind whispers a request for everything after its cursor.
 3. The owner replies with one batch; the receiver validates it, merges it, saves its cursor and asks again until it reaches the tip.
 4. Only a friend, guild member or group member is listened to. A reply is accepted only from the peer asked, for the range asked.
@@ -54,7 +54,8 @@ Calls, all on the share:
 |---|---|
 | `Load(db, each)` | Once saved data is loaded. `each(add)` calls `add(entry, context)` for every entry of the found layer; an entry with no revision gets the next one, and a counter behind its entries is renumbered under a new collection ID so peers resync. |
 | `Mark(entry, context)` | A found entry is new or changed. It gets the next revision and peers are offered it, once per frame. |
-| `Update()` | A sharing setting changed: connects or disconnects, drops pending requests when receiving stops, offers at once when sending starts. |
+| `Forget(entry)` | A found entry was removed. No later reply holds it; peers that already took it keep it. |
+| `Update()` | A sharing setting changed: connects or disconnects, drops pending requests when receiving stops, offers at once when sending starts, and says hello while receiving is on, since a peer answers a hello with what it holds. |
 | `Since(after, limit)` | Rows after a revision, for an export. |
 | `Merge(rows)` | The batch checks and the module's merge; the receive path calls it, and a module's own specs can. |
 | `SelfTest(report, merge, summary)` | A working build's one-account check (below). |

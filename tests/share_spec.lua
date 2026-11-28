@@ -148,4 +148,29 @@ describe("sharing", function()
 		probe(nil, offer, "PARTY", "Tester")
 		assert(share.replyTimers.PARTY == nil and #sent == before, "its own probe was answered")
 	end)
+
+	-- Fails if a find the module forgot is still sent: a quest crate learned as a chest stayed in every reply
+	-- until the next login.
+	it("a forgotten entry is in no later reply", function()
+		Connect(3)
+		data(nil, ("G %s 0"):format(db.exchange.id), "WHISPER", "Mallory")
+		sent[#sent].delivered()
+		share:Forget(share.revisions[2].entry)
+		data(nil, ("G %s 0"):format(db.exchange.id), "WHISPER", "Mallory")
+		local rows = store[#store]
+		assert(#rows == 2 and rows[1].n == 1 and rows[2].n == 3, "the reply after a forget holds " .. #rows .. " rows")
+	end)
+
+	-- Fails if a connected player who turns receiving on only offers: peers answer a hello, so an idle peer's
+	-- finds waited for its next find.
+	it("a sharing setting change says hello to the channels already joined", function()
+		Connect()
+		IsInGroup = function() return true end
+		share:Refresh()
+		local before = #sent
+		share:Update()
+		share:Refresh()
+		local hello = sent[before + 1]
+		assert(hello and hello.text:match("^H ") and hello.channel == "PARTY", "the change sent no hello to the party")
+	end)
 end)
