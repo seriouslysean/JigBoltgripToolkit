@@ -7,7 +7,7 @@
 
 ## Context
 
-On the owner's Mac (Buffulator 7858054, kit 83), typing in Blizzard's Options search raised ADDON_ACTION_FORBIDDEN for `IsUserOAuthed`, blamed on Buffulator (source=game), repeatedly. `C_Discord.IsUserOAuthed` runs in Social.lua's Discord setting predicates while search walks every category (Blizzard_SettingsDefinitions_Frame/Social.lua:290-338). The kit's key binding row added `GetBindingName(row.binding)` as a search tag from addon code; Blizzard's own Keybindings page reads binding names through `securecallfunction(GetBindingName, action)` (Keybindings.lua:204). Only modules with a key binding row have one (Buffulator, Tackletron, AutoOmniadjustor); Buffulator sorts first, which fits the blame. Lead from the Buffulator session; unproven.
+On the Mac (Buffulator 7858054, kit 83), typing in Blizzard's Options search raised ADDON_ACTION_FORBIDDEN for `IsUserOAuthed`, blamed on Buffulator (source=game), repeatedly. `C_Discord.IsUserOAuthed` runs in Social.lua's Discord setting predicates while search walks every category (Blizzard_SettingsDefinitions_Frame/Social.lua:290-338). The kit's key binding row added `GetBindingName(row.binding)` as a search tag from addon code; Blizzard's own Keybindings page reads binding names through `securecallfunction(GetBindingName, action)` (Keybindings.lua:204). Only modules with a key binding row have one (Buffulator, Tackletron, AutoOmniadjustor); Buffulator sorts first, which fits the blame. Lead from the Buffulator session; unproven.
 
 ## Decision
 
@@ -15,7 +15,7 @@ The kit's key binding row adds no search tag (MINOR 85). The binding stays finda
 
 ## Reasons
 
-- Owner, via the Buffulator session: "Go, fix it now".
+- A blocked action on every search is a bug to fix at once.
 
 ## Rejected
 
@@ -35,4 +35,4 @@ The kit's key binding row adds no search tag (MINOR 85). The binding stays finda
 
 ## Result (2026-11-27)
 
-Not the cause: with every module on MINOR 85 the owner's search still blocked `IsUserOAuthed`. The Mac's Logs/taint.log (15:15:43) names the real path: Blizzard builds its own Keybindings category at load and reads each binding's header with `_G[cat]` (Keybindings.lua:221, not securecall'd) and its name through GetBindingName (BindingUtil.lua:143). Any addon that sets BINDING_HEADER_ or BINDING_NAME_ globals taints the values Blizzard stores, and search later reads them: "Execution tainted by Buffulator while reading global BINDING_HEADER_JIGBOLTGRIPTOOLKIT", BINDING_NAME_CLICK BuffulatorBuffNext, TackletronButton, and another addon's own. The search-tag removal stays (it was redundant with Blizzard's own tags); the block is a Blizzard gap any addon with named bindings triggers. Found by the Buffulator session.
+Not the cause: with every module on MINOR 85 the search still blocked `IsUserOAuthed`. The Mac's Logs/taint.log (15:15:43) names the real path: Blizzard builds its own Keybindings category at load and reads each binding's header with `_G[cat]` (Keybindings.lua:221, not securecall'd) and its name through GetBindingName (BindingUtil.lua:143). Any addon that sets BINDING_HEADER_ or BINDING_NAME_ globals taints the values Blizzard stores, and search later reads them: "Execution tainted by Buffulator while reading global BINDING_HEADER_JIGBOLTGRIPTOOLKIT", BINDING_NAME_CLICK BuffulatorBuffNext, TackletronButton, and another addon's own. The search-tag removal stays (it was redundant with Blizzard's own tags); the block is a Blizzard gap any addon with named bindings triggers. Found by the Buffulator session.

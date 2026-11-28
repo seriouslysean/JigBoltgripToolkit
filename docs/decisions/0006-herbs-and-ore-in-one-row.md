@@ -17,10 +17,6 @@ One "Herbs and Ore" checkbox; each kind shows only while the player knows its pr
 
 - A player who knows only one of the two professions never sees the other kind.
 
-## Owner's words
-
-- "Sounds herbs and ores be combined in settings?"
-
 ## Rejected
 
 - Two checkboxes.

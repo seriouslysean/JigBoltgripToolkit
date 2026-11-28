@@ -17,11 +17,6 @@ Auto-Omniadjustor, spelled like the in-game Gyromatic Micro-Adjustor.
 
 - In-game gnomish engineering naming.
 
-## Owner's words
-
-- "In game gnomish engineering terms"
-- "AutoOmniadjustor"
-
 ## Rejected
 
 - Octo-names, Omnispanner, Discombobulator, Decombobulator, Auto-Omnitool.
@@ -37,4 +32,4 @@ Auto-Omniadjustor, spelled like the in-game Gyromatic Micro-Adjustor.
 
 ## Reopen if
 
-The owner renames it.
+It is renamed.

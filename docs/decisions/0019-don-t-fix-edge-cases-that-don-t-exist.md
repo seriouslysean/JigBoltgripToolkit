@@ -17,10 +17,6 @@ An unseen failure is recorded as a known risk, not built against.
 
 - The cap broke the spec "a skill change is read again until every candidate answers" and guarded a case never seen.
 
-## Owner's words
-
-- "Don't fix edge cases that don't exist"
-
 ## Rejected
 
 - Building guards for cases not seen in a log or a report.

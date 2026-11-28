@@ -17,10 +17,6 @@ The container places the bar only while it shows (`ManagedFrameSystem.lua`, `Add
 
 - `HookScript` runs after the bar's own `OnShow`, so the layout is final.
 
-## Owner's words
-
-- "On reload with the pole equipped the frame is gone"
-
 ## Rejected
 
 - Anchoring to the bar.

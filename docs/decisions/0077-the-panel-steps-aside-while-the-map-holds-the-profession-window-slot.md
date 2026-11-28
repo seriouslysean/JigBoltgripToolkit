@@ -7,7 +7,7 @@
 
 ## Context
 
-With mouse and keyboard Map Pin opens the world map (decision 0068). Blizzard's panel layout gives the map the left slot and pushes the profession window to the center, and Recipe Vacuum's panel, beside that window, ran off the screen (owner's Mac screenshot, 2026-11-27). The panel already stepped aside when another window took the center slot, as Looking For Group does.
+With mouse and keyboard Map Pin opens the world map (decision 0068). Blizzard's panel layout gives the map the left slot and pushes the profession window to the center, and Recipe Vacuum's panel, beside that window, ran off the screen (Mac screenshot, 2026-11-27). The panel already stepped aside when another window took the center slot, as Looking For Group does.
 
 ## Decision
 
@@ -15,7 +15,7 @@ The panel steps aside whenever the profession window is not in the left slot or 
 
 ## Reasons
 
-- Owner, 2026-11-27, on Looking For Group: "Group finde rsubsumes our window, that's a decent pattern"; chose the panel stepping aside over closing the profession window.
+- Looking For Group already takes the center slot over our window, a decent pattern, so the panel steps aside rather than the profession window closing.
 - One rule for every window that shares the profession window's slots, from Blizzard's own layout; no call into Blizzard's windows.
 
 ## Rejected
@@ -34,4 +34,4 @@ The panel steps aside whenever the profession window is not in the left slot or 
 
 ## Reopen if
 
-- The panel fails to return when the map closes, or the owner wants the window closed.
+- The panel fails to return when the map closes, or closing the window is wanted.

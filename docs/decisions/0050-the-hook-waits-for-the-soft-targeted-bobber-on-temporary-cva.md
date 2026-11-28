@@ -18,10 +18,6 @@ While the line is out, the key hooks only when the bobber is soft-targeted and i
 - Blizzard's gamepad code sets and removes temporary CVars the same way (`Blizzard_Gamepad/Core.lua`), so a crash or disconnect leaves nothing changed and players need not touch a setting.
 - Soft interact is the Interact Key, which the controller already turns on whatever Enable Interact Key says (`docs/client-notes.md`).
 
-## Owner's words
-
-- "Measure first" (on whether the cast range is a problem; Tackletron counts casts and casts whose bobber never became the soft target).
-
 ## Rejected
 
 - Saving the CVars; changing a setting for the player.

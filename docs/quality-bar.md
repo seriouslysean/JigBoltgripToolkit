@@ -68,8 +68,8 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 - [ ] `luac`, `luacheck` and the offline tests pass, and a stripped release build still compiles.
 - [ ] Tests run the addon's real code and each names the breakage it would catch.
 - [ ] Everything has been seen working in the game. What has not is reported as untested.
-- [ ] Every feature logs its decisions and times its per-row or per-event work in the working build, so the owner's play answers what went wrong.
-- [ ] Before any Deck copy: `scripts/check` and the layout diff pass, the last frame-time table has no frame of ours over 5 ms, and no new control type goes out without a clean Deck pass. A bug the owner reports twice gets a test at its cause before the next copy (decision 0071).
+- [ ] Every feature logs its decisions and times its per-row or per-event work in the working build, so play in a working build answers what went wrong.
+- [ ] Before any Deck copy: `scripts/check` and the layout diff pass, the last frame-time table has no frame of ours over 5 ms, and no new control type goes out without a clean Deck pass. A bug reported twice gets a test at its cause before the next copy (decision 0071).
 
 ## Kept in order
 
@@ -80,8 +80,8 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 ## How it was built
 
 - [ ] The game's own way was researched and cited before designing (other addons may be studied, never named in the repo).
-- [ ] Design questions were talked through with the owner before anything was built.
-- [ ] Small requests got small changes, and what the owner approved was left alone.
-- [ ] The owner's part of each test was kept short: the addon collects its own data.
-- [ ] The owner always had a current, ordered list of what was needed from them.
-- [ ] Nothing was committed, pushed or released without the owner's word.
+- [ ] Design questions were talked through before anything was built.
+- [ ] Small requests got small changes, and what was approved was left alone.
+- [ ] The tester's part of each test was kept short: the addon collects its own data.
+- [ ] A current, ordered list of what was needed from the tester was always kept.
+- [ ] Nothing was committed, pushed or released without approval.

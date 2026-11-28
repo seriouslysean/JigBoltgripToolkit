@@ -19,13 +19,6 @@ Small action buttons sit left of the fishing button, the lure nearest, each with
 - The buff frame shows the enchantment's icon, so it matches the pole.
 - Anchoring frame to frame, since a protected frame cannot anchor to a texture.
 
-## Owner's words
-
-- "show the highest bait in s square if you have some, snd the food"
-- "The bauble used my last one, so I don't see a timeout"
-- "the icon shows as a buff, and can be matched to the pole"
-- "We should probably show the buff is applied somehow? Same with the lure"
-
 ## Rejected
 
 - The key eating food.

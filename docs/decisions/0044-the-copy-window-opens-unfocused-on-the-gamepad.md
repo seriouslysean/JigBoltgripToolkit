@@ -17,10 +17,6 @@ Under the Gamepad UI the copy window opens unfocused, so B closes it through UIS
 
 - A focused edit box took B (Deck, 2026-11-27).
 
-## Owner's words
-
-- "may need to rethink the log, it doesn't work on controller and I had to manually close it"
-
 ## Rejected
 
 - Leaving it focused.

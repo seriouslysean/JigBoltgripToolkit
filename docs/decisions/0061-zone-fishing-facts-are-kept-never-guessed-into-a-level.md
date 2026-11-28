@@ -20,12 +20,6 @@ Tackletron keeps facts per zone (`uiMapID`) and per subzone (area ID, read by po
 - WCLBox's Forever fishing page lists "From 51 / 126 / 201 / 326", which fits every refusal and landed cast seen 2026-11-25; unverified at the edge.
 - "Skill not high enough" (`SPELL_FAILED_LOW_CASTLEVEL`, no number) was seen at Theramore Isle at skill 28+25.
 
-## Owner's words
-
-- "Learn first, share later"
-- "If fish get away, it's also a good signal we're close to the lower bound"
-- "Game terms, no range opening"
-
 ## Rejected
 
 - Estimating a level from the zone's level range (`b9fae53`, dropped in `7fdb81f`).

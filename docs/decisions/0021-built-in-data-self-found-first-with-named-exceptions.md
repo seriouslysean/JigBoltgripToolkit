@@ -11,16 +11,11 @@ The toolkit's rule 11 makes public data opt-in.
 
 ## Decision
 
-Shipped data shows only at the Public level. A module may ship data on for everyone where the owner names it, with a source choice of Self Found and Friends that augments it. Named so far: Sparklescope 6000's chest list (0022) and Tackletron's zone fishing levels.
+Shipped data shows only at the Public level. A module may ship data on for everyone where a decision names it, with a source choice of Self Found and Friends that augments it. Named so far: Sparklescope 6000's chest list (0022) and Tackletron's zone fishing levels.
 
 ## Reasons
 
 - Fixed world data is not what other players found; Tackletron's levels are used only for the zone the player stands in (`docs/standards.md`, rule 11).
-
-## Owner's words
-
-- "for this one we ship with a list and everyone gets it"
-- "like chests we need the concept of shared, and self reported augmentation"
 
 ## Rejected
 

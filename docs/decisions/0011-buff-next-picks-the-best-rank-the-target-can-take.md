@@ -15,11 +15,7 @@ The highest rank you know whose learn level is no more than 10 above theirs. A p
 
 ## Reasons
 
-- From the owner's report: a level 29 druid's top Mark of the Wild fails on players under 10 (Buffulator `docs/data.md`).
-
-## Owner's words
-
-- "Can we auto rank to the highest a person is allowed to get?"
+- Seen in play: a level 29 druid's top Mark of the Wild fails on players under 10 (Buffulator `docs/data.md`).
 
 ## Rejected
 

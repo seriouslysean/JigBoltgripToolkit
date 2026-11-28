@@ -1,6 +1,6 @@
 # Options pages
 
-The standard for every toolkit options page: which controls, what each is for, how the text reads, how a page is ordered and how it is validated. It follows Blizzard's own Settings pages, cut down to what the Gamepad UI can reach. Requested by the owner, 2026-11-26: "I also need to validate options pages, we need to standardize on [the controls] we use, why, when to use notes, language, etc, matching blizzard methodology".
+The standard for every toolkit options page: which controls, what each is for, how the text reads, how a page is ordered and how it is validated. It follows Blizzard's own Settings pages, cut down to what the Gamepad UI can reach. It standardizes the controls we use and why, when to use notes and the language, so every page can be validated against Blizzard's method (2026-11-26).
 
 The ethos outranks this page ([standards.md](standards.md), Part 1: fit WoW, stay consistent, be clear). How the kit builds a page is in standards.md, "Options"; why the Gamepad UI bans what it bans is in standards.md, "Gamepad UI".
 
@@ -9,7 +9,7 @@ The ethos outranks this page ([standards.md](standards.md), Part 1: fit WoW, sta
 - Blizzard's code: [Gethe/wow-ui-source](https://github.com/Gethe/wow-ui-source/tree/forever), `forever` branch, commit `c01a87b` (1.60.1.71091). `Frame/` is `Interface/AddOns/Blizzard_SettingsDefinitions_Frame/`, `Shared/` is `Blizzard_SettingsDefinitions_Shared/`, `Settings/` is `Blizzard_Settings_Shared/`.
 - Blizzard's words: [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources/tree/forever), `forever` branch, `Resources/GlobalStrings/enUS.lua` at commit `e230342`.
 - Counts are over every page in `Frame/` and `Shared/`: 330 label strings, 293 tooltip strings, 189 dropdown option names, 36 section headers. A few of those files do not load on Forever (`Mounts.lua`, `AdvancedOptions.lua`); the examples below are from files that do.
-- Deck: measured on the Steam Deck with the Gamepad UI, other addons off, 2026-11-26. "Unproven" means no clean Deck pass is recorded for that shape. The Control Test that measured them was removed once this standard existed (owner, 2026-11-27); an unproven shape gets its own Deck pass on the first page that uses it.
+- Deck: measured on the Steam Deck with the Gamepad UI, other addons off, 2026-11-26. "Unproven" means no clean Deck pass is recorded for that shape. The Control Test that measured them was removed once this standard existed (2026-11-27); an unproven shape gets its own Deck pass on the first page that uses it.
 
 Three kinds of rule are kept apart. "Blizzard" is what the source shows. "Deck" is what was measured. "Kit pick" is a choice between forms Blizzard itself mixes, made so every page reads as one author.
 
@@ -66,7 +66,7 @@ A banned control comes back only after a clean Deck pass, and this table is upda
 
 1. Title Case, with small words in lower case. Blizzard: 317 of 330. "Open Loot Window at Mouse" (`Frame/Controls.lua:59`), "Lock Cursor to Window" (`:105`), "Loss of Control Alerts" (`Frame/Combat.lua:38`).
 2. Five words at most, two to four where it fits. Blizzard: 306 of 330 have four or fewer, the median is three.
-3. A label names the thing; add a verb only when the thing alone would be unclear (owner, 2026-11-27: "Simple, dry, kiss, adding a verb does nothing but add cognitive load here"). Existing verb labels stay; nothing is renamed to add a verb. Blizzard's own labels name the thing or start with a plain verb. "Chat Bubbles", "Auto Loot", "Sticky Targeting" name it (`Frame/Interface.lua:100`, `Frame/Controls.lua:62`, `:45`). "Show Move Pad", "Invert Mouse", "Block Trades" start with the verb (`Frame/Accessibility.lua:44`, `Frame/Controls.lua:109`, `Frame/Social.lua:98`). Never a sentence, never a question.
+3. A label names the thing; add a verb only when the thing alone would be unclear: a verb adds load and nothing else. Existing verb labels stay; nothing is renamed to add a verb. Blizzard's own labels name the thing or start with a plain verb. "Chat Bubbles", "Auto Loot", "Sticky Targeting" name it (`Frame/Interface.lua:100`, `Frame/Controls.lua:62`, `:45`). "Show Move Pad", "Invert Mouse", "Block Trades" start with the verb (`Frame/Accessibility.lua:44`, `Frame/Controls.lua:109`, `Frame/Social.lua:98`). Never a sentence, never a question.
 4. No colon and no end punctuation. Blizzard: 0 of 330 have a colon.
 5. Say what is on, not what is off. Blizzard turns a negative setting into a positive label: "Sticky Targeting" is the game's `deselectOnClick` flipped (`Frame/Controls.lua:45-46`). A "Do Not" label is rare ("Do Not Flash Screen at Low Health", `Frame/Combat.lua:34`).
 6. Use the game's own words, and Blizzard's global string where one exists (standards.md, "Plain text"). A box is "checked", never "ticked" ("Check this to make quest text appear instantly.", `Frame/Camelot/InterfaceOverrides.lua:70`).
@@ -123,15 +123,15 @@ Blizzard has no text row under a setting. Everything a row says is in its toolti
 
 ## Order and grouping
 
-1. Sections go in the kit's one order: sources, the module's features, sections Blizzard names (game settings such as Combat and Audio, in Blizzard's page order), Keybindings, then the kit's Commands, Links and Working Build (owner, 2026-11-27: "Adopt it"). No written addon convention exists; Blizzard puts an addon's key bindings on its own Keybindings page near the bottom. The kit sorts: a Blizzard section headed `SETTINGS_KEYBINDINGS_LABEL` goes after the other Blizzard sections.
+1. Sections go in the kit's one order: sources, the module's features, sections Blizzard names (game settings such as Combat and Audio, in Blizzard's page order), Keybindings, then the kit's Commands, Links and Working Build. No written addon convention exists; Blizzard puts an addon's key bindings on its own Keybindings page near the bottom. The kit sorts: a Blizzard section headed `SETTINGS_KEYBINDINGS_LABEL` goes after the other Blizzard sections.
 2. In a section the switch for the feature is first, then its children, then its choices. Blizzard: "Enable Sound" opens Audio (`Shared/Audio.lua:496`); "Enable Interact Key", then its key, then its sound (`Frame/Controls.lua:72-98`).
 3. Most used first. Rows on one subject sit together.
-4. A key binding sits under Blizzard's Keybindings heading. A module with a press-to-act action offers it two ways, the same in every module: a key binding row, and a Commands row "<Action> Macro" (Make) that makes a one-line `/click` macro for action bars and radials (owner, 2026-11-27: "Both, the same way"). Unproven on the Deck until a `/click` macro runs from a gamepad bar slot without taint.
+4. A key binding sits under Blizzard's Keybindings heading. A module with a press-to-act action offers it two ways, the same in every module: a key binding row, and a Commands row "<Action> Macro" (Make) that makes a one-line `/click` macro for action bars and radials. Unproven on the Deck until a `/click` macro runs from a gamepad bar slot without taint.
 5. Buttons come last, after the settings (Blizzard: Reset Chat Position, `Frame/Social.lua:274-283`).
 6. No row for a taste few will change ([quality-bar.md](quality-bar.md), "Does one job").
 
-7. A chat line that repeats (each lure, each fight, each find) gets one checkbox to quiet it, labelled "Show Chat Alerts" in every module, in Blizzard's form ("Show Spell Alerts", `DISPLAY_SPELL_ALERTS`; owner, 2026-11-27: "It might want to be \"show chat alerts\" or something, stick to blizzard language"), on by default, in the section of the feature that speaks; a once-ever line needs none (owner, 2026-11-27: "Yes, one checkbox"; Tackletron's Chat Alerts is the model; owner, 2026-11-27: "\"Chat Alerts\" everywhere").
-8. A Blizzard heading may hold the module's own feature where the player would look for it: Tackletron's weapon swap stays under "Combat" (owner, 2026-11-27: "Keep 'Combat'").
+7. A chat line that repeats (each lure, each fight, each find) gets one checkbox to quiet it, labelled "Show Chat Alerts" in every module, in Blizzard's form ("Show Spell Alerts", `DISPLAY_SPELL_ALERTS`), on by default, in the section of the feature that speaks; a once-ever line needs none. Tackletron's Chat Alerts is the model, and the name is the same everywhere.
+8. A Blizzard heading may hold the module's own feature where the player would look for it: Tackletron's weapon swap stays under "Combat".
 
 ## Defaults
 
@@ -142,10 +142,10 @@ Blizzard has no text row under a setting. Everything a row says is in its toolti
 
 ## Toolkit page
 
-- Built from Blizzard's list rows like every page. A canvas About page with the owner's intro paragraph (MINOR 72) came up empty on the Deck and broke the controller ("Interface action failed because of an AddOn", 2026-11-27), so `Settings.RegisterCanvasLayoutCategory` stays banned, now measured. A paragraph intro has no home on this page until another way is proven.
-- In working builds it holds one row, Working Log (Show). No module rows, no Reload UI row, no watch switch (owner, 2026-11-27: "Remove them", "Reload likely doesn't belong in there", "We also shouldn't be able to turn off the logging on my debug build").
+- Built from Blizzard's list rows like every page. A canvas About page with an intro paragraph (MINOR 72) came up empty on the Deck and broke the controller ("Interface action failed because of an AddOn", 2026-11-27), so `Settings.RegisterCanvasLayoutCategory` stays banned, now measured. A paragraph intro has no home on this page until another way is proven.
+- In working builds it holds one row, Working Log (Show). No module rows, no Reload UI row, no watch switch: Reload UI does not belong there, and nothing turns off a working build's log.
 
-Every page (owner, 2026-11-27: "make sure to logically group controls and add notes if needed"):
+Every page groups its controls logically and adds notes where needed:
 
 - Group rows by what they do, under a heading per group, as Blizzard's pages do.
 - A button row names the thing with the verb on the button ("Export Recipe Sources", "Export"), never a slash command.
@@ -233,7 +233,7 @@ Found while writing this page. Each is the kit's, not a module's. Gap 1 is close
 3. A `choice` does not write its default into saved data until it is changed, so modules repeat the default where they read it (Sparklescope 6000 `Finds.lua:11`, Buffulator `Settings.lua:9-13`).
 4. The `keybinding` row and the kit's button rows have no clean Deck pass. Every module page ends in button rows, and two pages hold key binding rows.
 5. standards.md, "Options", says a choice's tooltip has one line "Label: description" for each option. The code shows the label on its own line over the sentence, because settings text takes no colons. Blizzard's own format is "Label: description" (`Settings/Blizzard_Settings.lua:458`).
-6. Resolved (owner, 2026-11-27): a command row names the thing with the verb on its button, as Blizzard's do. A command entry gives `label` and `button`; the slash text and "Run" are only the fallback for an entry that gives neither.
+6. Resolved (2026-11-27): a command row names the thing with the verb on its button, as Blizzard's do. A command entry gives `label` and `button`; the slash text and "Run" are only the fallback for an entry that gives neither.
 7. Heading tooltips hold text on the kit's own Commands and Working Build headings. Whether the d-pad can show one is not measured.
 8. Conformance cannot see which rows are working-build only. It skips a section whose heading is not a key in `Locales/enUS.lua`, which is how Sparklescope 6000's Test Settings page (12 and 6 stops, no "Choose") passes. A module that put a release section's heading in place would escape the text rules.
 

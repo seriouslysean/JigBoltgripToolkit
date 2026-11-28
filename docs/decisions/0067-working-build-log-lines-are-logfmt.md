@@ -7,7 +7,7 @@
 
 ## Context
 
-The working-build log is how the owner's play becomes data, and the owner reads it as well as the assistant. Its lines had grown into prose: "UNLEARNED profession 171: 38 known recipes marked met at Self Found, 38 new; 15 newly known without a trainer source", sixteen "UI row … skill-up none: above skill 215 > 206" lines per list, and development-tool lines ("LAYOUT not recorded: Open a profession, then run it again.") written on their own.
+The working-build log is how play becomes data, and both people and tools read it. Its lines had grown into prose: "UNLEARNED profession 171: 38 known recipes marked met at Self Found, 38 new; 15 newly known without a trainer source", sixteen "UI row … skill-up none: above skill 215 > 206" lines per list, and development-tool lines ("LAYOUT not recorded: Open a profession, then run it again.") written on their own.
 
 ## Decision
 
@@ -15,16 +15,12 @@ Every log line is logfmt: a short lowercase event name, then `key=value` facts. 
 
 ## Amended 2026-11-27: the kit builds the line (MINOR 83)
 
-Modules first hand-formatted their lines (Recipe Vacuum `67b62b4`, Tackletron, Buffulator, Sparklescope). Owner: "Rememebr, all logs pipe through the kit so we use one standard"; "This is a core standard, and what you did was a dry and kiss violation". Now a module passes `lib:Trace(module, "event", "key", value, ...)` and the kit writes the line (`lib.LogLine`); conformance fails any other form. Spec: "the kit writes logfmt lines" (`tests/loadorder_spec.lua`); conformance check "log lines go through the kit's event and pairs".
+Modules first hand-formatted their lines (Recipe Vacuum `67b62b4`, Tackletron, Buffulator, Sparklescope). All logs pipe through the kit so there is one standard; a line built in a module breaks DRY and KISS. Now a module passes `lib:Trace(module, "event", "key", value, ...)` and the kit writes the line (`lib.LogLine`); conformance fails any other form. Spec: "the kit writes logfmt lines" (`tests/loadorder_spec.lua`); conformance check "log lines go through the kit's event and pairs".
 
 ## Reasons
 
 - logfmt is the common practice for logs both people and tools read: [Brandur, logfmt](https://brandur.org/logfmt) (Heroku's internal standard, recommended by Splunk), Better Stack's logfmt guide, and Grafana's Loki logging best practices (a readable event plus key-value context).
 - `tools/perf-deck` reads keys instead of prose regexes, and still reads the older prose lines kept in saved logs.
-
-## Owner's words
-
-On a plain-sentence draft: "This still reads like AI slop, look up simple, clear debugging style notes". Choosing between logfmt and "event name + short reason": "logfmt".
 
 ## Rejected
 
@@ -35,7 +31,7 @@ On a plain-sentence draft: "This still reads like AI slop, look up simple, clear
 
 - Kit MINOR 82: the kit's own lines (session, device, zone, events, cvar, pad, blocked, tainted fields, Lua errors, sharing, timings, CPU, memory).
 - Recipe Vacuum: every trace line, the per-row skill-up lines replaced by one `skillups` summary.
-- Other modules convert their own lines (asked 2026-11-27).
+- Other modules convert their own lines (2026-11-27).
 
 ## Tests
 
@@ -44,4 +40,4 @@ On a plain-sentence draft: "This still reads like AI slop, look up simple, clear
 
 ## Reopen if
 
-A reader, the owner or a tool, cannot find what it needs in a line without the prose.
+A reader, a person or a tool, cannot find what it needs in a line without the prose.

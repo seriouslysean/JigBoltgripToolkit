@@ -1,6 +1,6 @@
 # Decisions
 
-One file per decision across the toolkit and its modules, in the MADR shape (adr.github.io): date, status, scope, kind, context, decision, cited reasons, the owner's words, rejected options, versions, tests and what would reopen it. Numbered by date; module sessions add their own here (docs only, no `MINOR` change).
+One file per decision across the toolkit and its modules, in the MADR shape (adr.github.io): date, status, scope, kind, context, decision, cited reasons, rejected options, versions, tests and what would reopen it. Numbered by date; module sessions add their own here (docs only, no `MINOR` change).
 
 ## Options pages
 
@@ -172,7 +172,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 
 ## Open, not decided
 
-- Sparklescope 6000: replacing the zoom formula and scene camera that match another addon Sparkles, which ships no licence. Owner: "I don't want their exact code, that's weird and has a smell, and they'd be able to tell"; "TBD". A Mac session with the mouse wheel decides.
+- Sparklescope 6000: replacing the zoom formula and scene camera that match another addon Sparkles, which ships no licence. Copying another addon's exact code is not acceptable; the replacement is open. A Mac session with the mouse wheel decides.
 - Buffulator: skip a player after a failed cast, rebuff early, a voiced macro line, the macro on mouse and keyboard, full character macros, a fail-closed stranger macro.
 - AutoOmniadjustor: the Deck taint (`SetPreferredGamepadInteractTarget` blocked, `MainActionBarFrame.lua:373`). With the module off, the menu and radial check passed on 2026-11-27, so the cause is in the module's own code.
 
@@ -180,5 +180,6 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 
 | No. | Decision | Scope | Status |
 |---|---|---|---|
-| 0071 | [Rules from the owner's corrections](0071-rules-from-the-owners-corrections.md) | all modules | accepted |
+| 0071 | [Rules from repeated corrections](0071-rules-from-the-owners-corrections.md) | all modules | accepted |
 | 0074 | [No tutorial tips; modules log only through Trace](0074-no-tutorial-tips-and-modules-log-only-through-trace.md) | all modules | accepted |
+| 0081 | [Write in one imperative voice](0081-write-in-one-imperative-voice.md) | all modules | accepted |

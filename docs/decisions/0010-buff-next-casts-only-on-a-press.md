@@ -15,11 +15,8 @@ Buff Next casts only when the player presses it. Group members, you and your tar
 
 ## Reasons
 
+- Buff Next is purely additive: it takes over nothing and never gets in the way.
 - Casting needs a hardware press; the game refuses a cast on a timer or an event (Buffulator `docs/client-notes.md`).
-
-## Owner's words
-
-- "It isn't taking over anything, but should purely be additive and not get in the way."
 
 ## Rejected
 

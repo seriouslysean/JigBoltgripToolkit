@@ -17,11 +17,6 @@ Every line is the library's `Say` with a noise that has no end mark, then a repo
 
 - The toolkit's `docs/standards.md`, "Voice", sets the shape.
 
-## Owner's words
-
-- "Boltgrip's Tackletron starts whirring and beeping. Hostile contact detected! Pole retraction functionality engaged."
-- "should we also have the bot alert in chat ... only once per combat"
-
 ## Rejected
 
 - Local printing and tint samples (`e5f7e0c`).

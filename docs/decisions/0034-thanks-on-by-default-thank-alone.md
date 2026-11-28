@@ -15,12 +15,7 @@ Thank Players Who Buff You starts on with only `/thank` checked. Party and raid 
 
 ## Reasons
 
-- The owner's call overrides the toolkit default here.
-
-## Owner's words
-
-- "Buff pvp, and thank with the default thank emote should be the default"
-- "Party should be off by default"
+- Buffing PvP-flagged players and thanking with the default emote are the defaults; this overrides the toolkit default here.
 
 ## Rejected
 

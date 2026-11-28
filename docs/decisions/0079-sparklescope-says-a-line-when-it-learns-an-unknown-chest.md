@@ -15,17 +15,12 @@ When an opened chest was on no list, found or shared, Sparklescope says "chirps.
 
 ## Reasons
 
-- The device noticing a new object is what a gadget would report (owner).
+- The device noticing a new object is what a gadget would report.
 - A repeating line gets one Chat Alerts checkbox (0043).
-
-## Owner's words
-
-- "Is there like a first time turning it on message? The new chest seems nice to have since it's registering it and a bot would notice"
-- "Maybe the first time we see sparkles at all, once after the initial install, like it's initializing?"
 
 ## Rejected
 
-- No new lines (the assistant's recommendation).
+- No new lines.
 - A greeting at login: the first sparkle is the moment the device does something.
 
 ## Versions

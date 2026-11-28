@@ -15,12 +15,8 @@ Each sparkle row's tooltip says it is needed with keyboard and mouse only.
 
 ## Reasons
 
-- The controller picks without it (owner, 2026-11-27: "Enable interact key was never on in our tests").
+- The controller picks without it (it was never on in our tests, and it is off by default).
 - Each tooltip must read alone in search (`docs/options.md`, "Labels" 7).
-
-## Owner's words
-
-- "Enable interact key was never on in our tests, and if off for people by default"
 
 ## Rejected
 

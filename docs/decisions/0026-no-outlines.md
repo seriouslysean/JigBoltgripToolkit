@@ -17,10 +17,6 @@ No outline is used.
 
 - Outline 0 to 3 and the engine's outline modes 1 and 2 each took effect, and none outlined the Interact Key's pick (Sparklescope6000 `docs/design.md`, "Drawing").
 
-## Owner's words
-
-- "Outlines are dead to me"
-
 ## Rejected
 
 - The Outline Mode Test values.
@@ -32,7 +28,7 @@ No outline is used.
 
 ## Tests
 
-- Deck: tested and rejected by the owner, 2026-11-27.
+- Deck: tested and rejected, 2026-11-27.
 
 ## Reopen if
 

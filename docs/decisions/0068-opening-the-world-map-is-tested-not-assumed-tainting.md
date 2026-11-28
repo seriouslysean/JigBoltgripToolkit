@@ -15,12 +15,12 @@ Recipe Vacuum's Map Pin opened the world map until RecipeVacuum `d49f59d` (2026-
 
 ## Reasons
 
-- Owner, 2026-11-27, on Map Pin not opening the map: "It used to auto open it, are you sure? That doesn't seem right to me."
+- Map Pin used to open the map on its own (until RecipeVacuum d49f59d), so the taint claim was tested, not assumed (2026-11-27).
 - The ban rests on a bundled change, not an isolated measurement (RecipeVacuum `docs/client-notes.md`, "Gamepad").
 
 ## Rejected
 
-- Naming the map key in the chat line. Owner: "we shouldn't mention the key imo, everyone knows how to open the map".
+- Naming the map key in the chat line: everyone knows how to open the map.
 
 ## Versions
 
@@ -32,12 +32,12 @@ Recipe Vacuum's Map Pin opened the world map until RecipeVacuum `d49f59d` (2026-
 
 ## Reopen if
 
-- The test is clean on the Deck: Map Pin opens the map again in release (owner's call).
+- The test is clean on the Deck: Map Pin opens the map again in release.
 - The test taints: the ban stands, now measured.
 
 ## Result, mouse and keyboard (2026-11-27)
 
-The Mac test (`/recipevacuum mapopen`, 15:26:36) opened the map (`map open test map=1415 shown=true`) with no blocked action. Owner: "map opened, but it really needs to be automatic and I swear we used to do it" (it did, until RecipeVacuum d49f59d). Map Pin now opens the map with mouse and keyboard in release; under the Gamepad UI it waits for the Deck test. `OpenWorldMap` leaves conformance's banned list; standards "Gamepad UI" says the gamepad path is untested.
+The Mac test (`/recipevacuum mapopen`, 15:26:36) opened the map (`map open test map=1415 shown=true`) with no blocked action. It has to open on its own, as it did until RecipeVacuum d49f59d. Map Pin now opens the map with mouse and keyboard in release; under the Gamepad UI it waits for the Deck test. `OpenWorldMap` leaves conformance's banned list; standards "Gamepad UI" says the gamepad path is untested.
 
 ## Result, Gamepad UI (2026-11-27)
 

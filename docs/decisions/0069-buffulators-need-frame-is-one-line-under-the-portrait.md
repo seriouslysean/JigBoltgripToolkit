@@ -7,7 +7,7 @@
 
 ## Context
 
-The need frame, shown only while someone needs a buff of yours and you are out of combat, was two lines under the portrait: your buff's icon and the player's name, then the buff's name, or "Buffed you" when that player had just buffed you. The owner asked whether a pet would cover it, and for a slimmer one-line form that still shows both who to buff and with what, and who just buffed you and with what, the second going away after a while.
+The need frame, shown only while someone needs a buff of yours and you are out of combat, was two lines under the portrait: your buff's icon and the player's name, then the buff's name, or "Buffed you" when that player had just buffed you. A pet was considered, and a slimmer one-line form that still shows both who to buff and with what, and who just buffed you and with what, the second going away after a while, was wanted.
 
 ## Decision
 
@@ -18,10 +18,6 @@ One line under the portrait, below whatever Blizzard stacks there (pet frame, cl
 - The pet frame does not cover it: `PetFrame` inherits `PlayerBottomManagedFrameTemplate` and sits in the portrait's managed container (`Blizzard_UnitFrame/Mainline/PetFrame.xml`, Gethe/wow-ui-source `forever`), and the frame anchors below that container whenever it is shown and taller than empty.
 - The incoming icon explains the order Buff Next already uses (`ns.NextNeed` in `Buffs.lua` puts a player who buffed you first), without a second row that would show when nothing needs a press.
 - One line is half the old height; the icon already names the buff to give, so the buff's name line carried little.
-
-## Owner's words
-
-"under my portrait is ok"; "are there more slim versions we can make that are one line?"; "we need name and what to buff, or name and what they buffed us with (that eventually fades away since it's temporary)"; choosing the one-line form with the extra icon: "Yeah that seems good to me, less friction".
 
 ## Rejected
 

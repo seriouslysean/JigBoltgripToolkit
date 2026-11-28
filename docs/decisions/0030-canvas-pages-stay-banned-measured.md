@@ -7,7 +7,7 @@
 
 ## Context
 
-The owner wanted a paragraph intro on the toolkit page; no list row shows a paragraph.
+A paragraph intro was wanted on the toolkit page; no list row shows a paragraph.
 
 ## Decision
 
@@ -17,12 +17,6 @@ Every page, the toolkit's included, uses Blizzard's list rows; `Settings.Registe
 
 - A heading is one large line with no width (`Blizzard_SettingControls.xml:12`).
 - A canvas About page (MINOR 72) came up empty on the Deck and broke the controller ("Interface action failed because of an AddOn", 2026-11-27).
-
-## Owner's words
-
-- "I don't like any of that"
-- "Think about what's possible, and iterate"
-- "About page is empty and still broke controller"
 
 ## Rejected
 

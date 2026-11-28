@@ -15,11 +15,7 @@ A shared chest is kept as sent, with no "seen twice" rule, cap or forget button.
 
 ## Reasons
 
-- Only friends running the addon can send one (Grok finding 11).
-
-## Owner's words
-
-- "No, keep it as a known gap"
+- Only friends running the addon can send one (review finding 11).
 
 ## Rejected
 

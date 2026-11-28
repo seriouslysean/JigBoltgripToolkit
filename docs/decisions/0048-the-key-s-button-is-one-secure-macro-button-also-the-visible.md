@@ -19,10 +19,6 @@ One `SecureActionButtonTemplate` button that is also an `ActionButtonTemplate` c
 - Blizzard names the pair "barebones combo of ActionButtonTemplate + SecureActionButtonTemplate" (`ActionButton.lua:1668`).
 - `AnyDown` and `AnyUp` follow `ActionButtonUseKeyDown` (`SecureTemplates.lua`).
 
-## Owner's words
-
-- none recorded; the choice came from the first working build and a bug fix.
-
 ## Rejected
 
 - none recorded.

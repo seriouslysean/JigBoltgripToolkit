@@ -17,11 +17,6 @@ A player counts as thanked until the buff they gave runs out; your death clears 
 
 - A timed repeat was still too often.
 
-## Owner's words
-
-- "once a minute is still annoying imo"
-- "Individuals should get a time equivalent to their buff time applied, unless the player dies or something?"
-
 ## Rejected
 
 - Once a minute.

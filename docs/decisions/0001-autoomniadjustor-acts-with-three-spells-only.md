@@ -7,7 +7,7 @@
 
 ## Context
 
-The owner asked for a module that acts on bag items for professions.
+A module was wanted that acts on bag items for professions.
 
 ## Decision
 
@@ -16,11 +16,6 @@ The module acts on bag items with Disenchant (13262), Pick Lock (1804) or a key 
 ## Reasons
 
 - These three are the Forever 1.60.1 spells that take a bag item as their target (AutoOmniadjustor `docs/data.md`).
-
-## Owner's words
-
-- "anything that happens on items in the inventory from a profession, maybe mage comprehension"
-- "Research scrap, I don't know about it, but o expect skip to start"
 
 ## Rejected
 
@@ -38,4 +33,4 @@ The module acts on bag items with Disenchant (13262), Pick Lock (1804) or a key 
 
 ## Reopen if
 
-The owner asks for another on-item spell, or Scrap Item turns out to fit.
+Another on-item spell is wanted, or Scrap Item turns out to fit.

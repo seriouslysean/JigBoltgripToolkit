@@ -7,7 +7,7 @@
 
 ## Context
 
-Odd Child's only saved position is on map 1415, Eastern Kingdoms, at 0.411, 0.791: `C_Map.GetBestMapForUnit("player")` gave the continent where the trainer stands. Map Pin then opened the map on the whole continent and named it in chat. It is 1 of 83 saved positions on the owner's account (Mac saved variables, 2026-11-27). Why the game gave the continent there is not known.
+Odd Child's only saved position is on map 1415, Eastern Kingdoms, at 0.411, 0.791: `C_Map.GetBestMapForUnit("player")` gave the continent where the trainer stands. Map Pin then opened the map on the whole continent and named it in chat. It is 1 of 83 saved positions on the test account (Mac saved variables, 2026-11-27). Why the game gave the continent there is not known.
 
 ## Decision
 
@@ -15,7 +15,7 @@ A position on a continent or larger map (`Enum.UIMapType.Continent` or less) mov
 
 ## Reasons
 
-- Owner, 2026-11-27: "it opens the world, but shouldn't it open the zone?"; chose converting on save and for saved entries.
+- Map Pin should open the zone, not the continent, so positions convert on save and saved entries convert too.
 - Both calls are Blizzard's map API (`Blizzard_APIDocumentationGenerated/MapDocumentation.lua`).
 
 ## Rejected

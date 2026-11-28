@@ -17,12 +17,6 @@ A needed lure is marked on its own square with the template's steady `NewActionT
 
 - Blizzard uses the same steady mark for a newly added action.
 
-## Owner's words
-
-- "The glow is pretty annoying though, can it just be highlighted"
-- "we need the bauble to glow when it's needed, and then auto apply based on the setting"
-- The owner chose "Nothing" for how the button shows the line being out (2026-11-23).
-
 ## Rejected
 
 - The animated spell alert glow (`acbb8a1`).

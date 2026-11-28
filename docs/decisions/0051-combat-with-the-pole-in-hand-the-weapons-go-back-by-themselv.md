@@ -18,17 +18,9 @@ Combat has three states. `armed` is a fight with a pole equipped, whether it sta
 - The game lets an addon equip weapons until combat lockdown begins, "Combat lockdown begins after the PLAYER_REGEN_DISABLED event fires" (warcraft.wiki.gg, `API_InCombatLockdown`).
 - The `item:ID` form worked in game, 2026-11-26.
 
-## Owner's words
-
-- "I attacked a mob, equipped my pole and was stuck in a weird inbetween"
-- "the fishing panel also stayed until combat was over"
-- "Auto swap, key as fallback"
-- "it left the fishing window open still"
-- Option B with a setting, 2026-11-25 (no quote kept).
-
 ## Rejected
 
-- Leaving the row up until the fight ends (the owner saw it, 2026-11-25).
+- Leaving the row up until the fight ends (seen in play, 2026-11-25).
 
 ## Versions
 

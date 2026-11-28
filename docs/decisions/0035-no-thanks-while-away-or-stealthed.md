@@ -17,10 +17,6 @@ A thanks is dropped while you are AFK or stealthed. Combat still thanks.
 
 - An emote reaches everyone in range; stealth does not hide chat (unverified on Forever).
 
-## Owner's words
-
-- "Combat seems ok to me, no afk, stealth seems ok but better to avoid it"
-
 ## Rejected
 
 - A setting for it.

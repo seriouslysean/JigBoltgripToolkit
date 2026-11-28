@@ -17,10 +17,6 @@ Each press-to-act action gets a key binding row plus an "<Action> Macro" [Make] 
 
 - Gamepad players can't drag a key binding onto a bar or radial; keyboard players expect a binding.
 
-## Owner's words
-
-- "Both, the same way"
-
 ## Rejected
 
 - Key binding only.

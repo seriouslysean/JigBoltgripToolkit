@@ -18,10 +18,6 @@ Rows show Blizzard's skill-up arrows from `GetRecipeInfo().relativeDifficulty` a
 - This matches the vanilla presentation.
 - Corvus gave 0 mismatches against the seed, and `canSkillUp` was false at a 150 cap (Deck, 2026-11-26).
 
-## Owner's words
-
-- "Arrows only, as now"
-
 ## Rejected
 
 - A skill number on rows (`6367694`, `ac0e471`).

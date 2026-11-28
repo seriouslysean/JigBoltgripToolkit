@@ -17,10 +17,6 @@ No addon chat link opens Settings; the line names the setting in plain text.
 
 - An addon link runs addon code (`LinkTypes.AddOn` to EventRegistry "SetItemRef", `ItemRefHandlersShared.lua:279`), and `Settings.OpenToCategory` from there is the same panel taint; Blizzard's own settings link calls it from Blizzard code (`ItemRefHandlers.lua:247`) (Buffulator session).
 
-## Owner's words
-
-- "Plain text line"
-
 ## Rejected
 
 - A link that opens the options.

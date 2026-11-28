@@ -17,11 +17,6 @@ The probe lists what the client reports for the player's fishing food and lures.
 
 - The kit's standard keeps research commands out of releases and status in every build.
 
-## Owner's words
-
-- "we need to research a way to get it" (2026-11-23)
-- "Ship it in releases" (2026-11-27, on status only)
-
 ## Rejected
 
 - Shipping the probe in releases.

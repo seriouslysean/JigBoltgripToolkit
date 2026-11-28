@@ -17,10 +17,6 @@ A recipe the account knows counts as discovered, with nothing shared. Shipped da
 
 - Knowing a recipe proves the player came across it (RecipeVacuum `docs/data.md`).
 
-## Owner's words
-
-- "If I know 75 recipes from the trainer ... Me knowing them means public doesn't matter, it's assumed since I learned it"
-
 ## Rejected
 
 - Backfilling known recipes from shipped trainer data below the Public level.

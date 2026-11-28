@@ -18,12 +18,6 @@ Eight game emotes, each a checkbox labeled with the game's own slash command. Ea
 - A dropdown breaks the controller (`docs/options.md`, "Banned controls").
 - The order follows the toolkit's options standard (Buffulator `docs/emotes.md`).
 
-## Owner's words
-
-- "I do like the multi select option if we could organize and design them properly and choose randomly"
-- "I'd rather show and allow organizing them better with in game strings"
-- "Collaborate with all the addon agents"
-
 ## Rejected
 
 - A dropdown.

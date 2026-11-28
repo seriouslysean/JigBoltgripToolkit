@@ -17,10 +17,6 @@ Loot that is only quest items teaches nothing, and a quest object learned before
 
 - Flintfire's Shipment (672508) was learned when looted at 08:34 on the Deck (Sparklescope `found.chests`).
 
-## Owner's words
-
-- "a quest crate was getting our fireflies- flintfire shipment"
-
 ## Rejected
 
 - Leaving quest objects to a manual forget.

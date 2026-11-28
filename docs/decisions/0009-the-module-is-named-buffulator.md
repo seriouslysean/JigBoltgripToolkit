@@ -17,11 +17,6 @@ Buffulator.
 
 - The name says the device lets the player see buffs.
 
-## Owner's words
-
-- "What about just Buffulator", then "Yeah"
-- "the goal is a device to let the user see the buffs and be aware of them"
-
 ## Rejected
 
 - Enhance-o-Scanner, and names about anything but seeing buffs.
@@ -37,4 +32,4 @@ Buffulator.
 
 ## Reopen if
 
-The owner renames it.
+It is renamed.

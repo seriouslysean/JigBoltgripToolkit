@@ -16,15 +16,7 @@ The page holds, in working builds, one row: Working Log (Show). No Open rows, no
 ## Reasons
 
 - Under the Gamepad UI an Open button can only print where the page is; the AddOns list already shows each page.
-- A one-press wipe and a watch-off switch lost the owner's test data (Sparklescope's log, 2026-11-27 07:56).
-
-## Owner's words
-
-- "Why do we have those open buttons if they don't do anything?"
-- "Remove them"
-- "Reload likely doesn't belong in there for anyone"
-- "Remove it"
-- "We also shouldn't be able to turn off the logging on my debug build imo"
+- A one-press wipe and a watch-off switch lost test data (Sparklescope's log, 2026-11-27 07:56).
 
 ## Rejected
 
@@ -44,4 +36,4 @@ The page holds, in working builds, one row: Working Log (Show). No Open rows, no
 
 ## Reopen if
 
-The owner wants the page to hold more.
+The page needs to hold more.

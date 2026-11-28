@@ -17,10 +17,6 @@ One line, once ever, per borrowed stick press.
 
 - The toolkit's Game settings rule asks for one line the first time a module changes something the player didn't set; once-ever lines need no Announce checkbox (0043).
 
-## Owner's words
-
-- "Keep the draft"
-
 ## Rejected
 
 - No line.

@@ -15,13 +15,8 @@ Sources, features, game settings, Keybindings, Commands, Working Build. The kit 
 
 ## Reasons
 
+- The addons read as one person's work, so they fit together and configure alike.
 - No written addon convention exists; Blizzard puts addon key bindings on its own Keybindings page near the bottom (warcraft.wiki.gg, "Bindings.xml"; WoWInterface thread 296612).
-
-## Owner's words
-
-- "our goal is one person wrote all these addons, tools, they need to fit together and be similar in configuration"
-- "What do most addons do?"
-- "Adopt it"
 
 ## Rejected
 

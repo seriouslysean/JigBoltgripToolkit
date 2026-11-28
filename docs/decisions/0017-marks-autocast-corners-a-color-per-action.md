@@ -17,10 +17,6 @@ Corners on every usable item, circling lights on the selected one. Disenchant us
 
 - The pet bar's autocast look is Blizzard's own pattern for "this acts".
 
-## Owner's words
-
-- "Maybe a slightly different color per thing"
-
 ## Rejected
 
 - One color for all.
@@ -37,4 +33,4 @@ Corners on every usable item, circling lights on the selected one. Disenchant us
 
 ## Reopen if
 
-The open questions on color-blind players and on purple against epic borders (the Grok and Fable reviews) are decided.
+The open questions on color-blind players and on purple against epic borders (from review) are decided.

@@ -17,11 +17,6 @@ The zones where a fish got away since the last lure went on are kept for the ses
 
 - The pet bar's autocast overlay is the pattern for a setting a button toggles (`PetActionBar.lua`).
 
-## Owner's words
-
-- "add one once when we see the error and wait for the trigger again"
-- "Auto, explained in the tooltip"
-
 ## Rejected
 
 - A worn-off lure replaced at once (`0342354`).

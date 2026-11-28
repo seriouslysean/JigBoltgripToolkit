@@ -17,10 +17,6 @@ Items in an equipment set are never acted on. No other gate (ignore list, qualit
 
 - The game itself refuses a disenchant above the player's skill, with its own error.
 
-## Owner's words
-
-- "TBD, for now no gate other than equipment sets"
-
 ## Rejected
 
 - An ignore list and a quality cap, deferred; see 0036 for the gate that replaced the need.

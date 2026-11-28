@@ -7,7 +7,7 @@
 
 ## Context
 
-Buffulator offered every buff it knew to anyone missing it, Thorns only to your group's tanks and your target. The owner: "druid has motw, and thorns, but not everyone needs both and having the options seems useful", and asked for logical defaults.
+Buffulator offered every buff it knew to anyone missing it, Thorns only to your group's tanks and your target. A druid has Mark of the Wild and Thorns, but not everyone needs both, so each buff gets a switch with logical defaults.
 
 ## Decision
 
@@ -18,10 +18,6 @@ Every buff goes to anyone missing it. Thorns goes to you, your group's tanks and
 - Forever's own stat tooltips say Intellect raises weapon skill gain for warriors and rogues (`WARRIOR_INTELLECT_TOOLTIP`, `ROGUE_INTELLECT_TOOLTIP`) and Spirit raises health and mana regeneration for everyone (`SPIRIT_TOOLTIP`), so no buff is wasted on a class.
 - Thorns adds threat, which healers and damage dealers do not want (vanilla wiki, "Druid tactics", read through a search summary; unverified in game).
 - One checkbox per buff is the shape a Forever druid buff addon uses, and checkboxes are the gamepad-safe control (kit `docs/options.md`). A per-class grid, as another addon has, is too many d-pad stops.
-
-## Owner's words
-
-"spirit is good for weapon skills though", "Or maybe int?", "maybe we can recommend logical defaults"; chose "Everyone, Thorns tanks"; then "As a cat I would self buff myself with thorns though".
 
 ## Rejected
 

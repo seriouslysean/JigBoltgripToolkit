@@ -17,10 +17,6 @@ The button holds the macro text, set out of combat. A Keybindings row presses it
 
 - Every press-to-act module offers both, the same way (0041).
 
-## Owner's words
-
-- "Both, the same way"
-
 ## Rejected
 
 - The rewritten character macro (`56ee88c`).

@@ -19,11 +19,6 @@ Sparklescope never sets it. The options page says sparkles need it on with keybo
 - Blizzard shows a "no interact key assigned" tip when the value is above Gamepad and Interact has no binding (`Blizzard_Tutorials/Blizzard_Tutorials_Frame_Tutorials.lua:94-116`); hiding it means writing the saved `interactKeyWarningTutorial`, as another addon and another addon do, which the kit's game-settings rule forbids.
 - Other addons: another addon reads the value and tells the player to turn it on; another addon turned it on and dropped that in its 1.3 releases; another addon writes it as a saved value.
 
-## Owner's words
-
-- "Is automatic a valid mehtod? Any risk of issues? Any risk with it always being on?"
-- "Keep the note (Recommended)", chosen after the risks above were shown.
-
 ## Rejected
 
 - A temporary value with a one-time line, as Sparklescope holds object plates.

@@ -18,13 +18,6 @@ Buff PvP-Flagged Players is on by default. The first time the next player would 
 - On PvP servers players are nearly always flagged, so skipping would hide most of them.
 - A popup taints (0031); a settings link taints (0039).
 
-## Owner's words
-
-- "PvP servers are essentially always on"
-- "Just make sure it allows buffing by default"
-- "I think the first time it happens we log a chat message and point them to the settings maybe?"
-- "Plain text line"
-
 ## Rejected
 
 - Skipping flagged strangers by default.

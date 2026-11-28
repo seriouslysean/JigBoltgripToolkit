@@ -17,10 +17,6 @@ Work spread across frames moves forward at least one item a frame, sized to the 
 
 - A time cap starves slower hardware: the work never finishes there (`docs/standards.md`, "Performance").
 
-## Owner's words
-
-- "Capping is weird, slower computers would never get it"
-
 ## Rejected
 
 - A give-up cap on time or attempts for splits.

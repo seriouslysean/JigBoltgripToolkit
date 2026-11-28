@@ -17,10 +17,6 @@ The need scan covers you, your group, your target, your mouseover and players wi
 
 - Buffing strangers is part of the job from the first version.
 
-## Owner's words
-
-- "Anyone nearby from the start"
-
 ## Rejected
 
 - Group only, widened later.

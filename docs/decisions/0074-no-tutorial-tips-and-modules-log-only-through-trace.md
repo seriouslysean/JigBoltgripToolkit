@@ -16,8 +16,8 @@ Two kit gaps found the same afternoon. Tutorial tips (HelpTipTemplate frames, He
 
 ## Reasons
 
-- Owner, relayed by games-wow-toolkit-modules: "in another session we decided on no tips because gamepad doesn't show them, should we move that to chat also? I want consistency", then "That belongs in the kit".
-- One way to log keeps every line in one format (decision 0067; owner: "all logs pipe through the kit so we use one standard").
+- The Gamepad UI shows no tips, so first-use guidance moves to chat for every device: one way, held in the kit.
+- One way to log keeps every line in one format (decision 0067: all logs pipe through the kit).
 
 ## Rejected
 

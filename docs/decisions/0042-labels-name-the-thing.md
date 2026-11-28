@@ -17,11 +17,6 @@ A label names the thing; a verb only when the thing alone would be unclear. Exis
 
 - Blizzard uses both shapes (`docs/options.md`, "Labels" 3).
 
-## Owner's words
-
-- "Simple, dry, kiss, adding a verb does nothing but add cognitive load here"
-- "Keep 'Combat'"
-
 ## Rejected
 
 - A verb-first rule.

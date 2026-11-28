@@ -15,13 +15,7 @@ No in-game signal tells a chest before it is opened.
 
 ## Reasons
 
-- The cursor, tooltips, vignettes, the Opening spell's range, the loot and world-loot checks, objects coming into range and the object's model all came back empty; a second sweep by Fable, Grok and Astra read the same for a chest, a chair, a mailbox and a quest crate (Sparklescope6000 `docs/design.md`, "Chests").
-
-## Owner's words
-
-- "Also public opting in to the public data set here doesn't make sense to me. I think for this one we ship with a list and everyone gets it"
-- "Duck typing in English only is rough"
-- "Duck typing the ids feels even worse"
+- The cursor, tooltips, vignettes, the Opening spell's range, the loot and world-loot checks, objects coming into range and the object's model all came back empty; a second sweep read the same for a chest, a chair, a mailbox and a quest crate (Sparklescope6000 `docs/design.md`, "Chests").
 
 ## Rejected
 

@@ -18,11 +18,6 @@ The first time a pole is in hand, one Blizzard-style tutorial tip on the button 
 - Tip frames are not protected, so they may show and hide in combat.
 - The wording follows the game's own tips ("Right-click to favorite a toy. Favorite toys are pinned to the first page.", the Toy Box).
 
-## Owner's words
-
-- "Swapping in combat works, we need to notify though, maybe with the tip on exit?"
-- "Until you've used it"
-
 ## Rejected
 
 - Calls to Blizzard's shared tips (the kit's conformance check bans them, `4405683`).

@@ -17,10 +17,6 @@ Conformance refuses `StaticPopup_Show`; tell the player in chat instead.
 
 - A popup shown from addon code activates the Gamepad UI's popup bindings tainted (`StaticPopupGamepad.lua`, through `InputBindingManager`), the path that blocks the gamepad interact target (Buffulator session).
 
-## Owner's words
-
-- "Plain text line"
-
 ## Rejected
 
 - A Yes/No dialog (Buffulator `7efed80`).

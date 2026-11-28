@@ -7,7 +7,7 @@
 
 ## Context
 
-The owner wanted a way to see and return buffs that fits the game.
+A way to see and return buffs that fits the game's UI was wanted.
 
 ## Decision
 
@@ -15,14 +15,7 @@ A line naming who needs a buff of yours, one press that buffs them at the rank t
 
 ## Reasons
 
-- The owner's three asks, listed below.
-
-## Owner's words
-
-- "I need a way to know who needs a buff and to buff back that fits in with wow's ui/ux"
-- "Can we auto rank to the highest a person is allowed to get?"
-- "an emote to thank is fine"
-- "Create it, my list only"
+- The three asks: see who needs a buff and buff them back in a way that fits the game, cast the highest rank each player can take, and thank with an emote.
 
 ## Rejected
 
@@ -41,4 +34,4 @@ A line naming who needs a buff of yours, one press that buffs them at the rank t
 
 ## Reopen if
 
-The owner adds a job.
+A job is added.

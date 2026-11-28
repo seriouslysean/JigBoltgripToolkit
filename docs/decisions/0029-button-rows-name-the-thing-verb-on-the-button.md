@@ -17,11 +17,6 @@ A button row names the thing, with the verb on its button ("Export Recipe Source
 
 - Blizzard's button rows name the thing and put the verb on the button ("Reset Chat Position", "Reset", `Frame/Social.lua:281`); no Blizzard row shows a slash command.
 
-## Owner's words
-
-- "Working rows are slash text"
-- "We can to make sure to logically group controls and add notes if needed"
-
 ## Rejected
 
 - Slash-command labels with "Run".

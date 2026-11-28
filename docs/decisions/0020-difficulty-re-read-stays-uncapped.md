@@ -18,10 +18,6 @@ A skill change is read again until every candidate answers. A recipe that never 
 - All 89 of Corvus's recipes answered (Deck, 2026-11-26).
 - A cap was tried and reverted, since it broke the spec (0019).
 
-## Owner's words
-
-- "Don't fix edge cases that don't exist"
-
 ## Rejected
 
 - A give-up cap.

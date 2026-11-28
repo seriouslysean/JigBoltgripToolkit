@@ -11,17 +11,12 @@ No API says what a food's buff gives, and a food's use text cannot be matched ac
 
 ## Decision
 
-The Fishing food table is built from Blizzard's data tables for build 1.60.1.71037 (wago.tools DB2). `SpellEffect` rows with the skill aura (30) on Fishing (356) give the Well Fed buff 1249521. The use spells that trigger it, through `ItemEffect` and `ItemXItemEffect`, give the items, and the levels come from `ItemSparse`. Bonuses are the amounts the owner's client printed for the same six items. The lure table was re-sourced from the client's tables. Things are identified by ID or game data and never by words in localized text.
+The Fishing food table is built from Blizzard's data tables for build 1.60.1.71037 (wago.tools DB2). `SpellEffect` rows with the skill aura (30) on Fishing (356) give the Well Fed buff 1249521. The use spells that trigger it, through `ItemEffect` and `ItemXItemEffect`, give the items, and the levels come from `ItemSparse`. Bonuses are the amounts the client printed for the same six items. The lure table was re-sourced from the client's tables. Things are identified by ID or game data and never by words in localized text.
 
 ## Reasons
 
 - Locales differ, so only IDs and game data hold (rule in Tackletron `AGENTS.md`).
 - The query and the open work to drop the tables are in `docs/data.md`.
-
-## Owner's words
-
-- "That doesn't work for locales, we need to use game data"
-- Rule recorded 2026-11-23: identify by ID or game data, never by localized text.
 
 ## Rejected
 

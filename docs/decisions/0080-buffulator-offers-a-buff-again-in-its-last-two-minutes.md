@@ -7,7 +7,7 @@
 
 ## Context
 
-Buffulator offered a buff only once it was gone. The owner asked for a threshold to rebuff before it runs out, and asked for research on human patterns rather than a guess: "what about 5m buffs, 10m buffs, 20m buffs, 60m buffs, 2h buffs?", then "forget the addons, what about human pyschology?". Forever's buffs last 60 min (Mark of the Wild, Arcane Intellect, Fortitude, Divine Spirit), 20 min (Prayer of Shadow Protection) and 10 min (Thorns, Shadow Protection), read from `SpellMisc` and `SpellDuration` for build 1.60.1.71139.
+Buffulator offered a buff only once it was gone. A threshold to rebuff before it runs out was needed, set from research on how people respond to reminders rather than a guess, for every buff length. Forever's buffs last 60 min (Mark of the Wild, Arcane Intellect, Fortitude, Divine Spirit), 20 min (Prayer of Shadow Protection) and 10 min (Thorns, Shadow Protection), read from `SpellMisc` and `SpellDuration` for build 1.60.1.71139.
 
 ## Decision
 
@@ -25,10 +25,6 @@ Buffulator offered a buff only once it was gone. The owner asked for a threshold
 - A share of the duration fits poorly: 10% gives Thorns 1 minute and the 60 min buffs 6. The window should track the spacing of breaks, not buff length.
 - Addon defaults, read in source, fall between 1 and 5 minutes for buffs a person must act on: another addon `Core/State.lua:977-996` (25%, 1 to 5 min on Forever), another addon `Config.lua:227` (5 min), another addon `SharedSettings.lua:172-176` (up to 3 min), another addon `Core.lua:459` (3 min). 2 minutes is inside that range. Only cast-for-you tools go to 20 to 30 s.
 - Batching follows the per-encounter effect above and Nielsen Norman Group's advice to send fewer notifications. It is an inference, not a tested result.
-
-## Owner's words
-
-"we probably want a threshold for when to rebuff ~10% remaining or similar? Look up standard friction points"; "stop fucking pivoting to what I'm saying and do some research"; chose "2 min, batch at 5 (Recommended)".
 
 ## Rejected
 

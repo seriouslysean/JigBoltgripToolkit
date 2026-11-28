@@ -1,8 +1,8 @@
 # Sharing
 
-How a toolkit module shares what its player finds with other players of the same module, and takes theirs in. The library holds the transport; a module supplies only its row shape (owner, 2026-11-26: "No release candidate, I'm using them so let's do it right c never cut corners", on lifting Recipe Vacuum's transport into the kit). API: `lib:NewShare` and `lib.wire` in `JigBoltgripToolkit.lua`, since `MINOR` 48.
+How a toolkit module shares what its player finds with other players of the same module, and takes theirs in. The library holds the transport; a module supplies only its row shape. Recipe Vacuum's transport was lifted into the kit, done right with no shortcuts and no release candidate, because the modules are in daily use. API: `lib:NewShare` and `lib.wire` in `JigBoltgripToolkit.lua`, since `MINOR` 48.
 
-Scope, decided by the owner (`cairn:h1qwg`): party, raid, guild and friends. Public channels are a future phase. What the player finds (found) and what others sent (shared) stay apart. Received data is never executed, every row is validated against game data, and addon messages are invisible in chat.
+Scope (`cairn:h1qwg`): party, raid, guild and friends. Public channels are a future phase. What the player finds (found) and what others sent (shared) stay apart. Received data is never executed, every row is validated against game data, and addon messages are invisible in chat.
 
 ## Prior art
 

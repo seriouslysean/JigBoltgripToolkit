@@ -17,12 +17,6 @@ Each new buff restarts the wait, up to 10 s after the first. One player gets the
 
 - A run of emotes reads as spam (Buffulator `docs/emotes.md`).
 
-## Owner's words
-
-- "If we get multiples in N time do a generic non targets emote?"
-- "buffs within n time reset the timer to thank, then you hit everyone with a thanks"
-- "We emote to a specific unit, and without a selection it just happens"
-
 ## Rejected
 
 - A cap on thanks ("I don't know about a cap, that feels weird").

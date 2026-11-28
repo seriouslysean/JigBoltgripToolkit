@@ -15,13 +15,8 @@ The marks key shows every item the use key can act on, and the use key acts on t
 
 ## Reasons
 
+- Acting by hover is friction; two keys need none.
 - The gamepad bags leave both stick presses free (AutoOmniadjustor `docs/client-notes.md`).
-
-## Owner's words
-
-- "With bags open I want a key to show me all eligible items"
-- "2: L3 toggles, R3 acts"
-- "Molina makes me hover and I hate it"
 
 ## Rejected
 

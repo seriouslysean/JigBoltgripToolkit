@@ -18,10 +18,6 @@ While a pole is equipped, music, ambience and dialog play lower, so the splash s
 - Sound is in scope for the splash (Tackletron `AGENTS.md`).
 - Standards review 2026-11-25 on CVar taint.
 
-## Owner's words
-
-- "Lower, not mute"
-
 ## Rejected
 
 - Muting; lowering effects.

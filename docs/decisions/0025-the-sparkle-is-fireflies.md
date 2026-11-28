@@ -17,12 +17,6 @@ The world's fireflies (file 190731), two copies, slowed.
 
 - Anything that should sit on the object slides off it as the camera turns; drifting fireflies hide that (Sparklescope6000 `docs/development.md`, "Effects").
 
-## Owner's words
-
-- "I still think fireflies are the best"
-- "Various camera angles mess with it and I still think fireflies are better"
-- "Fireflies by default"
-
 ## Rejected
 
 - Eleven other small effects.

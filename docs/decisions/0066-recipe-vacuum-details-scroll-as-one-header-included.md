@@ -20,10 +20,6 @@ The icon stays on the box, not in the scroll: a scroll frame clips its content, 
 - Blizzard's one details pane that scrolls, the quest log's (`QuestMapFrame.xml:801`, `QuestMapDetailsScrollFrame`), keeps its title inside the scrolled content (`QuestInfo.lua:112` parents each shown element, the title header included, to the scroll child it is given). The profession window's own recipe pane (`Blizzard_ProfessionsRecipeSchematicForm.xml`) never scrolls, so it has no fixed-header precedent.
 - One scroll area instead of a fixed part over a scrolled part, and the reagents get the header's room once scrolled.
 
-## Owner's words
-
-"Can you validating the header should scroll with the reagents in our panel?", then, choosing between this and keeping the header fixed: "Header scrolls with reagents".
-
 ## Rejected
 
 - Keeping the icon, name and requirement fixed above a reagents-only scroll (the layout before this).
@@ -40,7 +36,7 @@ The icon stays on the box, not in the scroll: a scroll frame clips its content, 
 
 ## Icon stays fixed (2026-11-27)
 
-The made-item icon stays outside the scroll, since its ring hangs over the box edge and a scroll frame clips it. Owner, asked: "Keep the icon fixed".
+The made-item icon stays outside the scroll, since its ring hangs over the box edge and a scroll frame clips it. Keep the icon fixed.
 
 ## Reopen if
 

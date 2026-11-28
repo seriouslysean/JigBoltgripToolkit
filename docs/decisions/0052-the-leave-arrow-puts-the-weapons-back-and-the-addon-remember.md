@@ -18,12 +18,6 @@ Blizzard's red leave arrow (the vehicle and taxi button, same size, textures and
 - A protected frame cannot anchor to a texture such as the button's icon ("Cannot anchor protected frames to regions"), so the arrow anchors to the frame.
 - The vehicle leave button is the model for size, textures and highlight (`VehicleLeaveButton.xml`).
 
-## Owner's words
-
-- "The x is weird in the icon" (the owner chose "Leave-vehicle arrow", 2026-11-23)
-- "open a frame and on close will the gear again"
-- "It's not aligned" (owner's screenshot)
-
 ## Rejected
 
 - An X on the fishing button (`2b8803b`).

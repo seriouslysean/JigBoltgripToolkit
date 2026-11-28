@@ -17,10 +17,6 @@ The marks are our own frames, positioned over the buttons and drawn just above t
 
 - The toolkit's Gamepad UI rule puts nothing of ours on Blizzard's frames (`docs/standards.md`, "Gamepad UI").
 
-## Owner's words
-
-- none yet (a standards rule, not an owner call)
-
 ## Rejected
 
 - Children of the item buttons.

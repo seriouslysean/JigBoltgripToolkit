@@ -16,13 +16,7 @@ Tackletron has one key setting, its own binding in Keybindings, shown as Blizzar
 ## Reasons
 
 - Blizzard's Interact Key and Extra Action Button have one binding and no key checkboxes.
-- F targeted nearby players when it kept its usual job, so with a pole it must only fish (owner 2026-11-23).
-
-## Owner's words
-
-- "Use f when a rod is equipped and supercede the key"
-- "With a pole we need it to only fish"
-- The owner chose F as the default key (2026-11-23) and chose the Interact key as the last choice (2026-11-26); no quote was kept.
+- F targeted nearby players when it kept its usual job, so with a pole it must only fish (2026-11-23).
 
 ## Rejected
 

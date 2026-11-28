@@ -7,7 +7,7 @@
 
 ## Context
 
-One stray right stick press with the bags open would start Disenchant on an unmarked item (Fable review, finding 4).
+One stray right stick press with the bags open would start Disenchant on an unmarked item (review finding 4).
 
 ## Decision
 
@@ -16,10 +16,6 @@ With the marks off, the use key does nothing and the working log says "marks off
 ## Reasons
 
 - The only gate was equipment sets (0002).
-
-## Owner's words
-
-- "Only with marks on"
 
 ## Rejected
 

@@ -17,11 +17,6 @@ Not built.
 
 - One flip per trainer per account is already cheap (0045).
 
-## Owner's words
-
-- "Is there any way to know if there's new content? We could ship a limited set as a seed list"
-- "I'd prefer not to, but worth thinking through"
-
 ## Rejected
 
 - n/a

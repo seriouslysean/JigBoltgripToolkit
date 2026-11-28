@@ -17,13 +17,7 @@ One setting, the Fishing Sources cards from the toolkit (`lib.SOURCE_LEVEL`, `li
 
 - Same cards, same wording and same order as Recipe Vacuum (`ns.levelText`).
 - The page order is 0040.
-
-## Owner's words
-
-- "One setting, like Recipe Vacuum"
-- "We need to follow the card style and how vacuum does it"
-- "Sources first"
-- "Self found and friends as default. I'm using public to gather data myself"
+- Self Found and Friends is the default; Public stays for players who gather data.
 
 ## Rejected
 
