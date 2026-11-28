@@ -20,7 +20,7 @@ The marks key shows every item the use key can act on, and the use key acts on t
 
 ## Rejected
 
-- Hover-to-reveal, as another addon does it.
+- Hover-to-reveal: acting by hover is the friction this removes.
 
 ## Versions
 

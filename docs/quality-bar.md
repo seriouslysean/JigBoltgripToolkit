@@ -9,7 +9,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 - [ ] Wording and capitalization follow Blizzard's. Labels use the game's own strings where one exists.
 - [ ] The options page uses only the allowed controls, and its labels, headings, tooltips and notes follow [options.md](options.md).
 - [ ] Its chat lines never use one of the game's own chat colors (whisper, emote, system), and it changes nothing in normal chat or play outside its feature.
-- [ ] Each pattern names the Blizzard code or established addon it follows.
+- [ ] Each pattern names the Blizzard file it follows; nothing names another addon as a source.
 - [ ] Where standing out and matching the game pull apart, it matches the game.
 
 ## Every way to play
@@ -79,7 +79,7 @@ The checklist every Jig Boltgrip's Toolkit addon meets before a release. Each li
 
 ## How it was built
 
-- [ ] The game's own way was researched and cited before designing (other addons may be studied, never named in the repo).
+- [ ] The game's own way was researched and cited before designing (nothing in the repo names another addon as a source).
 - [ ] Design questions were talked through before anything was built.
 - [ ] Small requests got small changes, and what was approved was left alone.
 - [ ] The tester's part of each test was kept short: the addon collects its own data.

@@ -15,7 +15,7 @@ These rules outrank everything below, and the first three outrank the rest.
 5. Keep it simple. The smallest version that does the job, one place for each thing, data in tables, not branches. Duplicate only for a measured hot path, and ask before doing it. Enforced by: review.
 6. Work from data. Behavior comes from tables and the game's own data, decisions from the docs. Back every claim with data from the game, not a reading of the code. Enforced by: review.
 7. Write as one author. One way to write each thing, enforced by tooling where it can be. Write docs, decision records and comments imperatively in one voice: no third person, no attributions or quotes of who decided (decision 0081). Enforced by: conformance, luacheck, review.
-8. Follow the game's patterns. Cite Blizzard's source, game data or our own in-game tests in a short comment. Study other addons in research; never name or credit them in the repos. Cite an outside data source where its numbers are used (the data tool, the generated file's header, the docs), never in code comments. Nothing custom without a real need. Enforced by: review.
+8. Follow the game's patterns. Patterns follow Blizzard's own code, cited by file in a short comment; game data and our own in-game tests are the other evidence. Nothing names another addon as a source, model or comparison; embedded libraries with their licenses, development tools, game-data sites and compatibility checks at run time may be named (decision 0086). Cite an outside data source where its numbers are used (the data tool, the generated file's header, the docs), never in code comments. Nothing custom without a real need. Enforced by: conformance, review.
 9. Stay quiet. Speak only when the module has done something the player wants to know, in plain game words and the machine voice (Part 3, "Voice"). Enforced by: conformance, quality bar.
 10. Serve both inputs. Mouse and keyboard and gamepad are both first-class: every feature works and reads clearly either way. Never break the controller. Information or an action the player needs is reachable both ways; only an extra beside the main feature may be mouse and keyboard only, and it never gets in the controller's way. No minimap icons. No release until both are checked in game. Enforced by: review, quality bar.
 11. Self found and friends first. Show what the player and their friends come across; public data (included tables, outside databases) is opt-in, never the default. The source choice defaults to Friends where the module shares, else Self Found. The suite reads as Jig Boltgrip building what he finds useful for himself and others. Built-in exceptions, each shipped on for everyone, with a source choice of Self Found and Friends only, so the player's own and friends' finds augment the shipped data: Sparklescope 6000's chest list (fixed world objects, so one shipped list serves everyone; Sparklescope `docs/design.md`, "Chests"), and Tackletron's zone fishing levels, used only for the zone the player stands in. Enforced by: review.
@@ -35,7 +35,7 @@ Lua 5.1, as the client runs. Where WoW practice and general Lua practice differ,
 
 ## Comments
 
-A comment gives the reason for the code: why it is this way, what it protects, which Blizzard file or established addon it follows. Never what the code does, and never history: no quotes, dates, review findings or who decided. Anything that specific goes in `docs/`, and the comment may point there. At most three lines. Debug-only blocks, third-party libraries and tests are exempt. The LuaRocks guide puts it the same way: "the implementation should be simple enough so that comments aren't needed". Enforced by: conformance.
+A comment gives the reason for the code: why it is this way, what it protects, which Blizzard file it follows. Never what the code does, and never history: no quotes, dates, review findings or who decided. Anything that specific goes in `docs/`, and the comment may point there. At most three lines. Debug-only blocks, third-party libraries and tests are exempt. The LuaRocks guide puts it the same way: "the implementation should be simple enough so that comments aren't needed". Enforced by: conformance.
 
 ## Tests
 
@@ -43,7 +43,7 @@ Rules for every module's tests, from the community's practice for WoW addons and
 
 1. Test only to prevent a specific, known bug, and name it in the test.
 2. Run tests under Lua 5.1 semantics, as the client does.
-3. Use the community's test runner (busted, as other addons do), not a home-made one.
+3. Use the community's test runner (busted), not a home-made one.
 4. Stand in for only the game calls the code makes, and check the stand-ins against the client's own API documentation so they cannot drift.
 5. Run the addon's real files; never re-implement them in a test.
 6. Assert what a player or a saved file would see, never which internal calls were made.

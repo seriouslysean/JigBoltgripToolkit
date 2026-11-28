@@ -174,7 +174,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 
 ## Open, not decided
 
-- Sparklescope 6000: replacing the zoom formula and scene camera that match another addon Sparkles, which ships no licence. Copying another addon's exact code is not acceptable; the replacement is open. A Mac session with the mouse wheel decides.
+- Sparklescope 6000: the zoom formula and scene camera come only from our own measurements (decision 0086); the replacement values stay open until a Mac session with the mouse wheel confirms them.
 - Buffulator: skip a player after a failed cast, rebuff early, a voiced macro line, the macro on mouse and keyboard, full character macros, a fail-closed stranger macro.
 - AutoOmniadjustor: the Deck taint (`SetPreferredGamepadInteractTarget` blocked, `MainActionBarFrame.lua:373`). With the module off, the menu and radial check passed on 2026-11-27, so the cause is in the module's own code.
 
@@ -187,3 +187,4 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0081 | [Write in one imperative voice](0081-write-in-one-imperative-voice.md) | all modules | accepted |
 | 0082 | [Checks run on PUC Lua 5.1](0082-checks-run-on-puc-lua-5-1.md) | all modules | accepted |
 | 0085 | [Each client update is audited by one script](0085-each-client-update-is-audited-by-one-script.md) | all modules | accepted |
+| 0086 | [Nothing names another addon as a source](0086-nothing-names-another-addon-as-a-source.md) | all modules | accepted |
