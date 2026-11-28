@@ -20,11 +20,11 @@ The first time a pole is in hand, one Blizzard-style tutorial tip on the button 
 
 ## Rejected
 
-- Calls to Blizzard's shared tips (the kit's conformance check bans them, `4405683`).
+- Calls to Blizzard's shared tips (the kit's conformance check bans them, `0a87e42`).
 
 ## Versions
 
-- Tackletron `9177968`, `4f6e3c6`, `2f63f9b`, `1900a78`, `4405683`
+- Tackletron `b29923c`, `4f6e3c6`, `2f63f9b`, `1900a78`, `0a87e42`
 
 ## Tests
 

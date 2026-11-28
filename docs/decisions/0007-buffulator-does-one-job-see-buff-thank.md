@@ -23,7 +23,7 @@ A line naming who needs a buff of yours, one press that buffs them at the rank t
 
 ## Versions
 
-- Buffulator `4054758` (first build: the who-needs line, the buff key with rank picking, the thanks emote)
+- Buffulator `eaa3f3d` (first build: the who-needs line, the buff key with rank picking, the thanks emote)
 - Buffulator `466595b` (renamed)
 - client 1.60.1 (71139)
 

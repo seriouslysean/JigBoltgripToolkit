@@ -19,11 +19,11 @@ The zones where a fish got away since the last lure went on are kept for the ses
 
 ## Rejected
 
-- A worn-off lure replaced at once (`0342354`).
+- A worn-off lure replaced at once (`5ed537f`).
 
 ## Versions
 
-- Tackletron `0342354`, `41e253c`, `e20fb41`, `9291b54`, `4edc028`, `1940efa`, `d211223`
+- Tackletron `5ed537f`, `41e253c`, `e20fb41`, `9291b54`, `4edc028`, `1940efa`, `d211223`
 
 ## Tests
 

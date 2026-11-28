@@ -27,7 +27,7 @@ Eight game emotes, each a checkbox labeled with the game's own slash command. Ea
 ## Versions
 
 - Buffulator `b476aaf` (checkboxes, random pick, never twice in a row)
-- Buffulator `2900636` (in the Thanks section, under its switch)
+- Buffulator `99cc109` (in the Thanks section, under its switch)
 - Buffulator `28dd7bf` (`/thank` first, then the game's chat-menu order)
 - client 1.60.1 (71139)
 

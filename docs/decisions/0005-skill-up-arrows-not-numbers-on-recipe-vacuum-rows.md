@@ -20,7 +20,7 @@ Rows show Blizzard's skill-up arrows from `GetRecipeInfo().relativeDifficulty` a
 
 ## Rejected
 
-- A skill number on rows (`6367694`, `cfc244b`).
+- A skill number on rows (`04f05f9`, `cfc244b`).
 
 ## Versions
 

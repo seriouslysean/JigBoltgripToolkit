@@ -23,7 +23,7 @@ No outline is used.
 
 ## Versions
 
-- Sparklescope6000 `4962681`
+- Sparklescope6000 `16ed60b`
 - client 1.60.1 (71139)
 
 ## Tests
