@@ -106,6 +106,14 @@ describe("sharing", function()
 		sent[#sent].delivered()
 		data(nil, ("G %s 0"):format(db.exchange.id), "WHISPER", "Mallory")
 		assert(#sent - before == 2, "the next request is answered once the reply has gone out")
+		-- A reply still queued at the timeout: the request after it is answered, and the old reply's last chunk
+		-- must not free the sender while the new reply waits.
+		local old = sent[#sent]
+		GetTime = function() return 1031 end
+		data(nil, ("G %s 1"):format(db.exchange.id), "WHISPER", "Mallory")
+		old.delivered()
+		data(nil, ("G %s 2"):format(db.exchange.id), "WHISPER", "Mallory")
+		assert(#sent - before == 3, "a late reply freed its sender: " .. (#sent - before - 2) .. " replies queued after the timeout")
 	end)
 
 	-- Fails if a peer can stretch one request without end: it offered the highest revision there is, then moved one

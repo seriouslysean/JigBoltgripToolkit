@@ -42,10 +42,11 @@ No hostile peer has been seen. The first row needs no intent: any reply damaged 
 ## Versions
 
 - Kit `MINOR` 87 (`Share:HandleData`, `Share:SendData`, `Share:Offer`, `Share:OnProbe`). Recipe Vacuum `Finds.lua` (the cap and the field checks).
+- Kit `MINOR` 88 (`Share:SendData`): a reply clears only its own in-flight mark. A peer asks again after 30 seconds, the moment the mark stops counting, so a reply still queued then finished after the next had started and freed the sender for a third.
 
 ## Tests
 
-- `tests/share_spec.lua`, one spec per row of the table, each failing on `MINOR` 86: "a reply that is a number or a boolean is skipped, and the request finishes", "a sender gets one reply at a time", "a reply with more rows than the revisions it covers is refused", "a request ends after a fixed number of replies", "a player who does not share sends no collection ID".
+- `tests/share_spec.lua`, one spec per row of the table, each failing on `MINOR` 86: "a reply that is a number or a boolean is skipped, and the request finishes", "a sender gets one reply at a time" (from `MINOR` 88 also a reply that leaves after the timeout, which failed on 87), "a reply with more rows than the revisions it covers is refused", "a request ends after a fixed number of replies", "a player who does not share sends no collection ID".
 - Not tested in game: two clients have not exchanged finds since this change, and whether a channel hands our own probe back under our own plain name is read from AceComm's sender handling, not seen.
 
 ## Reopen if
