@@ -28,6 +28,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0068 | [Opening the world map is tested, not assumed to taint](0068-opening-the-world-map-is-tested-not-assumed-tainting.md) | all modules | accepted, test pending |
 | 0075 | [Key binding rows carry no search tag of ours](0075-keybinding-rows-carry-no-search-tag-of-ours.md) | all modules | accepted; not the cause |
 | 0077 | [The panel steps aside while the map holds the profession window's slot](0077-the-panel-steps-aside-while-the-map-holds-the-profession-window-slot.md) | Recipe Vacuum | accepted, test pending |
+| 0083 | [Protected controls grey out in combat](0083-protected-controls-grey-out-in-combat.md) | all modules | accepted |
 
 ## Data
 
@@ -144,6 +145,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0057 | [Chat lines are a noise and a report, once where they repeat](0057-chat-lines-are-a-noise-and-a-report-once-where-they-repeat.md) | Tackletron | accepted |
 | 0079 | [Sparklescope says a line when it learns an unknown chest](0079-sparklescope-says-a-line-when-it-learns-an-unknown-chest.md) | Sparklescope 6000 | accepted |
 | 0080 | [Buffulator offers a buff again in its last two minutes](0080-buffulator-offers-a-buff-again-in-its-last-two-minutes.md) | Buffulator | accepted |
+| 0084 | [Devices speak in the terms of their work](0084-devices-speak-in-the-terms-of-their-work.md) | all modules | accepted |
 
 ## Name
 
