@@ -23,8 +23,8 @@ A button row names the thing, with the verb on its button ("Export Recipe Source
 
 ## Versions
 
-- JigBoltgripToolkit `61fc10b` (MINOR 67)
-- RecipeVacuum `d82b899`, `021eb61`
+- JigBoltgripToolkit `c706452` (MINOR 67)
+- RecipeVacuum `c00de4c`, `26adc38`
 - client 1.60.1 (71139)
 
 ## Tests

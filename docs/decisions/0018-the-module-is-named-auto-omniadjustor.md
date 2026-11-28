@@ -23,7 +23,7 @@ Auto-Omniadjustor, spelled like the in-game Gyromatic Micro-Adjustor.
 
 ## Versions
 
-- AutoOmniadjustor `74e119e` (TOC title "Auto-Omniadjustor")
+- AutoOmniadjustor `105a481` (TOC title "Auto-Omniadjustor")
 - client 1.60.1 (71139)
 
 ## Tests

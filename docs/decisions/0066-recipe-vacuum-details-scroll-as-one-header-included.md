@@ -27,7 +27,7 @@ The icon stays on the box, not in the scroll: a scroll frame clips its content, 
 
 ## Versions
 
-- Recipe Vacuum 0da0a28 (`Panel.lua`, `tests/simulate_spec.lua`, `docs/client-notes.md` "Panel"). Kit MINOR 81. Client 1.60.1 (71139).
+- Recipe Vacuum 5f9c1c2 (`Panel.lua`, `tests/simulate_spec.lua`, `docs/client-notes.md` "Panel"). Kit MINOR 81. Client 1.60.1 (71139).
 
 ## Tests
 

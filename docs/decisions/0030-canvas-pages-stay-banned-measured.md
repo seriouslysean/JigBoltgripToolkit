@@ -25,7 +25,7 @@ Every page, the toolkit's included, uses Blizzard's list rows; `Settings.Registe
 
 ## Versions
 
-- JigBoltgripToolkit `ccec690` (MINOR 72, reverted), `1615149` (MINOR 73)
+- JigBoltgripToolkit `5533be6` (MINOR 72, reverted), `1615149` (MINOR 73)
 - client 1.60.1 (71139)
 
 ## Tests

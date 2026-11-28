@@ -42,7 +42,7 @@ Open: the line's wording, modeled on the game's own gnome machines (Homing Robot
 ## Versions
 
 - none yet; not built.
-- Supersedes 0062 once built. Data tools live in Tackletron `tools/fishing_levels.py` (`7fdb81f`).
+- Supersedes 0062 once built. Data tools live in Tackletron `tools/fishing_levels.py` (`d6c0889`).
 
 ## Tests
 

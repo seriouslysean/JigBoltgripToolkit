@@ -24,7 +24,7 @@ Two delays, each with jitter: Quick 1 to 3 s and Relaxed 3 to 5 s.
 
 ## Versions
 
-- Buffulator `b50840b`
+- Buffulator `9db8b93`
 - client 1.60.1 (71139)
 
 ## Tests

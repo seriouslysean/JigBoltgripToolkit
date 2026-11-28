@@ -25,7 +25,7 @@ Each device speaks in the terms of what it does, taken from the game's own machi
 
 ## Versions
 
-- RecipeVacuum a827735 (`underFire`); e1697d4 (`pinned`).
+- RecipeVacuum 52e8d0a (`underFire`); 3694d56 (`pinned`).
 
 ## Tests
 

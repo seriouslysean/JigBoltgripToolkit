@@ -24,7 +24,7 @@ A skill change is read again until every candidate answers. A recipe that never 
 
 ## Versions
 
-- RecipeVacuum `7fb1c5d`
+- RecipeVacuum `e1ccdf4`
 - client 1.60.1 (71139)
 
 ## Tests

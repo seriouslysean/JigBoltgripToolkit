@@ -24,7 +24,7 @@ Sources, features, game settings, Keybindings, Commands, Working Build. The kit 
 
 ## Versions
 
-- JigBoltgripToolkit `9d798ea` (MINOR 74)
+- JigBoltgripToolkit `df63d17` (MINOR 74)
 - client 1.60.1 (71139)
 
 ## Tests

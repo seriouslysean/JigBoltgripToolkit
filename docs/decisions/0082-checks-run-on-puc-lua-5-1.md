@@ -7,7 +7,7 @@
 
 ## Context
 
-The Mac ran the specs under LuaJIT (the local busted's interpreter) and syntax through `luajit -bl`; CI runs PUC Lua 5.1. LuaJIT's `string.format` turns `nil` into "nil" for `%s` where PUC Lua 5.1, like the client, raises an error. RecipeVacuum 0129b17 passed every local check and failed CI: a spec's profession stand-in had no name. The kit's stand-ins also answered `IsInInstance` with one value where the client gives two, which only PUC Lua 5.1 exposed.
+The Mac ran the specs under LuaJIT (the local busted's interpreter) and syntax through `luajit -bl`; CI runs PUC Lua 5.1. LuaJIT's `string.format` turns `nil` into "nil" for `%s` where PUC Lua 5.1, like the client, raises an error. RecipeVacuum ee0fa43 passed every local check and failed CI: a spec's profession stand-in had no name. The kit's stand-ins also answered `IsInInstance` with one value where the client gives two, which only PUC Lua 5.1 exposed.
 
 ## Decision
 
@@ -32,7 +32,7 @@ Run every check on PUC Lua 5.1, the client's Lua and CI's: syntax through Lua 5.
 ## Tests
 
 - The guard: `HOME=/nonexistent PATH=/opt/homebrew/bin:/usr/bin:/bin scripts/check` exits 1 with the setup message.
-- A spec stand-in without `professionName` (RecipeVacuum before 960cd06) fails the local specs, as it failed CI.
+- A spec stand-in without `professionName` (RecipeVacuum before beced11) fails the local specs, as it failed CI.
 
 ## Reopen if
 

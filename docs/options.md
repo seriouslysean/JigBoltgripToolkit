@@ -241,13 +241,13 @@ Found while writing this page. Each is the kit's, not a module's. Gap 1 is close
 
 Read from each module's `Settings.lua` and `Locales/enUS.lua`. Written 2026-11-26 from each module's files at the commit named; some have been fixed since. Conformance ("Checks") run on the modules' pages 2026-11-27 fails only Recipe Vacuum (Labels 8: "Recipe Sources"; Notes 3: the Share My Finds note). The rest of this list is review-only.
 
-### Recipe Vacuum (`7914b15`)
+### Recipe Vacuum (`897d589`)
 
 1. Labels 8: the row "Recipe Sources" has the same name as its heading (`Settings.lua:18-19`).
 2. Notes 2 and 3: the Share My Finds note says the tooltip again, then adds a second sentence (`Settings.lua:28-29`). Only "Nothing else is sent." is new.
 3. Tooltips 5: two forms on one page. "Send what you find..." and "Print a message in chat..." against "Remembers the trainers..." (`Settings.lua:28`, `:36`, `:34`).
 
-### Tackletron (`6ab9c2c`)
+### Tackletron (`46e659d`)
 
 1. Labels 8: the row "Fishing Sources" has the same name as its heading (`Settings.lua:71-72`).
 2. Notes 5: the note on the key binding row is never shown, and it is three sentences (`Settings.lua:82-84`).
@@ -258,7 +258,7 @@ Read from each module's `Settings.lua` and `Locales/enUS.lua`. Written 2026-11-2
 7. Labels 7: the child "Swap Automatically" does not say what is swapped when read alone (`Settings.lua:93`).
 8. Labels 3: "Weapons Back in Combat" neither names a thing nor starts with a verb (`Settings.lua:87`).
 
-### Buffulator (`0bfb948`)
+### Buffulator (`d1ea642`)
 
 1. Dependent settings 2 and 6: the Thank Delay choice sits between the Thank checkbox and its children (`Settings.lua:42-49`).
 2. Dependent settings 2: the emote checkboxes are children of Thank but sit in another section, under their own heading (`Settings.lua:26-27`, `:51-52`).
@@ -272,7 +272,7 @@ Read from each module's `Settings.lua` and `Locales/enUS.lua`. Written 2026-11-2
 2. Notes 4: the Interact Key note is true of all four Sparkles rows and sits on Herbs alone (`Settings.lua:24-26`).
 3. Tooltips 5: "Sparkles on herbs while you know Herbalism." and the three like it have no verb (`Settings.lua:25-32`); "Send the chests you open..." is the other form (`Settings.lua:20`).
 
-### Auto Omniadjustor (`9feff06`)
+### Auto Omniadjustor (`c162b60`)
 
 1. Notes 5: both key binding rows carry a note that is never shown (`Settings.lua:22-25`).
 2. Gamepad 6: the page is key binding rows only, which has no Deck pass yet.

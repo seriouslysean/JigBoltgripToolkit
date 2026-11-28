@@ -19,11 +19,11 @@ Every line is the library's `Say` with a noise that has no end mark, then a repo
 
 ## Rejected
 
-- Local printing and tint samples (`e5f7e0c`).
+- Local printing and tint samples (`e40d121`).
 
 ## Versions
 
-- Tackletron `da97c19`, `190ac76`, `ad3016f`, `6476a31`, `648d1ae`, `4f96cdc`, `84838e5`, `553d82d`
+- Tackletron `aca2a08`, `f0c2236`, `3877a0a`, `c7beb9b`, `b44ed5a`, `b8090fc`, `5fe0807`, `9f17d8a`
 - kit MINOR 9, 18
 
 ## Tests

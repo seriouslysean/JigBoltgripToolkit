@@ -23,8 +23,8 @@ The need scan covers you, your group, your target, your mouseover and players wi
 
 ## Versions
 
-- Buffulator `0113c99` (nameplates scanned from the first build)
-- Buffulator `8e8afdc` (one cheap scan: a set of shown plates, stop at the first need)
+- Buffulator `4054758` (nameplates scanned from the first build)
+- Buffulator `22fc97a` (one cheap scan: a set of shown plates, stop at the first need)
 - client 1.60.1 (71139)
 
 ## Tests

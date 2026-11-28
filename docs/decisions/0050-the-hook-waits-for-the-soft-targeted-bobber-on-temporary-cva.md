@@ -24,8 +24,8 @@ While the line is out, the key hooks only when the bobber is soft-targeted and i
 
 ## Versions
 
-- Tackletron `cd88367`, `ba08df6`, `ca5f03d`, `acf2993`
-- Tackletron `55ea658` (comment moved here)
+- Tackletron `d0dd9d3`, `b533cff`, `94cf80d`, `f33b9e5`
+- Tackletron `2d931c5` (comment moved here)
 
 ## Tests
 

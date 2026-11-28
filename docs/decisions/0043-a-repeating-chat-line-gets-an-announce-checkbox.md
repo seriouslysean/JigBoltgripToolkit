@@ -23,7 +23,7 @@ A chat line that repeats gets one Announce checkbox, on by default; a once-ever 
 
 ## Versions
 
-- JigBoltgripToolkit `55318d0`
+- JigBoltgripToolkit `f1b8edb`
 
 ## Tests
 

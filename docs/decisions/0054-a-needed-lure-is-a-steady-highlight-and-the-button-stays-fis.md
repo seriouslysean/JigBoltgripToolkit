@@ -19,12 +19,12 @@ A needed lure is marked on its own square with the template's steady `NewActionT
 
 ## Rejected
 
-- The animated spell alert glow (`acbb8a1`).
-- A bobber icon or a checked button while the line is out (`4933d75`, then `f1e9b5b`).
+- The animated spell alert glow (`c80a0d1`).
+- A bobber icon or a checked button while the line is out (`b950c76`, then `d7741de`).
 
 ## Versions
 
-- Tackletron `acbb8a1`, `769b43c`, `f1e9b5b`
+- Tackletron `c80a0d1`, `8f4c56c`, `d7741de`
 
 ## Tests
 

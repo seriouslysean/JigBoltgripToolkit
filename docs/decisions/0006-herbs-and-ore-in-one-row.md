@@ -24,7 +24,7 @@ One "Herbs and Ore" checkbox; each kind shows only while the player knows its pr
 ## Versions
 
 - client 1.60.1 (71139)
-- Sparklescope6000 69099b8 (one checkbox, 2026-11-26); kit options standard at 55318d0 (labels name the thing)
+- Sparklescope6000 69099b8 (one checkbox, 2026-11-26); kit options standard at f1b8edb (labels name the thing)
 
 ## Tests
 

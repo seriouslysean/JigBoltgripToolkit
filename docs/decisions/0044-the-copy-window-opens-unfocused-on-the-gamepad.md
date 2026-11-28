@@ -23,7 +23,7 @@ Under the Gamepad UI the copy window opens unfocused, so B closes it through UIS
 
 ## Versions
 
-- JigBoltgripToolkit `87d6989` (MINOR 75)
+- JigBoltgripToolkit `0125069` (MINOR 75)
 - client 1.60.1 (71139)
 
 ## Tests

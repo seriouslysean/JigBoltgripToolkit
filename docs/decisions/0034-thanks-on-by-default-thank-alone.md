@@ -23,12 +23,12 @@ Thank Players Who Buff You starts on with only `/thank` checked. Party and raid 
 
 ## Versions
 
-- Buffulator `bcabf00` (schema 4 resets a saved off)
+- Buffulator `fe384d0` (schema 4 resets a saved off)
 - client 1.60.1 (71139)
 
 ## Tests
 
-- The Thanks specs run on the default since `bcabf00`, with no switch turned on by the spec: "thanks a player once when their buff lands, after the delay" (`tests/behavior_spec.lua`).
+- The Thanks specs run on the default since `fe384d0`, with no switch turned on by the spec: "thanks a player once when their buff lands, after the delay" (`tests/behavior_spec.lua`).
 
 ## Reopen if
 

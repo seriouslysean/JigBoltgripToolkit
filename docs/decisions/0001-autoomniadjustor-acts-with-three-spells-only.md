@@ -23,12 +23,12 @@ The module acts on bag items with Disenchant (13262), Pick Lock (1804) or a key 
 
 ## Versions
 
-- AutoOmniadjustor `74e119e` (`Actions.lua`; seed tables from build 1.60.1.71139 by `tools/seed.py`)
+- AutoOmniadjustor `105a481` (`Actions.lua`; seed tables from build 1.60.1.71139 by `tools/seed.py`)
 - client 1.60.1 (71139)
 
 ## Tests
 
-- Offline: conformance loads the addon on the toolkit stand-ins without errors (`scripts/check` at `4e2dd83`).
+- Offline: conformance loads the addon on the toolkit stand-ins without errors (`scripts/check` at `cedabe0`).
 - Deck: pending; the module is off until its taint fix lands.
 
 ## Reopen if
