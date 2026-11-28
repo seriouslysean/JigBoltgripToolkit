@@ -5,11 +5,20 @@
 # prose lines ("CPU game's measure: …") kept from earlier sessions.
 #   tools/perf-deck [host] [sessions per module]
 # Exit 1 when any listed session has a frame over 5 ms, the bar every module meets (docs/standards.md, "Performance").
+# The Deck is named outside the repository: JBT_DECK_HOST (its ssh host) and JBT_DECK_SAVED (the account's SavedVariables
+# folder), from the environment or from the file JBT_DECK_CONFIG names (default ~/.config/jig-boltgrip-toolkit/deck.env).
 set -euo pipefail
 
-host=${1:-deck-host}
+config=${JBT_DECK_CONFIG:-$HOME/.config/jig-boltgrip-toolkit/deck.env}
+# shellcheck source=/dev/null
+[[ -f $config ]] && . "$config"
+host=${1:-${JBT_DECK_HOST:-}}
 keep=${2:-4}
-saved='/home/deck/.local/share/Steam/steamapps/compatdata/4077668031/pfx/drive_c/Program Files (x86)/World of Warcraft/_forever_/WTF/Account/ACCOUNT/SavedVariables'
+saved=${JBT_DECK_SAVED:-}
+[[ -n $host && -n $saved ]] || {
+	echo "Set JBT_DECK_HOST and JBT_DECK_SAVED (docs/standards.md, \"Working build\")." >&2
+	exit 2
+}
 modules=(RecipeVacuum Tackletron Sparklescope6000 Buffulator AutoOmniadjustor)
 
 # shellcheck disable=SC2029 # the paths are meant to expand on this side
