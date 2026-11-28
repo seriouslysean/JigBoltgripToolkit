@@ -19,7 +19,7 @@ saved=${JBT_DECK_SAVED:-}
 	echo "Set JBT_DECK_HOST and JBT_DECK_SAVED (docs/standards.md, \"Working build\")." >&2
 	exit 2
 }
-modules=(RecipeVacuum Tackletron Sparklescope6000 Buffulator AutoOmniadjustor)
+modules=(RecipeVacuum Tackletron Sparklescope6000 Buffulator Omniadjustor)
 
 # shellcheck disable=SC2029 # the paths are meant to expand on this side
 report=$(ssh -o BatchMode=yes "$host" "cd '$saved' && for m in ${modules[*]}; do [ -f \"\$m.lua\" ] || continue; grep -o -E \"[0-9:]+ (cpu avg_ms=|CPU game.s measure)[^\\\"]*\" \"\$m.lua\" | tail -n $keep | sed \"s/^/\$m /\"; done")

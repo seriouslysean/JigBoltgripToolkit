@@ -1,8 +1,8 @@
 # 0018. The module is named Auto-Omniadjustor
 
 - Date: 2026-11-26
-- Status: accepted
-- Scope: AutoOmniadjustor
+- Status: superseded by 0088
+- Scope: Omniadjustor
 - Kind: name
 
 ## Context

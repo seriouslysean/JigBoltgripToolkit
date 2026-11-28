@@ -1,8 +1,8 @@
-# 0002. AutoOmniadjustor never acts on equipment set items; no other gate yet
+# 0002. Omniadjustor never acts on equipment set items; no other gate yet
 
 - Date: 2026-11-25
 - Status: accepted
-- Scope: AutoOmniadjustor
+- Scope: Omniadjustor
 - Kind: safety
 
 ## Context

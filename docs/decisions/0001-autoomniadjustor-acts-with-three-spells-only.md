@@ -1,8 +1,8 @@
-# 0001. AutoOmniadjustor acts with three spells only
+# 0001. Omniadjustor acts with three spells only
 
 - Date: 2026-11-25
 - Status: accepted
-- Scope: AutoOmniadjustor
+- Scope: Omniadjustor
 - Kind: scope
 
 ## Context

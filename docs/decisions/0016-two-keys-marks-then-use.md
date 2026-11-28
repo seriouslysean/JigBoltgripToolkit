@@ -2,7 +2,7 @@
 
 - Date: 2026-11-26
 - Status: accepted
-- Scope: AutoOmniadjustor
+- Scope: Omniadjustor
 - Kind: keys and marks
 
 ## Context

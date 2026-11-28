@@ -56,7 +56,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 
 | No. | Decision | Scope | Status |
 |---|---|---|---|
-| 0001 | [AutoOmniadjustor acts with three spells only](0001-autoomniadjustor-acts-with-three-spells-only.md) | AutoOmniadjustor | accepted |
+| 0001 | [Omniadjustor acts with three spells only](0001-autoomniadjustor-acts-with-three-spells-only.md) | Omniadjustor | accepted |
 | 0007 | [Buffulator does one job: see, buff, thank](0007-buffulator-does-one-job-see-buff-thank.md) | Buffulator | accepted |
 | 0008 | [Buffulator scans anyone nearby from the start](0008-buffulator-scans-anyone-nearby-from-the-start.md) | Buffulator | accepted |
 | 0064 | [The fishing-data probe stays a working-build command](0064-the-fishing-data-probe-stays-a-working-build-command.md) | Tackletron | accepted |
@@ -65,8 +65,8 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 
 | No. | Decision | Scope | Status |
 |---|---|---|---|
-| 0002 | [AutoOmniadjustor never acts on equipment set items; no other gate yet](0002-autoomniadjustor-never-acts-on-equipment-set-items-no-other.md) | AutoOmniadjustor | accepted |
-| 0036 | [The use key acts only while the marks are on](0036-the-use-key-acts-only-while-the-marks-are-on.md) | AutoOmniadjustor | accepted |
+| 0002 | [Omniadjustor never acts on equipment set items; no other gate yet](0002-autoomniadjustor-never-acts-on-equipment-set-items-no-other.md) | Omniadjustor | accepted |
+| 0036 | [The use key acts only while the marks are on](0036-the-use-key-acts-only-while-the-marks-are-on.md) | Omniadjustor | accepted |
 | 0051 | [Combat with the pole in hand: the weapons go back by themselves, the key is the fallback](0051-combat-with-the-pole-in-hand-the-weapons-go-back-by-themselv.md) | Tackletron | accepted |
 | 0087 | [A peer cannot stall, flood or stretch a share](0087-a-peer-cannot-stall-flood-or-stretch-a-share.md) | Recipe Vacuum, Sparklescope 6000 | accepted |
 
@@ -133,16 +133,16 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 
 | No. | Decision | Scope | Status |
 |---|---|---|---|
-| 0016 | [Two keys: marks, then use](0016-two-keys-marks-then-use.md) | AutoOmniadjustor | accepted |
-| 0017 | [Marks: autocast corners, a color per action](0017-marks-autocast-corners-a-color-per-action.md) | AutoOmniadjustor | accepted |
-| 0037 | [Overlays are our own frames over Blizzard's buttons](0037-overlays-are-our-own-frames-over-blizzard-s-buttons.md) | AutoOmniadjustor | accepted |
+| 0016 | [Two keys: marks, then use](0016-two-keys-marks-then-use.md) | Omniadjustor | accepted |
+| 0017 | [Marks: autocast corners, a color per action](0017-marks-autocast-corners-a-color-per-action.md) | Omniadjustor | accepted |
+| 0037 | [Overlays are our own frames over Blizzard's buttons](0037-overlays-are-our-own-frames-over-blizzard-s-buttons.md) | Omniadjustor | accepted |
 | 0049 | [One key setting: the binding; F fishes when none is bound; Interact is the last choice](0049-one-key-setting-the-binding-f-fishes-when-none-is-bound-inte.md) | Tackletron | accepted |
 
 ## Chat
 
 | No. | Decision | Scope | Status |
 |---|---|---|---|
-| 0038 | [A borrowed stick press is told once, with no Announce checkbox](0038-a-borrowed-stick-press-is-told-once-with-no-announce-checkbo.md) | AutoOmniadjustor | accepted |
+| 0038 | [A borrowed stick press is told once, with no Announce checkbox](0038-a-borrowed-stick-press-is-told-once-with-no-announce-checkbo.md) | Omniadjustor | accepted |
 | 0057 | [Chat lines are a noise and a report, once where they repeat](0057-chat-lines-are-a-noise-and-a-report-once-where-they-repeat.md) | Tackletron | accepted |
 | 0079 | [Sparklescope says a line when it learns an unknown chest](0079-sparklescope-says-a-line-when-it-learns-an-unknown-chest.md) | Sparklescope 6000 | accepted |
 | 0080 | [Buffulator offers a buff again in its last two minutes](0080-buffulator-offers-a-buff-again-in-its-last-two-minutes.md) | Buffulator | accepted |
@@ -153,7 +153,8 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | No. | Decision | Scope | Status |
 |---|---|---|---|
 | 0009 | [The module is named Buffulator](0009-the-module-is-named-buffulator.md) | Buffulator | accepted |
-| 0018 | [The module is named Auto-Omniadjustor](0018-the-module-is-named-auto-omniadjustor.md) | AutoOmniadjustor | accepted |
+| 0018 | [The module is named Auto-Omniadjustor](0018-the-module-is-named-auto-omniadjustor.md) | Omniadjustor | superseded by 0088 |
+| 0088 | [The module is named Omniadjustor](0088-the-module-is-named-omniadjustor.md) | Omniadjustor | accepted |
 
 ## Fishing gear
 
@@ -177,7 +178,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 
 - Sparklescope 6000: the zoom formula and scene camera come only from our own measurements (decision 0086); the replacement values stay open until a Mac session with the mouse wheel confirms them.
 - Buffulator: skip a player after a failed cast, rebuff early, a voiced macro line, the macro on mouse and keyboard, full character macros, a fail-closed stranger macro.
-- AutoOmniadjustor: the Deck taint (`SetPreferredGamepadInteractTarget` blocked, `MainActionBarFrame.lua:373`). With the module off, the menu and radial check passed on 2026-11-27, so the cause is in the module's own code.
+- Omniadjustor: the Deck taint (`SetPreferredGamepadInteractTarget` blocked, `MainActionBarFrame.lua:373`). With the module off, the menu and radial check passed on 2026-11-27, so the cause is in the module's own code.
 
 ## Process
 

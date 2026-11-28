@@ -2,7 +2,7 @@
 
 - Date: 2026-11-27
 - Status: accepted
-- Scope: AutoOmniadjustor
+- Scope: Omniadjustor
 - Kind: chat
 
 ## Context
