@@ -36,6 +36,7 @@ Allowed, because none is a source for our design:
 ## Versions
 
 - Kit `MINOR` 86 (one comment in `JigBoltgripToolkit.lua`); every module's docs, comments and AGENTS.md the same day.
+- Kit `MINOR` 89: each shipped source file opens with a notice naming the README's License section, where the added terms are; GPL-3.0 section 7 asks for the terms or such a notice in the source files, so the license question is answered in the file itself (`docs/standards.md`, "Repository").
 
 ## Tests
 
