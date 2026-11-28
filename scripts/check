@@ -25,12 +25,15 @@ syntax() {
 	local file
 	for file in $(git ls-files '*.lua'); do luajit -bl "$file" >/dev/null || return 1; done
 }
+# Docs and comments in one voice (docs/standards.md, Ethos 7).
+voice() { git ls-files -z '*.md' '*.lua' | xargs -0 luajit tests/conformance.lua --voice; }
 shell() { shellcheck scripts/check tests/module-check.sh tools/new-module.sh && shfmt -d scripts/check tests/module-check.sh tools/new-module.sh; }
 
 step "syntax (Lua 5.1)" syntax
 step "shell (ShellCheck, shfmt)" shell
 step "luacheck" luacheck . -q
 step "comments" luajit tests/conformance.lua --comments JigBoltgripToolkit.lua
+step "voice" voice
 step "specs" busted
 
 exit $failed
