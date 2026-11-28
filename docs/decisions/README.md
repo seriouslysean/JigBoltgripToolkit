@@ -186,3 +186,4 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0074 | [No tutorial tips; modules log only through Trace](0074-no-tutorial-tips-and-modules-log-only-through-trace.md) | all modules | accepted |
 | 0081 | [Write in one imperative voice](0081-write-in-one-imperative-voice.md) | all modules | accepted |
 | 0082 | [Checks run on PUC Lua 5.1](0082-checks-run-on-puc-lua-5-1.md) | all modules | accepted |
+| 0085 | [Each client update is audited by one script](0085-each-client-update-is-audited-by-one-script.md) | all modules | accepted |

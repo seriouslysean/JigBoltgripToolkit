@@ -239,6 +239,7 @@ Every module session follows these (decision 0071).
 - Test steps: one module at a time, one named action per step, buttons and menu actions only, never a typed command. Never "press every …"; leave Reload UI and anything that changes settings out unless it is the test.
 - Write the rule the first time a correction costs a round, not the second.
 - Review every committed batch, and every release or Deck copy, with the kit's `module-review` skill (`.claude/skills/module-review/SKILL.md`): `tools/review-collect.sh` collects the facts, the review judges them on correctness, taint, speed, the preferred way and the reason, against this file, [clean-paths.md](clean-paths.md) and [quality-bar.md](quality-bar.md).
+- Audit every client update, and every move of Gethe's `forever` branch, with the kit's `client-audit` skill (`.claude/skills/client-audit/SKILL.md`): `tools/client-audit.sh` reports what Blizzard changed and where the kit and every module meet it; the audit judges each item and files follow-ups per module (decision 0085).
 
 ## Working build helpers
 

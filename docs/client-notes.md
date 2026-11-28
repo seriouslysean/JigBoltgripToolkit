@@ -39,3 +39,9 @@ What WoW Forever's client does that any toolkit module can run into, as measured
 
 - A clone with `core.fileMode false` commits scripts without their execute bit, and CI cannot run them (exit 126). Keep `core.fileMode` on.
 - Run a module's CI with act before its first push, not only the kit's.
+
+## Audited source
+
+The commit of Gethe/wow-ui-source `forever` the kit's lists, citations and notes were last checked against; `tools/client-audit.sh` starts from it, and each audit moves it (`.claude/skills/client-audit/SKILL.md`).
+
+- Last audited: 1.60.1.71139, `d9c22e32cb240afb82bb2ecefbb78ef935333f59`.
