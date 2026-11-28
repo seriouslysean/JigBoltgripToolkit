@@ -24,7 +24,7 @@ The world's fireflies (file 190731), two copies, slowed.
 
 ## Versions
 
-- Sparklescope6000 `467d4ed`
+- Sparklescope6000 `1cdd12a`
 - client 1.60.1 (71139)
 
 ## Tests

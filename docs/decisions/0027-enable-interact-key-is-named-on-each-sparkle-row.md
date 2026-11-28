@@ -25,7 +25,7 @@ Each sparkle row's tooltip says it is needed with keyboard and mouse only.
 ## Versions
 
 - client 1.60.1 (71139)
-- Sparklescope6000 255efde (the note names keyboard and mouse only)
+- Sparklescope6000 79d7ad1 (the note names keyboard and mouse only)
 
 ## Tests
 

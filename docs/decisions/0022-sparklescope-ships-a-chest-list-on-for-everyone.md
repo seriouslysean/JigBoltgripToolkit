@@ -19,14 +19,14 @@ No in-game signal tells a chest before it is opened.
 
 ## Rejected
 
-- The list as a Public stop of Learn Chests From (`7c2b7cd`).
+- The list as a Public stop of Learn Chests From (`53ec295`).
 - Guessing from English name words (precision 0.90, recall 0.30).
 - Guessing from IDs near a known chest (precision 0.73).
 - Model shapes: unreadable in game.
 
 ## Versions
 
-- Sparklescope6000 `d808714`
+- Sparklescope6000 `00d70b0`
 - client 1.60.1 (71139)
 
 ## Tests

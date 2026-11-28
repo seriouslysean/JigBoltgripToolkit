@@ -266,7 +266,7 @@ Read from each module's `Settings.lua` and `Locales/enUS.lua`. Written 2026-11-2
 4. Tooltips 4 and 6: the Thank Delay tooltip "How long to wait before the emote, a little different each time." is not a sentence and does not start with "Choose" (`Settings.lua:45`).
 5. Labels 6: "the emotes you tick" (`Settings.lua:52`). The game says "check".
 
-### Sparklescope 6000 (`ad0b524`)
+### Sparklescope 6000 (`5a0ca51`)
 
 1. Labels 8: the row "Chest Sources" has the same name as its heading (`Settings.lua:11-12`).
 2. Notes 4: the Interact Key note is true of all four Sparkles rows and sits on Herbs alone (`Settings.lua:24-26`).
