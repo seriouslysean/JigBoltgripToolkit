@@ -25,7 +25,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0039 | [No chat link that opens Settings](0039-no-chat-link-that-opens-settings.md) | all modules | accepted |
 | 0044 | [The copy window opens unfocused on the gamepad](0044-the-copy-window-opens-unfocused-on-the-gamepad.md) | all modules | accepted |
 | 0065 | [Errors and blocks are logged once, blamed from the stack](0065-errors-and-blocks-are-logged-once-blamed-from-the-stack.md) | all modules | accepted |
-| 0068 | [Opening the world map is tested, not assumed to taint](0068-opening-the-world-map-is-tested-not-assumed-tainting.md) | all modules | accepted, test pending |
+| 0068 | [Opening the world map is tested, not assumed to taint](0068-opening-the-world-map-is-tested-not-assumed-tainting.md) | all modules | accepted |
 | 0075 | [Key binding rows carry no search tag of ours](0075-keybinding-rows-carry-no-search-tag-of-ours.md) | all modules | accepted; not the cause |
 | 0077 | [The panel steps aside while the map holds the profession window's slot](0077-the-panel-steps-aside-while-the-map-holds-the-profession-window-slot.md) | Recipe Vacuum | accepted, test pending |
 | 0083 | [Protected controls grey out in combat](0083-protected-controls-grey-out-in-combat.md) | all modules | accepted |
@@ -68,6 +68,7 @@ One file per decision across the toolkit and its modules, in the MADR shape (adr
 | 0002 | [AutoOmniadjustor never acts on equipment set items; no other gate yet](0002-autoomniadjustor-never-acts-on-equipment-set-items-no-other.md) | AutoOmniadjustor | accepted |
 | 0036 | [The use key acts only while the marks are on](0036-the-use-key-acts-only-while-the-marks-are-on.md) | AutoOmniadjustor | accepted |
 | 0051 | [Combat with the pole in hand: the weapons go back by themselves, the key is the fallback](0051-combat-with-the-pole-in-hand-the-weapons-go-back-by-themselv.md) | Tackletron | accepted |
+| 0087 | [A peer cannot stall, flood or stretch a share](0087-a-peer-cannot-stall-flood-or-stretch-a-share.md) | Recipe Vacuum, Sparklescope 6000 | accepted |
 
 ## Trainers
 
